@@ -1,0 +1,25 @@
+[{
+    "title": "Шоколад",
+    "kcal": 100,
+    "inMenu": false
+  },
+  {
+    "title": "Картофель",
+    "kcal": 200,
+    "inMenu": true
+  },
+  {
+    "title": "Банан",
+    "kcal": 300,
+    "inMenu": false
+  },
+  {
+    "title": "Вода ",
+    "kcal": 400,
+    "inMenu": false
+  },
+  {
+    "title": "Паста ",
+    "kcal": 500,
+    "inMenu": false
+  }]
