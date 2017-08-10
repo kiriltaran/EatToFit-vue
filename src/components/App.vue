@@ -37,7 +37,11 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
+  webkit-font-smoothing: subpixel-antialiased !important;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
 }
 </style>
