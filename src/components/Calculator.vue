@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="calcBMR">
+  <form @submit.prevent="getBMR">
     <div class="form-group row">
       <div class="col-md-3">
         <label for="height">Рост(см)</label>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { bus } from '../main'
+
 export default {
   data() {
     return {
@@ -33,8 +35,9 @@ export default {
     }
   },
   methods: {
-    calcBMR: function () {
+    getBMR: function () {
       this.BMR = 88.36 + (13.4 * this.weight) + (4.8 * this.height) - (5.7 * this.age);
+      bus.$emit('bmr-getted', this.BMR);
     }
   }
 }

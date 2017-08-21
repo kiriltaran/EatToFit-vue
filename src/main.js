@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-import App from './components/App.vue'
+import App from './App.vue'
+
+export const bus = new Vue();
 
 Vue.use(VueResource)
 

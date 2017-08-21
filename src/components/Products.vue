@@ -78,7 +78,7 @@
           <div class="row">
             <div class="col-md-offset-3">{{menuKcal}}</div>
           </div>
-  
+
         </div>
       </div>
     </div>
@@ -86,6 +86,8 @@
 </template>
 
 <script>
+import { bus } from '../main'
+
 export default {
   data() {
     return {
@@ -108,6 +110,15 @@ export default {
     },
     inMenuToggle: function (product) {
       product.inMenu = !product.inMenu;
+    },
+    getProducts: function () {
+      this.$http.get('products.json')
+        .then(function (response) {
+          this.products = response.body;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     }
   },
   computed: {
@@ -116,17 +127,12 @@ export default {
       this.products.forEach(function (product) {
         if (product.inMenu) kcal += product.kcal;
       });
+      bus.$emit('menuKcal-getted', kcal);
       return kcal;
     }
   },
   created: function () {
-    this.$http.get('products.json')
-      .then(function (response) {
-        this.products = response.body;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    this.getProducts();
   }
 }
 </script>
