@@ -18,6 +18,8 @@ import Products from './components/Products.vue'
 import Calculator from './components/Calculator.vue'
 import Footer from './components/Footer.vue'
 import Hint from './components/Hint.vue'
+import SignIn from './components/SignIn.vue'
+import SignUp from './components/SignUp.vue'
 
 export default {
   data() {

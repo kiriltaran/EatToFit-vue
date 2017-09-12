@@ -1,30 +1,31 @@
 [{
     "id": 0,
     "title": "Шоколад",
-    "kcal": 100,
+    "cal": 100,
     "inMenu": false
   },
   {
     "id": 1,
     "title": "Картофель",
-    "kcal": 200,
+    "cal": 200,
     "inMenu": true
   },
   {
     "id": 2,
     "title": "Банан",
-    "kcal": 300,
+    "cal": 300,
     "inMenu": false
   },
   {
     "id": 3,
     "title": "Вода ",
-    "kcal": 400,
+    "cal": 400,
     "inMenu": false
   },
   {
     "id": 4,
     "title": "Паста ",
-    "kcal": 500,
+    "cal": 500,
     "inMenu": false
-  }]
+  }
+]

@@ -22,7 +22,7 @@
                   <span>{{product.title}}</span>
                 </td>
                 <td>
-                  <span class="kcal">{{product.kcal}}</span>
+                  <span class="cal">{{product.cal}}</span>
                 </td>
                 <td>
                   <i @click="inMenuToggle(product)" v-if="!product.inMenu" class="ion-ios-plus-empty add-icon"></i>
@@ -36,10 +36,10 @@
                 <input class="form-control input-sm" type="text" v-model="inputTitle" size="30" placeholder="Продукт" required>
               </div>
               <div class="col-md-2">
-                <input class="form-control input-sm" type="number" v-model="inputKcal" size="30" placeholder="Калории" required>
+                <input class="form-control input-sm" type="number" v-model="inputCal" size="30" placeholder="Калории" required>
               </div>
               <div class="col-md-2">
-                <input class="btn btn-info btn-sm col-md-12" :class="{ disabled: !inputTitle || !inputKcal,}" type="submit" value="Добавить">
+                <input class="btn btn-info btn-sm col-md-12" :class="{ disabled: !inputTitle || !inputCal,}" type="submit" value="Добавить">
               </div>
             </div>
             <p class="help-block">Добавить свой продукт</p>
@@ -67,7 +67,7 @@
                   <span>{{product.title}}</span>
                 </td>
                 <td>
-                  <span class="kcal">{{product.kcal}}</span>
+                  <span class="cal">{{product.cal}}</span>
                 </td>
                 <td>
                   <i @click="inMenuToggle(product)" class="ion-ios-close-empty remove-icon"></i>
@@ -76,7 +76,7 @@
             </tbody>
           </table>
           <div class="row">
-            <div class="col-md-offset-3">{{menuKcal}}</div>
+            <div class="col-md-offset-3">{{menuCal}}</div>
           </div>
 
         </div>
@@ -93,45 +93,45 @@ export default {
     return {
       products: [],
       inputTitle: null,
-      inputKcal: null
+      inputCal: null
     }
   },
   methods: {
-    addProduct: function () {
+    addProduct: function() {
       let lastProductID = this.products[this.products.length - 1].id;
       this.products.push({
         id: ++lastProductID,
         title: this.inputTitle,
-        kcal: +this.inputKcal,
+        cal: +this.inputCal,
         inMenu: false
       })
       this.inputTitle = null;
-      this.inputKcal = null;
+      this.inputCal = null;
     },
-    inMenuToggle: function (product) {
+    inMenuToggle: function(product) {
       product.inMenu = !product.inMenu;
     },
-    getProducts: function () {
+    getProducts: function() {
       this.$http.get('products.json')
-        .then(function (response) {
+        .then(function(response) {
           this.products = response.body;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.error(error);
         });
     }
   },
   computed: {
-    menuKcal: function () {
-      let kcal = 0;
-      this.products.forEach(function (product) {
-        if (product.inMenu) kcal += product.kcal;
+    menuCal: function() {
+      let cal = 0;
+      this.products.forEach(function(product) {
+        if (product.inMenu) cal += product.cal;
       });
-      bus.$emit('menuKcal-getted', kcal);
-      return kcal;
+      bus.$emit('menuCal-getted', cal);
+      return cal;
     }
   },
-  created: function () {
+  created: function() {
     this.getProducts();
   }
 }

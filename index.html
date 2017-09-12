@@ -12,6 +12,19 @@
 <body>
   <div id="app"></div>
   <script src="/dist/build.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDhfYDrdT05kjaQfaalejI_4MigeFA5_5o",
+      authDomain: "eattofit-24abf.firebaseapp.com",
+      databaseURL: "https://eattofit-24abf.firebaseio.com",
+      projectId: "eattofit-24abf",
+      storageBucket: "eattofit-24abf.appspot.com",
+      messagingSenderId: "319047925289"
+    };
+    firebase.initializeApp(config);
+  </script>
 </body>
 
 </html>

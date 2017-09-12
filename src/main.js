@@ -3,9 +3,9 @@ import VueResource from 'vue-resource'
 
 import App from './App.vue'
 
-export const bus = new Vue();
-
 Vue.use(VueResource)
+
+export const bus = new Vue();
 
 new Vue({
   el: '#app',
