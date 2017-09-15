@@ -1,39 +1,36 @@
 <template>
-  <div class="container-fluid">
-    <form @submit.prevent="getBMR">
-      <div class="form-group row">
-        <div class="col-md-2">
-          <label for="gender">Пол</label>
-          <select id="gender" class="form-control input-sm" required v-model="gender">
-            <option v-for="gender in genderTypes" :key="gender.id" :value="gender">{{gender.title}}</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label for="height">Рост(см)</label>
-          <input id="height" class="form-control input-sm" type="number" min="1" max="250" v-model="height" placeholder="Рост" required>
-        </div>
-        <div class="col-md-2">
-          <label for="height">Вес(кг)</label>
-          <input id="weight" class="form-control input-sm" type="number" min="1" max="250" v-model="weight" placeholder="Вес" required>
-        </div>
-        <div class="col-md-2">
-          <label for="height">Возраст</label>
-          <input id="age" class="form-control input-sm" type="number" min="1" max="100" v-model="age" placeholder="Возраст" required>
-        </div>
-        <div class="col-md-2">
-          <label for="activity">Уровень физической активности</label>
-          <select id="activity" class="form-control input-sm" required v-model="activity">
-            <option v-for="activity in activityTypes" :key="activity.id" :value="activity.val">{{activity.title}}</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label>. </label>
-          <input class="btn btn-info btn-sm col-md-12" v-bind:class="{ disabled: !height || !weight || !age}" type="submit" value="Рассчитать">
-        </div>
-      </div>
-      <span class="help-block">Рассчитать дневную норму каллорий</span>
-      <span>{{BMR}}</span>
-    </form>
+  <div class="calculator">
+    <el-row>
+      <el-col :span="24">
+        <el-form :inline="true">
+          <el-form-item label="Ваш пол">
+            <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
+              <el-option v-for="item in genderOptions" :key="item.id" :label="item.title" :value="item"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Ваш рост">
+            <el-input-number v-model="height" :min="1" :max="300" size="small"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Ваш вес">
+            <el-input-number v-model="weight" :min="1" :max="300" size="small"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Ваш возраст">
+            <el-input-number v-model="age" :min="1" :max="150" size="small"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Уровень физической активности">
+            <el-select v-model="activity" value-key="id" placeholder="" size="small" clearable>
+              <el-option v-for="item in activityOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button size="small" type="info" @click="getBMR">Рассчитать</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+      <el-col :span="24">
+        <el-alert v-if="BMR" :title="BMR.toString()" :closable="false" description="Ваша дневная норма калорий"></el-alert>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -43,7 +40,7 @@ import { bus } from '../main'
 export default {
   data() {
     return {
-      genderTypes: [
+      genderOptions: [
         {
           id: 0,
           title: 'Мужчина',
@@ -65,7 +62,7 @@ export default {
           }
         }
       ],
-      activityTypes: [
+      activityOptions: [
         { id: 0, val: 1.2, title: 'Минимальный' },
         { id: 1, val: 1.375, title: 'Низкий' },
         { id: 2, val: 1.55, title: 'Средний' },

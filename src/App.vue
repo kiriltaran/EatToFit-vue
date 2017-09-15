@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <main class="main">
-      <div class="container-fluid">
-        <app-calculator></app-calculator>
-        <app-products></app-products>
-        <app-hint></app-hint>
-      </div>
+    <main>
+      <app-calculator></app-calculator>
+      <app-products></app-products>
+      <app-hint></app-hint>
     </main>
     <app-footer></app-footer>
+    <app-modal></app-modal>
   </div>
 </template>
 
@@ -18,8 +17,8 @@ import Products from './components/Products.vue'
 import Calculator from './components/Calculator.vue'
 import Footer from './components/Footer.vue'
 import Hint from './components/Hint.vue'
-import SignIn from './components/SignIn.vue'
-import SignUp from './components/SignUp.vue'
+import Modal from './components/Modal.vue'
+
 
 export default {
   data() {
@@ -30,7 +29,8 @@ export default {
     'app-products': Products,
     'app-calculator': Calculator,
     'app-footer': Footer,
-    'app-hint': Hint
+    'app-hint': Hint,
+    'app-modal': Modal
   }
 }
 </script>
@@ -41,12 +41,11 @@ html {
   min-height: 100%;
 }
 
-
 body {
-  background-color: #eee;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
   webkit-font-smoothing: subpixel-antialiased !important;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;

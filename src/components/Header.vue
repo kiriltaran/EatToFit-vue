@@ -1,25 +1,8 @@
 <template>
   <header class="header">
-    <div class="inner"></div>
-    <h1 class="header-title">EatToFit</h1>
-    <div class="signbar">
-      <a href="#" @click="signInByTwitter">
-        <i class="ion-social-twitter"></i>
-      </a>
-      <a href="#" @click="signInByTwitter">
-        <i class="ion-social-github"></i>
-      </a>
-      <form class="form-inline" @submit.prevent="signInUser">
-        <div class="form-group">
-          <input id="email" class="form-control input-sm" type="email" placeholder="Email" required v-model="user.email">
-        </div>
-        <div class="form-group">
-          <input id="password" class="form-control input-sm" type="password" placeholder="Пароль" required v-model="user.password">
-        </div>
-        <div class="form-group">
-          <input class="form-control btn btn-info btn-sm" type="submit">
-        </div>
-      </form>
+    <div class="header-inner">
+      <h1 class="header-title">EatToFit</h1>
+      <a href="#" class="auth-link">Авторизация</a>
     </div>
   </header>
 </template>
@@ -91,29 +74,33 @@ export default {
 .header {
   position: relative;
   height: 250px;
-  background-image: url('../assets/img/kale-smoothie-041-1920x1080.jpg');
+  background-image: url('../assets/img/bg1.jpg');
   text-align: center;
   margin-bottom: 20px;
 
-  .inner {
+  &-inner {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-  &-title {
-    font-size: 100px;
-    font-weight: 600;
-    line-height: 250px;
-    margin: 0;
-  }
+    background-color: rgba(255, 255, 255, 0.3);
 
-  .signbar {
-    bottom: 0;
-    right: 0;
-    position: absolute;
+    .header-title {
+      font-size: 100px;
+      font-weight: 600;
+      line-height: 250px;
+      color: #5bc0de;
+      text-shadow: 1px 1px 2px black;
+      margin: 0;
+    }
+
+    .auth-link {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
   }
 }
 </style>

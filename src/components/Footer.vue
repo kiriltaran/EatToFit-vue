@@ -13,6 +13,6 @@
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px;
-  background-color: #f5f5f5;
+  background-color: #eee;
 }
 </style>
