@@ -1,6 +1,6 @@
 <template>
   <div class="hint">
-    {{getHint}}
+    <el-alert v-if="getHint.text" :title="getHint.text" :type="getHint.type" :closable="false"></el-alert>
   </div>
 </template>
 
@@ -24,13 +24,17 @@ export default {
   },
   computed: {
     getHint: function() {
-      let hint = null;
+      let hint = {
+        text: '',
+        type: 'success'
+      };
       if (this.BMR && this.menuCal) {
         if (Math.abs(this.BMR - this.menuCal) > 100) {
-          if (this.BMR > this.menuCal) hint = 'Калорийность меню ниже вашей дневной нормы (следует добавить продукты в рацион)';
-          else hint = 'Калорийность меню выше вашей дневной нормы (следует изъять некоторые продукты)';
+          hint.type = 'warning'
+          if (this.BMR > this.menuCal) hint.text = 'Калорийность меню ниже вашей дневной нормы (следует добавить продукты в рацион)';
+          else hint.text = 'Калорийность меню выше вашей дневной нормы (следует изъять некоторые продукты)';
         } else {
-          hint = 'Меню соответствует';
+          hint.text = 'Меню соответствует';
         }
       }
       return hint;

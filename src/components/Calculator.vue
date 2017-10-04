@@ -2,7 +2,7 @@
   <div class="calculator">
     <el-row>
       <el-col :span="24">
-        <el-form :inline="true">
+        <el-form :inline="true" :label-position="'top'">
           <el-form-item label="Ваш пол">
             <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
               <el-option v-for="item in genderOptions" :key="item.id" :label="item.title" :value="item"></el-option>
@@ -69,8 +69,8 @@ export default {
         { id: 3, val: 1.725, title: 'Высокий' },
         { id: 4, val: 1.9, title: 'Очень высокий' }
       ],
-      gender: null,
-      activity: null,
+      gender: '',
+      activity: '',
       height: null,
       weight: null,
       age: null,
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     getBMR: function() {
-      this.BMR = (this.gender.ratio.def + (this.gender.ratio.w * this.weight) + (this.gender.ratio.h * this.height) - (this.gender.ratio.a * this.age)) * this.activity;
+      this.BMR = Math.floor((this.gender.ratio.def + (this.gender.ratio.w * this.weight) + (this.gender.ratio.h * this.height) - (this.gender.ratio.a * this.age)) * this.activity);
       bus.$emit('bmr-getted', this.BMR);
     }
   }

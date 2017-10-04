@@ -3,12 +3,27 @@
     <el-row>
       <el-col :span="12">
         <h2>Список продуктов</h2>
-        <el-table :data="products">
-          <el-table-column prop="title" label="Продукт"></el-table-column>
-          <el-table-column prop="cal" label="Калории"></el-table-column>
-          <el-table-column prop="" label="Добавить в меню"></el-table-column>
+        <el-table :data="products" height="400">
+          <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
+          <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
+          <el-table-column>
+            <template scope="scope">
+              <!-- <el-icon name="d-arrow-right" @click="inMenuToggle"></el-icon> -->
+              <i class="add-icon ion-ios-plus-outline" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.$index)"></i>
+            </template>
+          </el-table-column>
         </el-table>
-        <table class="table table-striped table-hover table-condensed">
+        <el-table :data="products" height="400">
+          <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
+          <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
+          <el-table-column>
+            <template scope="scope">
+              <!-- <el-icon name="d-arrow-right" @click="inMenuToggle"></el-icon> -->
+              <i class="add-icon ion-ios-plus-outline" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.$index)"></i>
+            </template>
+          </el-table-column>
+        </el-table>
+        <table class="table table-striped table-hover table-condensed" style="display: none">
           <tbody>
             <tr>
               <th class="col-md-3">
@@ -43,7 +58,7 @@
               <input class="form-control input-sm" type="number" v-model="inputCal" size="30" placeholder="Калории" required>
             </div>
             <div class="col-md-2">
-              <input class="btn btn-info btn-sm col-md-12" :class="{ disabled: !inputTitle || !inputCal,}" type="submit" value="Добавить">
+              <input class="btn btn-info btn-sm col-md-12" :class="{ disabled: !inputTitle || !inputCal}" type="submit" value="Добавить">
             </div>
           </div>
           <p class="help-block">Добавить свой продукт</p>
@@ -72,7 +87,7 @@
                 <span class="cal">{{product.cal}}</span>
               </td>
               <td>
-                <i @click="inMenuToggle(product)" class="ion-ios-close-empty remove-icon"></i>
+                <i @click="inMenuToggle(scope.$index)" class="ion-ios-close-empty remove-icon"></i>
               </td>
             </tr>
           </tbody>
@@ -91,7 +106,6 @@ import { bus } from '../main'
 export default {
   data() {
     return {
-      title: '<i class="ion-ios-nutrition-outline"></i>',
       products: [],
       inputTitle: null,
       inputCal: null
@@ -109,8 +123,9 @@ export default {
       this.inputTitle = null;
       this.inputCal = null;
     },
-    inMenuToggle: function(product) {
-      product.inMenu = !product.inMenu;
+    inMenuToggle: function(productIndex) {
+      console.log(this.products);
+      this.products[productIndex].inMenu = !this.products[productIndex].inMenu;
     },
     getProducts: function() {
       this.$http.get('products.json')
@@ -143,10 +158,9 @@ export default {
   font-size: 30px;
 }
 
-.table tbody tr td {
-  vertical-align: middle;
-}
-
+// .table tbody tr td {
+//   vertical-align: middle;
+// }
 .add-icon {
   cursor: pointer;
   font-size: 25px;
@@ -154,6 +168,10 @@ export default {
   &:hover {
     color: green;
   }
+}
+
+.hidden {
+  display: none;
 }
 
 .remove-icon {
