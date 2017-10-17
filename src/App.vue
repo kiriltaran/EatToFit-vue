@@ -7,31 +7,41 @@
       <app-hint></app-hint>
     </main>
     <app-footer></app-footer>
-    <app-modal></app-modal>
+    <el-dialog :visible.sync="authVisible" :close-on-click-modal="false" :close-on-press-escape="false" custom-class="auth">
+      <app-auth></app-auth>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { bus } from './main'
 import Header from './components/Header.vue'
 import Products from './components/Products.vue'
 import Calculator from './components/Calculator.vue'
 import Footer from './components/Footer.vue'
 import Hint from './components/Hint.vue'
-import Modal from './components/Modal.vue'
+import Auth from './components/Auth.vue'
 
 
 export default {
-  data() {
-    return {}
-  },
   components: {
     'app-header': Header,
     'app-products': Products,
     'app-calculator': Calculator,
     'app-footer': Footer,
     'app-hint': Hint,
-    'app-modal': Modal
-  }
+    'app-auth': Auth
+  },
+  data() {
+    return {
+      authVisible: false
+    }
+  },
+  created: function() {
+    bus.$on('show-auth', (data) => {
+      this.authVisible = data;
+    });
+  },
 }
 </script>
 
@@ -49,10 +59,10 @@ html {
 body {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
-  webkit-font-smoothing: subpixel-antialiased !important;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
+}
+
+.auth {
+  width: 350px;
 }
 </style>

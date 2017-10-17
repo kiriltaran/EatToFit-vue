@@ -2,19 +2,26 @@
   <header class="header">
     <div class="header-inner">
       <h1 class="header-title">EatToFit</h1>
-      <a href="#" class="auth-link">Авторизация</a>
+      <el-button type="text" @click="showAuth" class="auth-link">Авторизация</el-button>
     </div>
+
   </header>
 </template>
 
 <script>
+import { bus } from '../main'
+
 export default {
   data() {
     return {}
+  },
+  methods: {
+    showAuth: function() {
+      bus.$emit('show-auth', true);
+    }
   }
 }
 </script>
-
 
 <style lang="scss">
 .header {
@@ -30,7 +37,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
 
     .header-title {
       font-size: 100px;
@@ -45,7 +52,7 @@ export default {
       display: block;
       position: absolute;
       bottom: 0;
-      right: 0;
+      right: 15px;
     }
   }
 }

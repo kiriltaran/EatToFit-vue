@@ -8,7 +8,7 @@
     "id": 1,
     "title": "Картофель",
     "cal": 200,
-    "inMenu": true
+    "inMenu": false
   },
   {
     "id": 2,
