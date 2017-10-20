@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { bus } from '../main'
+import { bus } from "../main";
 
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
       genderOptions: [
         {
           id: 0,
-          title: 'Мужчина',
+          title: "Мужчина",
           ratio: {
             def: 88.36,
             w: 13.4,
@@ -53,7 +53,7 @@ export default {
         },
         {
           id: 1,
-          title: 'Женщина',
+          title: "Женщина",
           ratio: {
             def: 447.6,
             w: 9.2,
@@ -63,27 +63,33 @@ export default {
         }
       ],
       activityOptions: [
-        { id: 0, val: 1.2, title: 'Минимальный' },
-        { id: 1, val: 1.375, title: 'Низкий' },
-        { id: 2, val: 1.55, title: 'Средний' },
-        { id: 3, val: 1.725, title: 'Высокий' },
-        { id: 4, val: 1.9, title: 'Очень высокий' }
+        { id: 0, val: 1.2, title: "Минимальный" },
+        { id: 1, val: 1.375, title: "Низкий" },
+        { id: 2, val: 1.55, title: "Средний" },
+        { id: 3, val: 1.725, title: "Высокий" },
+        { id: 4, val: 1.9, title: "Очень высокий" }
       ],
-      gender: '',
-      activity: '',
+      gender: "",
+      activity: "",
       height: null,
       weight: null,
       age: null,
       BMR: null
-    }
+    };
   },
   methods: {
     getBMR: function() {
-      this.BMR = Math.floor((this.gender.ratio.def + (this.gender.ratio.w * this.weight) + (this.gender.ratio.h * this.height) - (this.gender.ratio.a * this.age)) * this.activity);
-      bus.$emit('bmr-getted', this.BMR);
+      this.BMR = Math.floor(
+        (this.gender.ratio.def +
+          this.gender.ratio.w * this.weight +
+          this.gender.ratio.h * this.height -
+          this.gender.ratio.a * this.age) *
+          this.activity
+      );
+      bus.$emit("bmr-getted", this.BMR);
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .calculator-btn-item {

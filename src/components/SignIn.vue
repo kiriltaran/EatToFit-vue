@@ -7,10 +7,9 @@
       <el-input v-model="signinForm.password" type="password"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="validateForm('signinForm')">Войти</el-button>
+      <el-button type="primary" @click="validateForm('signinForm')" class="submit">Войти</el-button>
     </el-form-item>
   </el-form>
-  </form>
 </template>
 
 <script>
@@ -18,22 +17,30 @@ export default {
   data() {
     return {
       signinForm: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       },
       rules: {
         email: [
-          { required: true, message: 'Обязательное поле для заполнения', trigger: 'blur' },
+          {
+            required: true,
+            message: "Обязательное поле для заполнения",
+            trigger: "blur"
+          }
         ],
         password: [
-          { required: true, message: 'Обязательное поле для заполнения', trigger: 'blur' },
+          {
+            required: true,
+            message: "Обязательное поле для заполнения",
+            trigger: "blur"
+          }
         ]
       }
-    }
+    };
   },
   methods: {
     validateForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.signinUser();
         } else {
@@ -42,15 +49,24 @@ export default {
       });
     },
     signinUser: function() {
-      firebase.auth().signInWithEmailAndPassword(this.signinForm.email, this.signinForm.password)
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(
+          this.signinForm.email,
+          this.signinForm.password
+        )
         .then(response => {
           console.log(response);
-        })
+        });
     }
   }
-}
+};
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.submit {
+  width: 100%;
+}
+</style>
 
 
