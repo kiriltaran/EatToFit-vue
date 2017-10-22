@@ -6,73 +6,70 @@
     <el-tab-pane label="Регистрация" name="signup">
       <auth-signup></auth-signup>
     </el-tab-pane>
-    <el-button type="text" @click="signInByTwitter" class="auth-social">
+    <el-row type="flex" justify="center">
+      <el-button type="text" @click="signInByTwitter" class="auth-social">
       <i class="ion-social-twitter"></i>
     </el-button>
     <el-button type="text" @click="signInByGithub" class="auth-social">
       <i class="ion-social-github"></i>
     </el-button>
+    </el-row>
   </el-tabs>
 </template>
 
 <script>
-import SignIn from './SignIn.vue'
-import SignUp from './SignUp.vue'
+import { bus } from "../main";
+import firebase from "firebase";
+import SignIn from "./SignIn.vue";
+import SignUp from "./SignUp.vue";
 
 export default {
   components: {
-    'auth-signin': SignIn,
-    'auth-signup': SignUp,
+    "auth-signin": SignIn,
+    "auth-signup": SignUp
   },
   data() {
     return {
-      activeTab: 'signin'
-    }
+      activeTab: "signin"
+    };
   },
   methods: {
     signInByGithub: function() {
       var provider = new firebase.auth.GithubAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        console.log(result);
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          console.log("github");
+
+          let user = result.user;
+
+          bus.$emit("show-auth", false);
+          bus.$emit("user", user);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     signInByTwitter: function() {
       var provider = new firebase.auth.TwitterAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-        // You can use these server side with your app's credentials to access the Twitter API.
-        var token = result.credential.accessToken;
-        var secret = result.credential.secret;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          console.log("twitter");
+
+          let user = result.user;
+
+          bus.$emit("show-auth", false);
+          bus.$emit("user", user);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

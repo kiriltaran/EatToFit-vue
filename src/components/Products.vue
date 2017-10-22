@@ -7,7 +7,7 @@
           <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
           <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
           <el-table-column>
-            <template scope="scope">
+            <template slot-scope="scope">
               <i class="add-icon ion-ios-plus-empty" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
             </template>
           </el-table-column>
@@ -32,29 +32,31 @@
           <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
           <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
           <el-table-column>
-            <template scope="scope">
+            <template slot-scope="scope">
               <i class="add-icon ion-ios-minus-empty" @click="inMenuToggle(scope.row.id)"></i>
             </template>
           </el-table-column>
         </el-table>
-        </tbody>
-        </table>
-        <div>{{menuCal}}</div>
+        <app-hint :menu-cal="menuCal"></app-hint>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { bus } from '../main'
+import { bus } from "../main";
+import Hint from "./Hint.vue";
 
 export default {
+  components: {
+    "app-hint": Hint
+  },
   data() {
     return {
       products: [],
       inputTitle: null,
       inputCal: null
-    }
+    };
   },
   methods: {
     addProduct: function() {
@@ -65,7 +67,7 @@ export default {
           title: this.inputTitle,
           cal: +this.inputCal,
           inMenu: false
-        })
+        });
         this.inputTitle = null;
         this.inputCal = null;
       }
@@ -74,7 +76,8 @@ export default {
       this.products[productId].inMenu = !this.products[productId].inMenu;
     },
     getProducts: function() {
-      this.$http.get('products.json')
+      this.$http
+        .get("products.json")
         .then(function(response) {
           this.products = response.body;
         })
@@ -95,14 +98,14 @@ export default {
       this.products.forEach(function(product) {
         if (product.inMenu) cal += product.cal;
       });
-      bus.$emit('menuCal-getted', cal);
+      bus.$emit("menuCal-getted", cal);
       return cal;
     }
   },
   created: function() {
     this.getProducts();
   }
-}
+};
 </script>
 
 <style lang="scss">

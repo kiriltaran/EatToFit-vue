@@ -4,7 +4,6 @@
     <main>
       <app-calculator></app-calculator>
       <app-products></app-products>
-      <app-hint></app-hint>
     </main>
     <app-footer></app-footer>
     <el-dialog :visible.sync="authVisible" :close-on-click-modal="false" :close-on-press-escape="false" custom-class="auth">
@@ -14,35 +13,44 @@
 </template>
 
 <script>
-import { bus } from './main'
-import Header from './components/Header.vue'
-import Products from './components/Products.vue'
-import Calculator from './components/Calculator.vue'
-import Footer from './components/Footer.vue'
-import Hint from './components/Hint.vue'
-import Auth from './components/Auth.vue'
+import { bus } from "./main";
+import firebase from "firebase";
+import Header from "./components/Header.vue";
+import Products from "./components/Products.vue";
+import Calculator from "./components/Calculator.vue";
+import Footer from "./components/Footer.vue";
+import Auth from "./components/Auth.vue";
 
+let config = {
+  apiKey: "AIzaSyDhfYDrdT05kjaQfaalejI_4MigeFA5_5o",
+  authDomain: "eattofit-24abf.firebaseapp.com",
+  databaseURL: "https://eattofit-24abf.firebaseio.com",
+  projectId: "eattofit-24abf",
+  storageBucket: "eattofit-24abf.appspot.com",
+  messagingSenderId: "319047925289"
+};
+firebase.initializeApp(config);
 
 export default {
   components: {
-    'app-header': Header,
-    'app-products': Products,
-    'app-calculator': Calculator,
-    'app-footer': Footer,
-    'app-hint': Hint,
-    'app-auth': Auth
+    "app-header": Header,
+    "app-products": Products,
+    "app-calculator": Calculator,
+    "app-footer": Footer,
+    "app-auth": Auth
   },
   data() {
     return {
+      user: null,
       authVisible: false
-    }
+    };
   },
   created: function() {
-    bus.$on('show-auth', (data) => {
+    bus.$on("show-auth", data => {
       this.authVisible = data;
     });
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss">
@@ -57,7 +65,7 @@ html {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin-bottom: 60px;
   backface-visibility: hidden;
 }

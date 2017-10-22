@@ -2,32 +2,43 @@
   <header class="header">
     <div class="header-inner">
       <h1 class="header-title">EatToFit</h1>
-      <el-button type="text" @click="showAuth" class="auth-link">Авторизация</el-button>
+      <div class="auth-links">
+        <el-button type="text" v-if="userName">{{userName}}</el-button>
+        <el-button type="text" @click="showAuth" v-if="!userName">Авторизация</el-button>
+        <el-button type="text" @click="showAuth" v-else>Выход</el-button>
+      </div>
     </div>
-
   </header>
 </template>
 
 <script>
-import { bus } from '../main'
+import { bus } from "../main";
 
 export default {
   data() {
-    return {}
+    return {
+      userName: ""
+    };
   },
   methods: {
     showAuth: function() {
-      bus.$emit('show-auth', true);
+      bus.$emit("show-auth", true);
     }
+  },
+  created: function() {
+    bus.$on("user", data => {
+      this.userName = data.displayName;
+      bus.$emit("show-auth", false);
+    });
   }
-}
+};
 </script>
 
 <style lang="scss">
 .header {
   position: relative;
   height: 250px;
-  background-image: url('../assets/img/bg1.jpg');
+  background-image: url("../assets/img/bg1.jpg");
   text-align: center;
   margin-bottom: 20px;
 
@@ -48,7 +59,7 @@ export default {
       margin: 0;
     }
 
-    .auth-link {
+    .auth-links {
       display: block;
       position: absolute;
       bottom: 0;
