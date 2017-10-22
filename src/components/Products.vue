@@ -7,7 +7,7 @@
           <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
           <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
           <el-table-column>
-            <template scope="scope">
+            <template slot-scope="scope">
               <i class="add-icon ion-ios-plus-empty" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
             </template>
           </el-table-column>
@@ -32,7 +32,7 @@
           <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
           <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
           <el-table-column>
-            <template scope="scope">
+            <template slot-scope="scope">
               <i class="add-icon ion-ios-minus-empty" @click="inMenuToggle(scope.row.id)"></i>
             </template>
           </el-table-column>

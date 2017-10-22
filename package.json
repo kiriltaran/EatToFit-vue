@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "element-ui": "^1.4.4",
-    "vue": "^2.3.3"
+    "firebase": "^4.6.0",
+    "vue": "^2.3.3",
+    "vuefire": "^1.4.4"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

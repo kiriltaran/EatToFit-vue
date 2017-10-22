@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import { bus } from "../main";
+import firebase from "firebase";
+
 export default {
   data() {
     return {

@@ -17,6 +17,7 @@
 
 <script>
 import { bus } from "../main";
+import firebase from "firebase";
 
 export default {
   data() {
@@ -68,22 +69,20 @@ export default {
           this.signupForm.email,
           this.signupForm.password
         )
-        .catch(function(error) {
+        .then(user => {
+          user
+            .updateProfile({
+              displayName: this.signupForm.name
+            })
+            .then(() => {
+              bus.$emit("user", result);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(error => {
           console.log(error);
-        });
-
-      let user = firebase.auth().currentUser;
-
-      user
-        .updateProfile({
-          displayName: this.signupForm.name
-        })
-        .then(function() {
-          bus.$emit("show-auth", false);
-          bus.$emit("user", user);
-        })
-        .catch(function(error) {
-          // An error happened.
         });
     }
   }

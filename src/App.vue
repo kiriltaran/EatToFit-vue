@@ -14,11 +14,22 @@
 
 <script>
 import { bus } from "./main";
+import firebase from "firebase";
 import Header from "./components/Header.vue";
 import Products from "./components/Products.vue";
 import Calculator from "./components/Calculator.vue";
 import Footer from "./components/Footer.vue";
 import Auth from "./components/Auth.vue";
+
+let config = {
+  apiKey: "AIzaSyDhfYDrdT05kjaQfaalejI_4MigeFA5_5o",
+  authDomain: "eattofit-24abf.firebaseapp.com",
+  databaseURL: "https://eattofit-24abf.firebaseio.com",
+  projectId: "eattofit-24abf",
+  storageBucket: "eattofit-24abf.appspot.com",
+  messagingSenderId: "319047925289"
+};
+firebase.initializeApp(config);
 
 export default {
   components: {

@@ -28,6 +28,7 @@ export default {
   created: function() {
     bus.$on("user", data => {
       this.userName = data.displayName;
+      bus.$emit("show-auth", false);
     });
   }
 };
