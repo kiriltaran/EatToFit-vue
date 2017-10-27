@@ -44,68 +44,66 @@
 </template>
 
 <script>
-import { bus } from "../main";
-import Hint from "./Hint.vue";
+import { bus } from '../main'
+import Hint from './Hint.vue'
 
 export default {
   components: {
-    "app-hint": Hint
+    'app-hint': Hint
   },
   data() {
     return {
       products: [],
       inputTitle: null,
       inputCal: null
-    };
+    }
   },
   methods: {
-    addProduct: function() {
+    addProduct() {
       if (this.inputTitle && this.inputCal) {
-        let lastProductID = this.products[this.products.length - 1].id;
+        const lastProductID = this.products[this.products.length - 1].id
         this.products.push({
-          id: ++lastProductID,
+          id: lastProductID + 1,
           title: this.inputTitle,
           cal: +this.inputCal,
           inMenu: false
-        });
-        this.inputTitle = null;
-        this.inputCal = null;
+        })
+        this.inputTitle = null
+        this.inputCal = null
       }
     },
-    inMenuToggle: function(productId) {
-      this.products[productId].inMenu = !this.products[productId].inMenu;
+    inMenuToggle(productId) {
+      this.products[productId].inMenu = !this.products[productId].inMenu
     },
-    getProducts: function() {
+    getProducts() {
       this.$http
-        .get("products.json")
-        .then(function(response) {
-          this.products = response.body;
+        .get('products.json')
+        .then(response => {
+          this.products = response.body
         })
-        .catch(function(error) {
-          console.error(error);
-        });
+        .catch(error => {
+          console.error(error)
+        })
     }
   },
   computed: {
-    menu: function() {
-      let menu = this.products.filter(function(product) {
-        return product.inMenu === true;
-      });
-      return menu;
+    menu() {
+      const menu = this.products.filter(product => product.inMenu === true)
+      return menu
     },
-    menuCal: function() {
-      let cal = 0;
-      this.products.forEach(function(product) {
-        if (product.inMenu) cal += product.cal;
-      });
-      bus.$emit("menuCal-getted", cal);
-      return cal;
+    menuCal() {
+      let cal = 0
+      this.products.forEach(product => {
+        if (product.inMenu) cal += product.cal
+      })
+      bus.$emit('menuCal-getted', cal)
+      return cal
     }
   },
-  created: function() {
-    this.getProducts();
+  created() {
+    this.getProducts()
   }
-};
+}
 </script>
 
 <style lang="scss">

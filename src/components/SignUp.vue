@@ -16,53 +16,54 @@
 </template>
 
 <script>
-import { bus } from "../main";
-import firebase from "firebase";
+import firebase from 'firebase'
+import { bus } from '../main'
 
 export default {
   data() {
     return {
       signupForm: {
-        name: "",
-        email: "",
-        password: ""
+        name: '',
+        email: '',
+        password: ''
       },
       rules: {
         name: [
           {
             required: true,
-            message: "Обязательное поле для заполнения",
-            trigger: "blur"
+            message: 'Обязательное поле для заполнения',
+            trigger: 'blur'
           }
         ],
         email: [
           {
             required: true,
-            message: "Обязательное поле для заполнения",
-            trigger: "blur"
+            message: 'Обязательное поле для заполнения',
+            trigger: 'blur'
           }
         ],
         password: [
           {
             required: true,
-            message: "Обязательное поле для заполнения",
-            trigger: "blur"
+            message: 'Обязательное поле для заполнения',
+            trigger: 'blur'
           }
         ]
       }
-    };
+    }
   },
   methods: {
     validateForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.signupUser();
+          this.signupUser()
         } else {
-          return false;
+          return false
         }
-      });
+        return true
+      })
     },
-    signupUser: function() {
+    signupUser() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(
@@ -75,18 +76,18 @@ export default {
               displayName: this.signupForm.name
             })
             .then(() => {
-              bus.$emit("user", result);
+              bus.$emit('user', user)
             })
             .catch(error => {
-              console.log(error);
-            });
+              console.log(error)
+            })
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

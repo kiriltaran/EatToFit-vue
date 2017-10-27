@@ -12,33 +12,33 @@
 </template>
 
 <script>
-import { bus } from "../main";
+import { bus } from '../main'
 
 export default {
   data() {
     return {
-      userName: ""
-    };
-  },
-  methods: {
-    showAuth: function() {
-      bus.$emit("show-auth", true);
+      userName: ''
     }
   },
-  created: function() {
-    bus.$on("user", data => {
-      this.userName = data.displayName;
-      bus.$emit("show-auth", false);
-    });
+  methods: {
+    showAuth() {
+      bus.$emit('show-auth', true)
+    }
+  },
+  created() {
+    bus.$on('user', data => {
+      this.userName = data.displayName
+      bus.$emit('show-auth', false)
+    })
   }
-};
+}
 </script>
 
 <style lang="scss">
 .header {
   position: relative;
   height: 250px;
-  background-image: url("../assets/img/bg1.jpg");
+  background-image: url('../assets/img/bg1.jpg');
   text-align: center;
   margin-bottom: 20px;
 

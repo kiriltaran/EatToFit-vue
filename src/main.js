@@ -11,7 +11,7 @@ Vue.use(VueFire)
 Vue.use(VueResource)
 Vue.use(ElementUI)
 
-export const bus = new Vue();
+export const bus = new Vue()
 
 new Vue({
   el: '#app',

@@ -18,58 +18,58 @@
 </template>
 
 <script>
-import { bus } from "../main";
-import firebase from "firebase";
-import SignIn from "./SignIn.vue";
-import SignUp from "./SignUp.vue";
+import firebase from 'firebase'
+import { bus } from '../main'
+import SignIn from './SignIn.vue'
+import SignUp from './SignUp.vue'
 
 export default {
   components: {
-    "auth-signin": SignIn,
-    "auth-signup": SignUp
+    'auth-signin': SignIn,
+    'auth-signup': SignUp
   },
   data() {
     return {
-      activeTab: "signin"
-    };
+      activeTab: 'signin'
+    }
   },
   methods: {
-    signInByGithub: function() {
-      var provider = new firebase.auth.GithubAuthProvider();
+    signInByGithub() {
+      const provider = new firebase.auth.GithubAuthProvider()
       firebase
         .auth()
         .signInWithPopup(provider)
         .then(result => {
-          console.log("github");
+          console.log('github')
 
-          let user = result.user;
+          const user = result.user
 
-          bus.$emit("show-auth", false);
-          bus.$emit("user", user);
+          bus.$emit('show-auth', false)
+          bus.$emit('user', user)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    signInByTwitter: function() {
-      var provider = new firebase.auth.TwitterAuthProvider();
+    signInByTwitter() {
+      const provider = new firebase.auth.TwitterAuthProvider()
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(function(result) {
-          console.log("twitter");
+        .then(result => {
+          console.log('twitter')
 
-          let user = result.user;
+          const user = result.user
 
-          bus.$emit("show-auth", false);
-          bus.$emit("user", user);
+          bus.$emit('show-auth', false)
+          bus.$emit('user', user)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
