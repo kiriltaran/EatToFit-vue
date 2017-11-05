@@ -2,45 +2,47 @@
   <header class="header">
     <div class="header-inner">
       <h1 class="header-title">EatToFit</h1>
-      <div class="auth-links">
-        <el-button type="text" v-if="userName">{{userName}}</el-button>
-        <el-button type="text" @click="showAuth" v-if="!userName">Авторизация</el-button>
-        <el-button type="text" @click="showAuth" v-else>Выход</el-button>
+      <div class="auth">
+        <div class="auth-user" v-if="user">
+          <img :src="user.photoURL" alt="avatar" class="auth-user-avatar">
+          <el-button type="text">{{user.displayName}}</el-button>
+          <el-button type="text" @click="logout">Выход</el-button>
+        </div>
+        <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import { bus } from '../main'
+import bus from '../main';
 
 export default {
   data() {
-    return {
-      userName: ''
-    }
+    return {};
   },
   methods: {
     showAuth() {
-      bus.$emit('show-auth', true)
-    }
+      bus.$emit('show-auth', true);
+    },
+    logout() {
+      this.$store.dispatch('logout');
+    },
   },
-  created() {
-    bus.$on('user', data => {
-      this.userName = data.displayName
-      bus.$emit('show-auth', false)
-    })
-  }
-}
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 .header {
   position: relative;
-  height: 250px;
+  height: 210px;
   background-image: url('../assets/img/bg1.jpg');
   text-align: center;
-  margin-bottom: 20px;
 
   &-inner {
     position: absolute;
@@ -53,17 +55,25 @@ export default {
     .header-title {
       font-size: 100px;
       font-weight: 600;
-      line-height: 250px;
+      line-height: 210px;
       color: #5bc0de;
       text-shadow: 1px 1px 2px black;
       margin: 0;
     }
 
-    .auth-links {
+    .auth {
       display: block;
       position: absolute;
-      bottom: 0;
-      right: 15px;
+      bottom: 0px;
+      right: 25px;
+      height: 50px;
+      line-height: 50px;
+      &-user-avatar {
+        display: inline-block;
+        border-radius: 50%;
+        width: 50px;
+        vertical-align: middle;
+      }
     }
   }
 }

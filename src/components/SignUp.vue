@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="signupForm" ref="signupForm" :rules="rules">
+  <el-form status-icon :model="signupForm" ref="signupForm" :rules="rules">
     <el-form-item label="Имя" prop="name">
       <el-input v-model="signupForm.name" type="text"></el-input>
     </el-form-item>
@@ -10,84 +10,69 @@
       <el-input v-model="signupForm.password" type="password"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="validateForm('signupForm')" class="submit">Регистрация</el-button>
+      <el-button type="primary" plain @click="validateForm('signupForm')" class="submit">Регистрация</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import firebase from 'firebase'
-import { bus } from '../main'
-
 export default {
   data() {
     return {
       signupForm: {
         name: '',
         email: '',
-        password: ''
+        password: '',
       },
       rules: {
         name: [
           {
             required: true,
             message: 'Обязательное поле для заполнения',
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         email: [
           {
             required: true,
+            type: 'email',
             message: 'Обязательное поле для заполнения',
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         password: [
           {
             required: true,
             message: 'Обязательное поле для заполнения',
-            trigger: 'blur'
-          }
-        ]
-      }
-    }
+            trigger: 'blur',
+          },
+        ],
+      },
+    };
   },
   methods: {
     validateForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.signupUser()
+          this.signupUser();
         } else {
-          return false
+          return false;
         }
-        return true
-      })
+        return true;
+      });
     },
     signupUser() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(
-          this.signupForm.email,
-          this.signupForm.password
-        )
-        .then(user => {
-          user
-            .updateProfile({
-              displayName: this.signupForm.name
-            })
-            .then(() => {
-              bus.$emit('user', user)
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  }
-}
+      this.$store.dispatch('signUpUser', {
+        email: this.signupForm.email,
+        password: this.signupForm.password,
+        name: this.signupForm.name,
+      });
+      this.signupForm.name = '';
+      this.signupForm.email = '';
+      this.signupForm.password = '';
+    },
+  },
+};
 </script>
 
 <style lang="scss">

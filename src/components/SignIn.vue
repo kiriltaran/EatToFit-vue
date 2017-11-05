@@ -7,64 +7,59 @@
       <el-input v-model="signinForm.password" type="password"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="validateForm('signinForm')" class="submit">Войти</el-button>
+      <el-button type="primary" plain @click="validateForm('signinForm')" class="submit">Войти</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import firebase from 'firebase'
-// import { bus } from '../main'
-
 export default {
   data() {
     return {
       signinForm: {
         email: '',
-        password: ''
+        password: '',
       },
       rules: {
         email: [
           {
             required: true,
+            type: 'email',
             message: 'Обязательное поле для заполнения',
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         password: [
           {
             required: true,
             message: 'Обязательное поле для заполнения',
-            trigger: 'blur'
-          }
-        ]
-      }
-    }
+            trigger: 'blur',
+          },
+        ],
+      },
+    };
   },
   methods: {
     validateForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.signinUser()
+          this.signinUser();
         } else {
-          return false
+          return false;
         }
-        return true
-      })
+        return true;
+      });
     },
     signinUser() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(
-          this.signinForm.email,
-          this.signinForm.password
-        )
-        .then(response => {
-          console.log(response)
-        })
-    }
-  }
-}
+      this.$store.dispatch('signInUser', {
+        email: this.signinForm.email,
+        password: this.signinForm.password,
+      });
+      this.signinForm.email = '';
+      this.signinForm.password = '';
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
-    <el-row>
-      <el-col :span="24">
+    <el-row type="flex" justify="space-around">
+      <el-col :span="13">
         <el-form :inline="true" :label-position="'top'">
           <el-form-item label="Пол">
             <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
@@ -23,11 +23,11 @@
             </el-select>
           </el-form-item>
           <el-form-item class="calculator-btn-item">
-            <el-button size="small" type="info" @click="getBMR">Рассчитать</el-button>
+            <el-button size="small" type="primary" plain @click="getBMR">Рассчитать</el-button>
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col :span="24">
+      <el-col :span="10">
         <el-alert v-if="BMR" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданых параметров"></el-alert>
       </el-col>
     </el-row>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { bus } from '../main'
+import bus from '../main';
 
 export default {
   data() {
@@ -48,8 +48,8 @@ export default {
             def: 88.36,
             w: 13.4,
             h: 4.8,
-            a: 5.7
-          }
+            a: 5.7,
+          },
         },
         {
           id: 1,
@@ -58,24 +58,44 @@ export default {
             def: 447.6,
             w: 9.2,
             h: 3.1,
-            a: 4.3
-          }
-        }
+            a: 4.3,
+          },
+        },
       ],
       activityOptions: [
-        { id: 0, val: 1.2, title: 'Минимальный' },
-        { id: 1, val: 1.375, title: 'Низкий' },
-        { id: 2, val: 1.55, title: 'Средний' },
-        { id: 3, val: 1.725, title: 'Высокий' },
-        { id: 4, val: 1.9, title: 'Очень высокий' }
+        {
+          id: 0,
+          val: 1.2,
+          title: 'Минимальный',
+        },
+        {
+          id: 1,
+          val: 1.375,
+          title: 'Низкий',
+        },
+        {
+          id: 2,
+          val: 1.55,
+          title: 'Средний',
+        },
+        {
+          id: 3,
+          val: 1.725,
+          title: 'Высокий',
+        },
+        {
+          id: 4,
+          val: 1.9,
+          title: 'Очень высокий',
+        },
       ],
       gender: '',
       activity: '',
       height: null,
       weight: null,
       age: null,
-      BMR: null
-    }
+      BMR: null,
+    };
   },
   methods: {
     getBMR() {
@@ -84,12 +104,12 @@ export default {
           this.gender.ratio.w * this.weight +
           this.gender.ratio.h * this.height -
           this.gender.ratio.a * this.age) *
-          this.activity
-      )
-      bus.$emit('bmr-getted', this.BMR)
-    }
-  }
-}
+          this.activity,
+      );
+      bus.$emit('bmr-getted', this.BMR);
+    },
+  },
+};
 </script>
 <style lang="scss">
 .calculator-btn-item {
