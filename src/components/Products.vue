@@ -1,7 +1,7 @@
 <template>
   <el-row type="flex" justify="space-around">
     <el-col :span="13">
-      <el-table :data="products" height="400">
+      <el-table :data="products" height="400" class="table">
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
         <el-table-column>
@@ -100,10 +100,6 @@ export default {
 </script>
 
 <style lang="scss">
-.main th {
-  font-size: 30px;
-}
-
 .add-icon {
   cursor: pointer;
   font-size: 25px;
@@ -115,6 +111,10 @@ export default {
 
 .hidden {
   display: none;
+}
+
+.el-table__body-wrapper {
+  overflow-x: hidden;
 }
 
 .remove-icon {

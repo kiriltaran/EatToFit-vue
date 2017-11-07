@@ -6,7 +6,7 @@
       <app-products></app-products>
     </main>
     <app-footer></app-footer>
-    <el-dialog :visible.sync="authVisible" :close-on-click-modal="false" custom-class="auth">
+    <el-dialog :visible.sync="authVisible" :close-on-click-modal="false" custom-class="auth-modal">
       <app-auth></app-auth>
     </el-dialog>
   </div>
@@ -59,7 +59,7 @@ body {
   backface-visibility: hidden;
 }
 
-.auth {
+.auth-modal {
   width: 350px;
 }
 </style>
