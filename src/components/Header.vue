@@ -5,7 +5,7 @@
       <div class="el-col">
         <div class="title">
           <div class="title-logo"></div>
-          <span class="title-text">EatToFit</span>
+          <span class="title-text">eattofit</span>
         </div>
       </div>
       <div class="el-col">

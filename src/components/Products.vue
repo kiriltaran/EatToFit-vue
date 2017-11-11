@@ -5,7 +5,7 @@
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
         <el-table-column>
-          <template scope="scope">
+          <template slot-scope="scope">
             <i class="add-icon ion-ios-plus-empty" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
           </template>
         </el-table-column>
@@ -15,7 +15,7 @@
           <el-input v-model="inputTitle" size="small" placeholder="Название продукта"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input-number v-model="inputCal" size="small"></el-input-number>
+          <el-input-number v-model="inputCal" :min="1" size="small"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" plain @click="createProduct">Добавить</el-button>
@@ -27,7 +27,7 @@
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
         <el-table-column>
-          <template scope="scope">
+          <template slot-scope="scope">
             <i class="add-icon ion-ios-minus-empty" @click="inMenuToggle(scope.row.id)"></i>
           </template>
         </el-table-column>
@@ -55,10 +55,8 @@ export default {
     createProduct() {
       if (this.inputTitle && this.inputCal) {
         const product = {
-          id: this.products[this.products.length - 1].id + 1,
           title: this.inputTitle,
           cal: +this.inputCal,
-          inMenu: false,
         };
         this.$store.dispatch('createProduct', product);
         this.inputTitle = '';
@@ -67,18 +65,7 @@ export default {
     },
     inMenuToggle(productId) {
       this.$store.dispatch('inMenuToggle', productId);
-      // this.products[productId].inMenu = !this.products[productId].inMenu;
     },
-    // getProducts() {
-    //   this.$http
-    //     .get('products.json')
-    //     .then(response => {
-    //       this.products = response.body;
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // },
   },
   computed: {
     products() {
@@ -92,7 +79,6 @@ export default {
       this.products.forEach(product => {
         if (product.inMenu) cal += product.cal;
       });
-      bus.$emit('menuCal-getted', cal);
       return cal;
     },
   },

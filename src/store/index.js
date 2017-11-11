@@ -7,49 +7,25 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    products: [
-      {
-        id: 0,
-        title: 'Шоколад',
-        cal: 100,
-        inMenu: false,
-      },
-      {
-        id: 1,
-        title: 'Картофель',
-        cal: 200,
-        inMenu: false,
-      },
-      {
-        id: 2,
-        title: 'Банан',
-        cal: 300,
-        inMenu: false,
-      },
-      {
-        id: 3,
-        title: 'Вода ',
-        cal: 400,
-        inMenu: false,
-      },
-      {
-        id: 4,
-        title: 'Паста ',
-        cal: 500,
-        inMenu: false,
-      },
-    ],
+    products: [],
     menu: [],
     user: null,
     loading: false,
     error: null,
   },
   mutations: {
+    setProducts(state, payload) {
+      state.products = payload;
+    },
     createProduct(state, payload) {
       state.products.push(payload);
     },
     inMenuToggle(state, payload) {
-      state.products[payload].inMenu = !state.products[payload].inMenu;
+      state.products.forEach((el, index) => {
+        if (el.id === payload) {
+          state.products[index].inMenu = !state.products[index].inMenu;
+        }
+      });
     },
     setUser(state, payload) {
       state.user = payload;
@@ -65,15 +41,54 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    createProduct({ commit }, payload) {
+    loadProducts({ commit }) {
+      commit('setLoading', true);
+      firebase
+        .database()
+        .ref('products')
+        .once('value')
+        .then(data => {
+          const products = [];
+          const obj = data.val();
+          for (let key in obj) {
+            products.push({
+              id: key,
+              title: obj[key].title,
+              cal: obj[key].cal,
+              inMenu: false,
+            });
+          }
+          commit('setProducts', products);
+          commit('setLoading', false);
+        })
+        .catch(error => {
+          console.log(error);
+          commit('setLoading', false);
+        });
+    },
+    createProduct({ commit, getters }, payload) {
+      commit('setLoading', true);
       const product = {
-        id: payload.id,
         title: payload.title,
         cal: payload.cal,
-        inMenu: false,
+        // creatorId: getters.user.id,
       };
-
-      commit('createProduct', product);
+      firebase
+        .database()
+        .ref('products')
+        .push(product)
+        .then(data => {
+          const { key } = data;
+          commit('createProduct', {
+            ...product,
+            id: key,
+          });
+          commit('setLoading', false);
+        })
+        .catch(error => {
+          console.log(error);
+          commit('setLoading', false);
+        });
     },
     inMenuToggle({ commit }, payload) {
       commit('inMenuToggle', payload);
@@ -202,6 +217,9 @@ const store = new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    loading(state) {
+      return state.loading;
     },
     error(state) {
       return state.error;

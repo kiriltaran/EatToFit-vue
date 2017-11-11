@@ -18,9 +18,6 @@ export default {
     bus.$on('bmr-getted', data => {
       this.BMR = data;
     });
-    bus.$on('menuCal-getted', data => {
-      this.menuCal = data;
-    });
   },
   computed: {
     hint() {
