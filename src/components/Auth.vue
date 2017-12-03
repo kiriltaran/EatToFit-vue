@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import SignIn from './SignIn.vue';
-import SignUp from './SignUp.vue';
+import AuthSignin from './Signin.vue';
+import AuthSignup from './Signup.vue';
 
 export default {
   components: {
-    'auth-signin': SignIn,
-    'auth-signup': SignUp,
+    AuthSignin,
+    AuthSignup,
   },
   data() {
     return {

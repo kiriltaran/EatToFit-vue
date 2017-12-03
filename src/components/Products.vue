@@ -1,12 +1,12 @@
 <template>
   <el-row type="flex" justify="space-around">
     <el-col :span="13">
-      <el-table :data="products" height="400" class="table">
+      <el-table :data="products" height="400" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <i class="add-icon ion-ios-plus-empty" v-bind:class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
+            <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
           </template>
         </el-table-column>
       </el-table>
@@ -28,22 +28,22 @@
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <i class="add-icon ion-ios-minus-empty" @click="inMenuToggle(scope.row.id)"></i>
+            <i class="remove-icon ion-android-close" @click="inMenuToggle(scope.row.id)"></i>
           </template>
         </el-table-column>
       </el-table>
-      <app-hint :menuCal="menuCal"></app-hint>
+      <products-hint :menuCal="menuCal"></products-hint>
     </el-col>
   </el-row>
 </template>
 
 <script>
 import bus from '../main';
-import Hint from './Hint.vue';
+import ProductsHint from './Hint.vue';
 
 export default {
   components: {
-    'app-hint': Hint,
+    ProductsHint,
   },
   data() {
     return {

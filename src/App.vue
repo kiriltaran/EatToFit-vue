@@ -14,23 +14,22 @@
 
 <script>
 import bus from './main';
-import Header from './components/Header.vue';
-import Products from './components/Products.vue';
-import Calculator from './components/Calculator.vue';
-import Footer from './components/Footer.vue';
-import Auth from './components/Auth.vue';
+import AppHeader from './components/Header.vue';
+import AppProducts from './components/Products.vue';
+import AppCalculator from './components/Calculator.vue';
+import AppFooter from './components/Footer.vue';
+import AppAuth from './components/Auth.vue';
 
 export default {
   components: {
-    'app-header': Header,
-    'app-products': Products,
-    'app-calculator': Calculator,
-    'app-footer': Footer,
-    'app-auth': Auth,
+    AppHeader,
+    AppProducts,
+    AppCalculator,
+    AppFooter,
+    AppAuth,
   },
   data() {
     return {
-      user: null,
       authVisible: false,
     };
   },
