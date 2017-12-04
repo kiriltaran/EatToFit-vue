@@ -28,7 +28,9 @@
         </el-form>
       </el-col>
       <el-col :span="10">
-        <el-alert v-if="BMR" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданых параметров"></el-alert>
+        <div class="hint-wrapper">
+          <el-alert v-if="BMR" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданых параметров"></el-alert>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -114,5 +116,10 @@ export default {
 <style lang="scss">
 .calculator-btn-item {
   vertical-align: bottom !important;
+}
+.hint-wrapper{
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 </style>

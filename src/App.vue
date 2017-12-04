@@ -13,52 +13,71 @@
 </template>
 
 <script>
-import bus from './main';
-import AppHeader from './components/Header.vue';
-import AppProducts from './components/Products.vue';
-import AppCalculator from './components/Calculator.vue';
-import AppFooter from './components/Footer.vue';
-import AppAuth from './components/Auth.vue';
+  import bus from './main';
+  import AppHeader from './components/Header.vue';
+  import AppProducts from './components/Products.vue';
+  import AppCalculator from './components/Calculator.vue';
+  import AppFooter from './components/Footer.vue';
+  import AppAuth from './components/Auth.vue';
 
-export default {
-  components: {
-    AppHeader,
-    AppProducts,
-    AppCalculator,
-    AppFooter,
-    AppAuth,
-  },
-  data() {
-    return {
-      authVisible: false,
-    };
-  },
-  created() {
-    bus.$on('show-auth', data => {
-      this.authVisible = data;
-    });
-  },
-};
+  export default {
+    components: {
+      AppHeader,
+      AppProducts,
+      AppCalculator,
+      AppFooter,
+      AppAuth,
+    },
+    data() {
+      return {
+        authVisible: false,
+      };
+    },
+    created() {
+      bus.$on('show-auth', data => {
+        this.authVisible = data;
+      });
+    },
+  };
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+  html {
+    position: relative;
+    min-height: 100%;
+  }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  margin-bottom: 60px;
-  backface-visibility: hidden;
-}
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 60px;
+    backface-visibility: hidden;
+  }
 
-.auth-modal {
-  width: 350px;
-}
+  .auth-modal {
+    width: 350px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 50px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 197, 61, .6);
+    border-radius: 50px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 197, 61, 1);
+    ;
+  }
 </style>

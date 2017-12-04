@@ -13,6 +13,7 @@ const inMenuToggle = (state, payload) => {
 };
 const setUser = (state, payload) => {
   state.user = payload;
+  console.log(state.user);
 };
 const setLoading = (state, payload) => {
   state.loading = payload;

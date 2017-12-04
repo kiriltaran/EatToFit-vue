@@ -98,12 +98,9 @@ const signInUser = ({ commit }, payload) => {
     .auth()
     .signInWithEmailAndPassword(payload.email, payload.password)
     .then(user => {
-      const newUser = {
-        id: user.uid,
-        displayName: user.displayName,
-      };
+      console.log(user.uid)
       commit('setLoading', false);
-      commit('setUser', newUser);
+      commit('setUser', {id: user.uid, displayName: user.displayName});
       bus.$emit('show-auth', false);
     })
     .catch(error => {
