@@ -5,15 +5,16 @@ const createProduct = (state, payload) => {
   state.products.push(payload);
 };
 const inMenuToggle = (state, payload) => {
-  state.products.forEach((el, index) => {
-    if (el.id === payload) {
-      state.products[index].inMenu = !state.products[index].inMenu;
-    }
-  });
+  const toggledElement = state.products.find(element => element.id === payload);
+  toggledElement.inMenu = !toggledElement.inMenu;
+  // state.products.forEach((el, index) => {
+  //   if (el.id === payload) {
+  //     state.products[index].inMenu = !state.products[index].inMenu;
+  //   }
+  // });
 };
 const setUser = (state, payload) => {
   state.user = payload;
-  console.log(state.user);
 };
 const setLoading = (state, payload) => {
   state.loading = payload;

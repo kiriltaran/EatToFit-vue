@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
     <el-row type="flex" justify="space-around">
-      <el-col :span="13">
+      <el-col :span="16">
         <el-form :inline="true" :label-position="'top'">
           <el-form-item label="Пол">
             <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
@@ -17,9 +17,14 @@
           <el-form-item label="Возраст">
             <el-input-number v-model="age" :min="1" :max="150" size="small"></el-input-number>
           </el-form-item>
-          <el-form-item label="Уровень физической активности">
+          <el-form-item label="Уровень активности">
             <el-select v-model="activity" value-key="id" placeholder="" size="small" clearable>
               <el-option v-for="item in activityOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Цель">
+            <el-select v-model="goal" value-key="id" placeholder="" size="small" clearable>
+              <el-option v-for="item in goalOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="calculator-btn-item">
@@ -27,9 +32,9 @@
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col :span="10">
+      <el-col :span="7">
         <div class="hint-wrapper">
-          <el-alert v-if="BMR" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданых параметров"></el-alert>
+          <el-alert v-if="BMR > 0" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели"></el-alert>
         </div>
       </el-col>
     </el-row>
@@ -91,8 +96,26 @@ export default {
           title: 'Очень высокий',
         },
       ],
+      goalOptions: [
+        {
+          id: 0,
+          val: 0,
+          title: 'Поддержание нормы',
+        },
+        {
+          id: 1,
+          val: -500,
+          title: 'Похудение',
+        },
+        {
+          id: 2,
+          val: 500,
+          title: 'Набор массы',
+        },
+      ],
       gender: '',
       activity: '',
+      goal: '',
       height: null,
       weight: null,
       age: null,
@@ -101,13 +124,14 @@ export default {
   },
   methods: {
     getBMR() {
-      this.BMR = Math.floor(
-        (this.gender.ratio.def +
-          this.gender.ratio.w * this.weight +
-          this.gender.ratio.h * this.height -
-          this.gender.ratio.a * this.age) *
-          this.activity,
-      );
+      this.BMR =
+        Math.floor(
+          (this.gender.ratio.def +
+            this.gender.ratio.w * this.weight +
+            this.gender.ratio.h * this.height -
+            this.gender.ratio.a * this.age) *
+            this.activity,
+        ) + this.goal;
       bus.$emit('bmr-getted', this.BMR);
     },
   },
@@ -117,7 +141,8 @@ export default {
 .calculator-btn-item {
   vertical-align: bottom !important;
 }
-.hint-wrapper{
+
+.hint-wrapper {
   height: 100%;
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="space-around">
-    <el-col :span="13">
+    <el-col :span="16">
       <el-table :data="products" height="415" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
@@ -22,7 +22,7 @@
         </el-form-item>
       </el-form>
     </el-col>
-    <el-col :span="10">
+    <el-col :span="7">
       <el-table :data="menu" height="415" empty-text="Добавьте продукты в меню">
         <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
         <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
@@ -38,81 +38,81 @@
 </template>
 
 <script>
-  import bus from '../main';
-  import ProductsHint from './Hint.vue';
+import bus from '../main';
+import ProductsHint from './Hint.vue';
 
-  export default {
-    components: {
-      ProductsHint,
+export default {
+  components: {
+    ProductsHint,
+  },
+  data() {
+    return {
+      inputTitle: '',
+      inputCal: '',
+    };
+  },
+  methods: {
+    createProduct() {
+      if (this.inputTitle && this.inputCal) {
+        const product = {
+          title: this.inputTitle,
+          cal: +this.inputCal,
+        };
+        this.$store.dispatch('createProduct', product);
+        this.inputTitle = '';
+        this.inputCal = '';
+      }
     },
-    data() {
-      return {
-        inputTitle: '',
-        inputCal: '',
-      };
+    inMenuToggle(productId) {
+      this.$store.dispatch('inMenuToggle', productId);
     },
-    methods: {
-      createProduct() {
-        if (this.inputTitle && this.inputCal) {
-          const product = {
-            title: this.inputTitle,
-            cal: +this.inputCal,
-          };
-          this.$store.dispatch('createProduct', product);
-          this.inputTitle = '';
-          this.inputCal = '';
-        }
-      },
-      inMenuToggle(productId) {
-        this.$store.dispatch('inMenuToggle', productId);
-      },
+  },
+  computed: {
+    products() {
+      return this.$store.getters.products;
     },
-    computed: {
-      products() {
-        return this.$store.getters.products;
-      },
-      menu() {
-        return this.$store.getters.menu;
-      },
-      menuCal() {
-        let cal = 0;
-        this.products.forEach(product => {
-          if (product.inMenu) cal += product.cal;
-        });
-        return cal;
-      },
+    menu() {
+      return this.$store.getters.menu;
     },
-  };
+    menuCal() {
+      let cal = 0;
+      this.products.forEach(product => {
+        if (product.inMenu) cal += product.cal;
+      });
+      return cal;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-  .add-icon {
-    cursor: pointer;
-    font-size: 25px;
+.add-icon {
+  cursor: pointer;
+  font-size: 25px;
 
-    &:hover {
-      color: green;
-    }
+  &:hover {
+    color: green;
   }
+}
 
-  .hidden {
-    display: none;
+.hidden {
+  display: none;
+}
+
+.el-table__body-wrapper {
+  overflow-x: hidden;
+}
+
+.remove-icon {
+  cursor: pointer;
+  font-size: 25px;
+
+  &:hover {
+    color: red;
   }
+}
 
-  .el-table__body-wrapper {
-    overflow-x: hidden;
-  }
-
-  .remove-icon {
-    cursor: pointer;
-    font-size: 25px;
-
-    &:hover {
-      color: red;
-    }
-  }
-
-  .add-product-form {
-    margin-top: 25px;
-  }
+.add-product-form {
+  margin-top: 25px;
+}
 </style>

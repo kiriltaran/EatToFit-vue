@@ -32,7 +32,7 @@ new Vue({
   created() {
     firebase.initializeApp(config);
     // firebase.auth().onAuthStateChanged(user => {
-    //   console.log(user);
+    //   console.log('autologin user', user);
     //   if (user) {
     //     this.$store.dispatch('autoSignIn', user);
     //   }

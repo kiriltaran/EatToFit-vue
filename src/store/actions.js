@@ -33,7 +33,7 @@ const createProduct = ({ commit, getters, dispatch }, payload) => {
   const product = {
     title: payload.title,
     cal: payload.cal,
-    // creatorId: getters.user.id,
+    creatorId: getters.user.id,
   };
   firebase
     .database()
@@ -91,16 +91,19 @@ const signUpUser = ({ commit }, payload) => {
     });
 };
 
-const signInUser = ({ commit }, payload) => {
+const signInUser = ({ commit, dispatch }, payload) => {
   commit('setLoading', true);
   commit('clearError');
   firebase
     .auth()
     .signInWithEmailAndPassword(payload.email, payload.password)
     .then(user => {
-      console.log(user.uid)
       commit('setLoading', false);
-      commit('setUser', {id: user.uid, displayName: user.displayName});
+      commit('setUser', {
+        id: user.uid,
+        displayName: user.displayName,
+      });
+      dispatch('loadProducts');
       bus.$emit('show-auth', false);
     })
     .catch(error => {
