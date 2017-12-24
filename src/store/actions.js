@@ -16,6 +16,7 @@ const loadProducts = ({ commit }) => {
           id: key,
           title: obj[key].title,
           cal: obj[key].cal,
+          creatorId: obj[key].creatorId,
           inMenu: false,
         });
       }
@@ -114,7 +115,7 @@ const signInUser = ({ commit, dispatch }, payload) => {
 };
 const autoSignIn = ({ commit, dispatch }, payload) => {
   commit('setUser', {
-    id: payload.id,
+    id: payload.uid,
     displayName: payload.displayName,
     photoURL: payload.photoURL,
   });
@@ -128,7 +129,6 @@ const signInByGithub = ({ commit, dispatch }) => {
     .auth()
     .signInWithPopup(provider)
     .then(result => {
-      console.log(result);
       const newUser = {
         id: result.user.uid,
         displayName: result.user.displayName,

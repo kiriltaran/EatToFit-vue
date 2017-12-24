@@ -31,11 +31,10 @@ new Vue({
   store,
   created() {
     firebase.initializeApp(config);
-    // firebase.auth().onAuthStateChanged(user => {
-    //   console.log('autologin user', user);
-    //   if (user) {
-    //     this.$store.dispatch('autoSignIn', user);
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user);
+      }
+    });
   },
 });

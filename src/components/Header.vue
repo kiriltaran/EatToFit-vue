@@ -11,8 +11,8 @@
       <div class="el-col">
         <div class="auth">
           <div class="auth-user" v-if="user">
-            <img :src="user.photoURL" alt="avatar" class="auth-user-avatar">
-            <el-button type="text">{{user.displayName}}</el-button>
+            <img :src="user.photoURL" alt="avatar" class="auth-user-avatar" @click="showProfile">
+            <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
             <el-button type="text" @click="logout">Выход</el-button>
           </div>
           <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
@@ -32,6 +32,9 @@ export default {
   methods: {
     showAuth() {
       bus.$emit('show-auth', true);
+    },
+    showProfile() {
+      bus.$emit('show-profile', true);
     },
     logout() {
       this.$store.dispatch('logout');
@@ -83,6 +86,11 @@ export default {
       border-radius: 50%;
       width: 50px;
       vertical-align: middle;
+      transition: transform 0.2s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+      }
     }
   }
 }
