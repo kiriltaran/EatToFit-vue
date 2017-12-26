@@ -1,17 +1,19 @@
 <template>
-  <el-row type="flex" justify="space-around">
-    <!-- <el-col :span="13">
+  <div class="products">
+    <el-row type="flex" justify="space-around">
+      <!-- <el-col :span="13">
       <el-autocomplete v-model="state" :fetch-suggestions="querySearch" value-key="title" placeholder="Введите название продукта"
         @select="handleSelect"></el-autocomplete>
     </el-col> -->
-    <el-col :span="13">
-      <products-list></products-list>
-    </el-col>
-    <el-col :span="10">
-      <products-menu></products-menu>
-      <products-hint></products-hint>
-    </el-col>
-  </el-row>
+      <el-col :span="13">
+        <products-list></products-list>
+      </el-col>
+      <el-col :span="10">
+        <products-menu></products-menu>
+        <products-hint></products-hint>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>

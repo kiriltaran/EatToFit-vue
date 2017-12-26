@@ -113,7 +113,7 @@ export default {
           title: 'Набор массы',
         },
       ],
-      gender: null,
+      gender: '',
       activity: '',
       goal: '',
       height: null,

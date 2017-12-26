@@ -54,7 +54,6 @@ export default {
   background-image: url('../assets/img/bg1.jpg');
   height: 80px;
   line-height: 80px;
-  margin-bottom: 80px;
   &-inner {
     position: absolute;
     top: 0;

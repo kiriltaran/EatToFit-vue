@@ -7,11 +7,6 @@ const createProduct = (state, payload) => {
 const inMenuToggle = (state, payload) => {
   const toggledElement = state.products.find(element => element.id === payload);
   toggledElement.inMenu = !toggledElement.inMenu;
-  // state.products.forEach((el, index) => {
-  //   if (el.id === payload) {
-  //     state.products[index].inMenu = !state.products[index].inMenu;
-  //   }
-  // });
 };
 const setUser = (state, payload) => {
   state.user = payload;

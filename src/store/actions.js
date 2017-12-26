@@ -11,7 +11,7 @@ const loadProducts = ({ commit }) => {
     .then(data => {
       const products = [];
       const obj = data.val();
-      for (let key in obj) {
+      Object.keys(obj).forEach(key => {
         products.push({
           id: key,
           title: obj[key].title,
@@ -19,7 +19,7 @@ const loadProducts = ({ commit }) => {
           creatorId: obj[key].creatorId,
           inMenu: false,
         });
-      }
+      });
       commit('setProducts', products);
       commit('setLoading', false);
     })
@@ -59,7 +59,7 @@ const inMenuToggle = ({ commit }, payload) => {
   commit('inMenuToggle', payload);
 };
 
-const signUpUser = ({ commit }, payload) => {
+const signupUser = ({ commit }, payload) => {
   commit('setLoading', true);
   commit('clearError');
   firebase
@@ -182,7 +182,7 @@ export {
   loadProducts,
   createProduct,
   inMenuToggle,
-  signUpUser,
+  signupUser,
   signInUser,
   autoSignIn,
   signInByGithub,
