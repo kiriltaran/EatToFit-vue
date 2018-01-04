@@ -9,45 +9,51 @@
         </template>
       </el-table-column>
     </el-table>
+    <app-hint :menu-cal="menuCal"></app-hint>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {};
+import AppHint from './Hint.vue';
+
+export default {
+  components: {
+    AppHint,
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    inMenuToggle(productId) {
+      this.$store.dispatch('inMenuToggle', productId);
     },
-    methods: {
-      inMenuToggle(productId) {
-        this.$store.dispatch('inMenuToggle', productId);
-      },
+  },
+  computed: {
+    menu() {
+      return this.$store.getters.menu;
     },
-    computed: {
-      menu() {
-        return this.$store.getters.menu;
-      },
-      menuCal() {
-        let cal = 0;
-        this.products.forEach(product => {
-          if (product.inMenu) cal += product.cal;
-        });
-        return cal;
-      },
+    menuCal() {
+      let cal = 0;
+      this.menu.forEach(product => {
+        if (product.inMenu) cal += product.cal;
+      });
+      return cal;
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .el-table__body-wrapper {
-    overflow-x: hidden;
-  }
+.el-table__body-wrapper {
+  overflow-x: hidden;
+}
 
-  .remove-icon {
-    cursor: pointer;
-    font-size: 25px;
+.remove-icon {
+  cursor: pointer;
+  font-size: 25px;
 
-    &:hover {
-      color: red;
-    }
+  &:hover {
+    color: red;
   }
+}
 </style>
