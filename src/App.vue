@@ -6,10 +6,10 @@
       <app-products></app-products>
     </main>
     <app-footer></app-footer>
-    <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false" custom-class="auth-modal">
+    <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
       <app-auth></app-auth>
     </el-dialog>
-    <el-dialog :visible.sync="profileVisible" :close-on-click-modal="false" custom-class="profile-modal">
+    <el-dialog :visible.sync="profileVisible" :close-on-click-modal="false">
       <app-profile></app-profile>
     </el-dialog>
   </div>

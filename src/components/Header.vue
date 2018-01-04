@@ -11,7 +11,8 @@
       <div class="el-col">
         <div class="auth">
           <div class="auth-user" v-if="user">
-            <img :src="user.photoURL" alt="avatar" class="auth-user-avatar" @click="showProfile">
+            <img v-if="user.photoURL" :src="user.photoURL" alt="avatar" class="auth-user-avatar user-icon" @click="showProfile">
+            <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0]}}</div>
             <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
             <el-button type="text" @click="logout">Выход</el-button>
           </div>
@@ -48,7 +49,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   position: relative;
   background-image: url('../assets/img/bg1.jpg');
@@ -81,14 +82,25 @@ export default {
   }
   .auth {
     margin-right: 30px;
-    &-user-avatar {
-      border-radius: 50%;
-      width: 50px;
-      vertical-align: middle;
-      transition: transform 0.2s ease-in-out;
-      &:hover {
-        cursor: pointer;
-        transform: scale(1.05);
+    &-user {
+      .user-icon {
+        border-radius: 50%;
+        width: 50px;
+        vertical-align: middle;
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.05);
+        }
+      }
+      &-initials {
+        display: inline-block;
+        background: #8bc53d;
+        color: #fff;
+        font-size: 24px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
       }
     }
   }

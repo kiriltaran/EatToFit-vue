@@ -1,6 +1,6 @@
 <template>
   <div class="products-list">
-    <el-table :data="products" v-loading="loading" height="415" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
+    <el-table :data="products" height="415" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
       <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
       <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
       <el-table-column>
