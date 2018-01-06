@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 import bus from '../main';
 
-const loadProducts = ({ commit }) => {
+const setProducts = ({ commit }) => {
   commit('setLoading', true);
   firebase
     .database()
@@ -46,7 +46,7 @@ const createProduct = ({ commit, getters, dispatch }, payload) => {
         ...product,
         id: key,
       });
-      dispatch('loadProducts');
+      dispatch('setProducts');
       commit('setLoading', false);
     })
     .catch(error => {
@@ -104,7 +104,7 @@ const signInUser = ({ commit, dispatch }, payload) => {
         id: user.uid,
         displayName: user.displayName,
       });
-      dispatch('loadProducts');
+      dispatch('setProducts');
       bus.$emit('show-auth', false);
     })
     .catch(error => {
@@ -119,7 +119,7 @@ const autoSignIn = ({ commit, dispatch }, payload) => {
     displayName: payload.displayName,
     photoURL: payload.photoURL,
   });
-  dispatch('loadProducts');
+  dispatch('setProducts');
 };
 const signInByGithub = ({ commit, dispatch }) => {
   commit('setLoading', true);
@@ -136,7 +136,7 @@ const signInByGithub = ({ commit, dispatch }) => {
       };
       commit('setLoading', false);
       commit('setUser', newUser);
-      dispatch('loadProducts');
+      dispatch('setProducts');
       bus.$emit('show-auth', false);
     })
     .catch(error => {
@@ -160,7 +160,7 @@ const signInByTwitter = ({ commit, dispatch }) => {
       };
       commit('setLoading', false);
       commit('setUser', newUser);
-      dispatch('loadProducts');
+      dispatch('setProducts');
       bus.$emit('show-auth', false);
     })
     .catch(error => {
@@ -179,7 +179,7 @@ const clearError = ({ commit }) => {
 };
 
 export {
-  loadProducts,
+  setProducts,
   createProduct,
   inMenuToggle,
   signupUser,

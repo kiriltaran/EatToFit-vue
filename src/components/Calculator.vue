@@ -28,7 +28,7 @@
             </el-select>
           </el-form-item>
           <el-form-item class="calculator-btn-item">
-            <el-button size="small" type="primary" plain @click="getBMR">Рассчитать</el-button>
+            <el-button size="small" type="primary" plain @click="getBMR">Рассчитать норму</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -99,18 +99,18 @@ export default {
       goalOptions: [
         {
           id: 0,
-          val: 0,
+          val: 1,
           title: 'Поддержание нормы',
         },
         {
           id: 1,
-          val: -500,
-          title: 'Похудение',
+          val: 0.75,
+          title: 'Сброс веса',
         },
         {
           id: 2,
-          val: 500,
-          title: 'Набор массы',
+          val: 1.25,
+          title: 'Набор веса',
         },
       ],
       gender: '',
@@ -124,15 +124,17 @@ export default {
   },
   methods: {
     getBMR() {
-      this.BMR =
-        Math.floor(
+      if (this.gender && this.activity && this.goal) {
+        this.BMR = Math.floor(
           (this.gender.ratio.def +
             this.gender.ratio.w * this.weight +
             this.gender.ratio.h * this.height -
             this.gender.ratio.a * this.age) *
-            this.activity,
-        ) + this.goal;
-      bus.$emit('bmr-getted', this.BMR);
+            this.activity *
+            this.goal,
+        );
+        bus.$emit('bmr-getted', this.BMR);
+      }
     },
   },
 };

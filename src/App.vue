@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <main>
-      <app-calculator></app-calculator>
-      <app-products></app-products>
+    <main class="main">
+      <app-calculator :class="user ? '' : 'centered'" class="calculator"></app-calculator>
+      <transition name="fade">
+        <app-products v-if="user"></app-products>
+      </transition>
     </main>
     <app-footer></app-footer>
     <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
@@ -39,6 +41,11 @@ export default {
       profileVisible: false,
     };
   },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
   created() {
     bus.$on('show-auth', data => {
       this.authVisible = data;
@@ -60,11 +67,32 @@ html {
   position: relative;
   min-height: 100%;
 }
-
 body {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
   backface-visibility: hidden;
+}
+
+.main {
+  padding: 40px 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.calculator {
+  transition: all 0.5s ease-in-out;
+}
+
+.centered {
+  margin-top: 200px;
 }
 
 ::-webkit-scrollbar {
