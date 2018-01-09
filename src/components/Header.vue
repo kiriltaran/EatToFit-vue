@@ -12,7 +12,7 @@
         <div class="auth">
           <div class="auth-user" v-if="user">
             <img v-if="user.photoURL" :src="user.photoURL" alt="avatar" class="auth-user-avatar user-icon" @click="showProfile">
-            <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0]}}</div>
+            <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0].toUpperCase()}}</div>
             <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
             <el-button type="text" @click="logout">Выход</el-button>
           </div>

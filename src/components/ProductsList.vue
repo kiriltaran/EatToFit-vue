@@ -5,7 +5,7 @@
       <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
-          <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="inMenuToggle(scope.row.id)"></i>
+          <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="toggleInMenu(scope.row.id)"></i>
         </template>
       </el-table-column>
     </el-table>
@@ -43,8 +43,8 @@ export default {
         this.inputCal = '';
       }
     },
-    inMenuToggle(productId) {
-      this.$store.dispatch('inMenuToggle', productId);
+    toggleInMenu(productId) {
+      this.$store.dispatch('toggleInMenu', productId);
     },
   },
   computed: {

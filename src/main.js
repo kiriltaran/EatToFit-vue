@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import VueResource from 'vue-resource';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

@@ -1,6 +1,6 @@
 <template>
   <div class="hint">
-    <el-alert v-if="hint.text" :title="hint.text" :type="hint.type" :closable="false"></el-alert>
+    <el-alert v-if="BMR" :title="hint.text" :type="hint.type" :closable="false"></el-alert>
   </div>
 </template>
 

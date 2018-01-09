@@ -51,7 +51,7 @@ export default {
       });
     },
     signinUser() {
-      this.$store.dispatch('signInUser', {
+      this.$store.dispatch('signinUser', {
         email: this.signinForm.email,
         password: this.signinForm.password,
       });

@@ -1,24 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import * as actions from './actions';
-import * as mutations from './mutations';
-import * as getters from './getters';
+import menu from './menu';
+import products from './products';
+import user from './user';
+import shared from './shared';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
-  state: {
-    products: [],
-    menu: [],
-    user: null,
-    loading: false,
-    error: null,
+  modules: {
+    menu,
+    products,
+    user,
+    shared,
   },
-  actions,
-  mutations,
-  getters,
 });
 
 export default store;
