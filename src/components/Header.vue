@@ -14,7 +14,7 @@
             <img v-if="user.photoURL" :src="user.photoURL" alt="avatar" class="auth-user-avatar user-icon" @click="showProfile">
             <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0].toUpperCase()}}</div>
             <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
-            <el-button type="text" @click="logout">Выход</el-button>
+            <el-button type="text" @click="logout" class="logout-btn"><i class="ion-log-out"></i></el-button>
           </div>
           <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
         </div>
@@ -101,6 +101,10 @@ export default {
         height: 50px;
         line-height: 50px;
         text-align: center;
+      }
+      .logout-btn {
+        font-size: 28px;
+        vertical-align: middle;
       }
     }
   }

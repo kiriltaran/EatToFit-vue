@@ -71,6 +71,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
   backface-visibility: hidden;
+  overflow: hidden;
 }
 
 .main {

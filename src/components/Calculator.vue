@@ -27,14 +27,16 @@
               <el-option v-for="item in goalOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item class="calculator-btn-item">
-            <el-button size="small" type="primary" plain @click="setBMR">Запомнить</el-button>
-          </el-form-item>
         </el-form>
       </el-col>
       <el-col :span="7">
         <div class="hint-wrapper">
-          <el-alert v-if="BMR > 0" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели"></el-alert>
+          <el-alert v-if="BMR > 0" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели и параметров">
+            <div class="hint-text">
+              Дневная норма калорий для заданой цели и параметров
+            </div>
+            <el-button size="small" type="primary" plain @click="setBMR" class="hint-btn">Запомнить</el-button>
+          </el-alert>
         </div>
       </el-col>
     </el-row>
@@ -141,13 +143,18 @@ export default {
 };
 </script>
 <style lang="scss">
-.calculator-btn-item {
-  vertical-align: bottom !important;
-}
-
 .hint-wrapper {
   height: 100%;
   display: flex;
   align-items: center;
+}
+.hint-text {
+  font-size: 13px;
+}
+.hint-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
