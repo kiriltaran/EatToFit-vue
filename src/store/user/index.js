@@ -66,11 +66,12 @@ export default {
         });
     },
     autoSignIn({ commit, dispatch }, payload) {
-      commit('setUser', {
+      const user = {
         id: payload.uid,
         displayName: payload.displayName,
         photoURL: payload.photoURL,
-      });
+      };
+      commit('setUser', user);
       dispatch('setProducts');
     },
     signInByGithub({ commit, dispatch }) {

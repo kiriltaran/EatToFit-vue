@@ -20,9 +20,7 @@ export default {
     },
   },
   actions: {
-    setProducts({
-      commit
-    }) {
+    setProducts({ commit }) {
       commit('setLoading', true);
       firebase
         .database()
@@ -48,11 +46,7 @@ export default {
           commit('setLoading', false);
         });
     },
-    createProduct({
-      commit,
-      getters,
-      dispatch
-    }, payload) {
+    createProduct({ commit, getters, dispatch }, payload) {
       commit('setLoading', true);
       const product = {
         title: payload.title,
@@ -64,9 +58,7 @@ export default {
         .ref('products')
         .push(product)
         .then(data => {
-          const {
-            key
-          } = data;
+          const { key } = data;
           commit('createProduct', {
             ...product,
             id: key,
@@ -79,15 +71,16 @@ export default {
           commit('setLoading', false);
         });
     },
-    toggleInMenu({
-      commit
-    }, payload) {
+    toggleInMenu({ commit }, payload) {
       commit('toggleInMenu', payload);
     },
   },
   getters: {
     products(state) {
       return state.products;
+    },
+    menu(state, getters, rootState) {
+      return rootState.products.products.filter(product => product.inMenu === true);
     },
   },
 };

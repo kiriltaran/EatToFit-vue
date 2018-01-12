@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <span>kiriltaran &copy 2017 </span>
+    <span>kiriltaran &copy; 2017 </span>
   </footer>
 </template>
 
