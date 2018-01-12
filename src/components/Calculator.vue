@@ -2,32 +2,37 @@
   <div class="calculator">
     <el-row type="flex" justify="space-around">
       <el-col :span="16">
-        <el-form :inline="true" :label-position="'top'">
-          <el-form-item label="Пол">
-            <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
-              <el-option v-for="item in genderOptions" :key="item.id" :label="item.title" :value="item"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Рост">
-            <el-input-number v-model="height" :min="1" :max="300" size="small"></el-input-number>
-          </el-form-item>
-          <el-form-item label="Вес">
-            <el-input-number v-model="weight" :min="1" :max="300" size="small"></el-input-number>
-          </el-form-item>
-          <el-form-item label="Возраст">
-            <el-input-number v-model="age" :min="1" :max="150" size="small"></el-input-number>
-          </el-form-item>
-          <el-form-item label="Уровень активности">
-            <el-select v-model="activity" value-key="id" placeholder="" size="small" clearable>
-              <el-option v-for="item in activityOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Цель">
-            <el-select v-model="goal" value-key="id" placeholder="" size="small" clearable>
-              <el-option v-for="item in goalOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
+        <el-card>
+          <el-form :inline="true" :label-position="'top'">
+            <el-form-item label="Пол">
+              <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
+                <el-option v-for="item in genderOptions" :key="item.id" :label="item.title" :value="item"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="Рост">
+              <el-input-number v-model="height" :min="1" :max="300" size="small"></el-input-number>
+            </el-form-item>
+            <el-form-item label="Вес">
+              <el-input-number v-model="weight" :min="1" :max="300" size="small"></el-input-number>
+            </el-form-item>
+            <el-form-item label="Возраст">
+              <el-input-number v-model="age" :min="1" :max="150" size="small"></el-input-number>
+            </el-form-item>
+            <el-form-item label="Уровень активности">
+              <el-select v-model="activity" value-key="id" placeholder="" size="small" clearable>
+                <el-option v-for="item in activityOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="Цель">
+              <el-select v-model="goal" value-key="id" placeholder="" size="small" clearable>
+                <el-option v-for="item in goalOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+              </el-select>
+            </el-form-item>
+            <transition name="slide">
+              <i v-if="BMR" class="el-icon-d-arrow-right calculator-arrow"></i>
+            </transition>
+          </el-form>
+        </el-card>
       </el-col>
       <el-col :span="7">
         <div class="hint-wrapper">
@@ -143,18 +148,42 @@ export default {
 };
 </script>
 <style lang="scss">
+.calculator {
+  margin-bottom: 20px;
+  &-arrow {
+    margin-left: 25px;
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+  }
+}
+
 .hint-wrapper {
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 .hint-text {
   font-size: 13px;
 }
+
 .hint-btn {
   position: absolute;
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-20%);
 }
 </style>

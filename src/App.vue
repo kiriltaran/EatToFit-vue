@@ -89,7 +89,7 @@ body {
 }
 
 .calculator {
-  transition: all 0.5s ease-in-out;
+  transition: margin 0.5s ease-in-out;
 }
 
 .centered {

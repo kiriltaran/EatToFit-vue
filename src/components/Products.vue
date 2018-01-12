@@ -1,15 +1,19 @@
 <template>
   <div class="products">
     <el-row type="flex" justify="space-around">
-      <el-col :span="13">
-        <products-select></products-select>
+      <el-col :span="16">
+        <el-card :body-style="{height: '415px'}">
+          <products-select></products-select>
+        </el-card>
       </el-col>
       <!-- <el-col :span="13">
         <products-list></products-list>
       </el-col> -->
-      <el-col :span="10">
-        <products-menu></products-menu>
-        <products-hint></products-hint>
+      <el-col :span="7">
+        <el-card>
+          <products-menu></products-menu>
+          <products-hint></products-hint>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -36,4 +40,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

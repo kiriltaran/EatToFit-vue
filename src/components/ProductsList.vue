@@ -72,10 +72,6 @@ export default {
   display: none;
 }
 
-.el-table__body-wrapper {
-  overflow-x: hidden;
-}
-
 .add-product-form {
   margin-top: 25px;
 }
