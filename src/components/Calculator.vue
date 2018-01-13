@@ -2,7 +2,7 @@
   <div class="calculator">
     <el-row type="flex" justify="space-around">
       <el-col :span="16">
-        <el-card>
+        <el-card :body-style="{position: 'relative'}">
           <el-form :inline="true" :label-position="'top'">
             <el-form-item label="Пол">
               <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
@@ -35,8 +35,8 @@
         </el-card>
       </el-col>
       <el-col :span="7">
-        <div class="hint-wrapper">
-          <el-alert v-if="BMR > 0" :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели и параметров">
+        <div v-if="BMR > 0" class="calculator-hint">
+          <el-alert :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели и параметров">
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>
@@ -149,17 +149,16 @@ export default {
 </script>
 <style lang="scss">
 .calculator {
-  margin-bottom: 20px;
   &-arrow {
-    margin-left: 25px;
     font-size: 50px;
     position: absolute;
     top: 50%;
+    right: 25px;
     margin-top: -25px;
   }
 }
 
-.hint-wrapper {
+.calculator-hint {
   height: 100%;
   display: flex;
   align-items: center;

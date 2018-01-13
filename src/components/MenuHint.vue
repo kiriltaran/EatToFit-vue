@@ -1,23 +1,14 @@
 <template>
-  <div class="hint">
-    <el-alert v-if="BMR" :title="hint.text" :type="hint.type" :closable="false"></el-alert>
+  <div class="menu-hint" v-if="menuCal && BMR">
+    <el-alert :title="hint.text" :type="hint.type" :closable="false"></el-alert>
   </div>
 </template>
 
 <script>
-import bus from '../main';
-
 export default {
-  props: ['menuCal'],
+  props: ['menuCal', 'BMR'],
   data() {
-    return {
-      BMR: null,
-    };
-  },
-  created() {
-    bus.$on('bmr-getted', data => {
-      this.BMR = data;
-    });
+    return {};
   },
   computed: {
     hint() {
@@ -45,8 +36,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.hint {
-  margin-top: 5px;
-}
-</style>
+<style lang="scss"></style>

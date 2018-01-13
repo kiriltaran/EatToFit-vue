@@ -11,19 +11,23 @@
           </template>
         </el-table-column>
       </el-table>
-      <app-hint :menu-cal="menuCal"></app-hint>
+      <menu-hint :menu-cal="menuCal" :BMR="BMR" class="menu-hint-component"></menu-hint>
   </div>
 </template>
 
 <script>
-import AppHint from './Hint.vue';
+import MenuHint from './MenuHint.vue';
+
+import bus from '../main';
 
 export default {
   components: {
-    AppHint,
+    MenuHint,
   },
   data() {
-    return {};
+    return {
+      BMR: null,
+    };
   },
   methods: {
     toggleInMenu(productId) {
@@ -42,6 +46,11 @@ export default {
       return cal;
     },
   },
+  created() {
+    bus.$on('bmr-getted', data => {
+      this.BMR = data;
+    });
+  },
 };
 </script>
 
@@ -57,5 +66,9 @@ export default {
   &:hover {
     color: red;
   }
+}
+
+.menu-hint-component {
+  margin-top: 20px;
 }
 </style>

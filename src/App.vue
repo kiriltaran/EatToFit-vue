@@ -2,7 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <main class="main">
-      <app-calculator :class="user ? '' : 'centered'" class="calculator"></app-calculator>
+      <app-calculator :class="user ? '' : 'centered'" class="calculator-component"></app-calculator>
       <transition name="fade">
         <app-products v-if="user"></app-products>
       </transition>
@@ -88,7 +88,8 @@ body {
   opacity: 0;
 }
 
-.calculator {
+.calculator-component {
+  margin-bottom: 20px;
   transition: margin 0.5s ease-in-out;
 }
 
