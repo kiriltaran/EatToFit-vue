@@ -2,9 +2,13 @@
   <div class="products">
     <el-row type="flex" justify="space-around">
       <el-col :span="16">
-        <el-card :body-style="{height: '455px'}">
-          <!-- <products-select></products-select> -->
-          <products-list></products-list>
+        <el-card :body-style="{position: 'relative', height: '495px'}">
+          <el-switch v-model="tableView" active-text="Расширенный" inactive-text="Простой" inactive-color="#409EFF" class="products-switch">
+          </el-switch>
+          <transition name="fade" mode="out-in">
+            <products-list v-if="tableView"></products-list>
+            <products-select v-else></products-select>
+          </transition>
         </el-card>
       </el-col>
       <el-col :span="7">
@@ -28,11 +32,30 @@ export default {
     ProductsMenu,
   },
   data() {
-    return {};
+    return {
+      tableView: false,
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.products {
+  &-switch {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+  }
 
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s;
+  }
+
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+}
 </style>

@@ -1,11 +1,12 @@
 <template>
   <footer class="footer">
-    <span>kiriltaran &copy; 2017 </span>
+    <span>kiriltaran &copy; 2018</span>
   </footer>
 </template>
 
 <style lang="scss">
 .footer {
+  font-size: 14px;
   text-align: center;
   position: absolute;
   bottom: 0;

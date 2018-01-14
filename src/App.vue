@@ -75,12 +75,12 @@ body {
 }
 
 .main {
-  padding: 40px 10px;
+  padding: 40px 10px 0;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s;
 }
 
 .fade-enter,
@@ -90,7 +90,7 @@ body {
 
 .calculator-component {
   margin-bottom: 20px;
-  transition: margin 0.5s ease-in-out;
+  transition: margin 0.5s;
 }
 
 .centered {

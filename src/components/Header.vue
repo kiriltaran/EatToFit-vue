@@ -87,7 +87,7 @@ export default {
         border-radius: 50%;
         width: 50px;
         vertical-align: middle;
-        transition: transform 0.2s ease-in-out;
+        transition: transform 0.2s;
         &:hover {
           cursor: pointer;
           transform: scale(1.05);
