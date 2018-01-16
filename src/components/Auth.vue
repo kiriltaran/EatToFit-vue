@@ -35,10 +35,10 @@ export default {
   },
   methods: {
     signInByGithub() {
-      this.$store.dispatch('signInByGithub');
+      this.$store.dispatch('signInBySocials', 'github');
     },
     signInByTwitter() {
-      this.$store.dispatch('signInByTwitter');
+      this.$store.dispatch('signInBySocials', 'twitter');
     },
     clearError() {
       this.$store.dispatch('clearError');

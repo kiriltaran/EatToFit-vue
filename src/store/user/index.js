@@ -93,35 +93,19 @@ export default {
       commit('setUser', user);
       dispatch('fetchProducts');
     },
-    signInByGithub({ commit, dispatch }) {
+    signInBySocials({ commit, dispatch }, payload) {
       commit('setLoading', true);
       commit('clearError');
-      const provider = new firebase.auth.GithubAuthProvider();
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(result => {
-          const newUser = {
-            id: result.user.uid,
-            displayName: result.user.displayName,
-            photoURL: result.user.photoURL,
-            BMR: result.user.BMR,
-          };
-          commit('setLoading', false);
-          commit('setUser', newUser);
-          dispatch('fetchProducts');
-          bus.$emit('show-auth', false);
-        })
-        .catch(error => {
-          commit('setLoading', false);
-          commit('setError', error);
-          console.log(error);
-        });
-    },
-    signInByTwitter({ commit, dispatch }) {
-      commit('setLoading', true);
-      commit('clearError');
-      const provider = new firebase.auth.TwitterAuthProvider();
+      let provider;
+      switch (payload) {
+        case 'github':
+          provider = new firebase.auth.GithubAuthProvider();
+          break;
+        case 'twitter':
+          provider = new firebase.auth.TwitterAuthProvider();
+          break;
+        default:
+      }
       firebase
         .auth()
         .signInWithPopup(provider)
