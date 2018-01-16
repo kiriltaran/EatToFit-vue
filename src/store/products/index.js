@@ -5,7 +5,7 @@ export default {
     products: [],
   },
   mutations: {
-    setProducts(state, payload) {
+    fetchProducts(state, payload) {
       state.products = payload;
     },
     createProduct(state, payload) {
@@ -20,7 +20,7 @@ export default {
     },
   },
   actions: {
-    setProducts({ commit }) {
+    fetchProducts({ commit }) {
       commit('setLoading', true);
       firebase
         .database()
@@ -38,7 +38,7 @@ export default {
               inMenu: false,
             });
           });
-          commit('setProducts', products);
+          commit('fetchProducts', products);
           commit('setLoading', false);
         })
         .catch(error => {
@@ -63,7 +63,7 @@ export default {
             ...product,
             id: key,
           });
-          dispatch('setProducts');
+          dispatch('fetchProducts');
           commit('setLoading', false);
         })
         .catch(error => {

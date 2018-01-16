@@ -105,6 +105,7 @@ export default {
       .logout-btn {
         font-size: 28px;
         vertical-align: middle;
+        margin-left: 40px;
       }
     }
   }

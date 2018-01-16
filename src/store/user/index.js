@@ -10,6 +10,12 @@ export default {
     setUser(state, payload) {
       state.user = payload;
     },
+    setBMR(state, payload) {
+      state.user = {
+        ...state.user,
+        BMR: payload,
+      };
+    },
   },
   actions: {
     signupUser({ commit }, payload) {
@@ -19,24 +25,27 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
-          user
-            .updateProfile({
+          const newUser = {
+            id: user.uid,
+            displayName: payload.name,
+            photoURL: null,
+            BMR: null,
+          };
+
+          user.updateProfile({
+            displayName: payload.name,
+          });
+
+          firebase
+            .database()
+            .ref(`users/${user.uid}`)
+            .set({
               displayName: payload.name,
-            })
-            .then(() => {
-              const newUser = {
-                id: user.uid,
-                displayName: user.displayName,
-              };
-              commit('setLoading', false);
-              commit('setUser', newUser);
-              bus.$emit('show-auth', false);
-            })
-            .catch(error => {
-              commit('setLoading', false);
-              commit('setError', error);
-              console.log(error);
             });
+
+          commit('setUser', newUser);
+          bus.$emit('show-auth', false);
+          commit('setLoading', false);
         })
         .catch(error => {
           commit('setLoading', false);
@@ -50,15 +59,24 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
-          commit('setLoading', false);
-          commit('setUser', {
-            id: user.uid,
-            displayName: user.displayName,
-          });
-          dispatch('setProducts');
-          bus.$emit('show-auth', false);
-        })
+        .then(user =>
+          firebase
+            .database()
+            .ref(`/users/${user.uid}`)
+            .once('value')
+            .then(data => {
+              const userObj = data.val();
+              commit('setLoading', false);
+              commit('setUser', {
+                id: user.uid,
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                BMR: userObj.BMR,
+              });
+              dispatch('fetchProducts');
+              bus.$emit('show-auth', false);
+            }),
+        )
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
@@ -70,9 +88,10 @@ export default {
         id: payload.uid,
         displayName: payload.displayName,
         photoURL: payload.photoURL,
+        BMR: payload.BMR,
       };
       commit('setUser', user);
-      dispatch('setProducts');
+      dispatch('fetchProducts');
     },
     signInByGithub({ commit, dispatch }) {
       commit('setLoading', true);
@@ -86,10 +105,11 @@ export default {
             id: result.user.uid,
             displayName: result.user.displayName,
             photoURL: result.user.photoURL,
+            BMR: result.user.BMR,
           };
           commit('setLoading', false);
           commit('setUser', newUser);
-          dispatch('setProducts');
+          dispatch('fetchProducts');
           bus.$emit('show-auth', false);
         })
         .catch(error => {
@@ -110,10 +130,11 @@ export default {
             id: result.user.uid,
             displayName: result.user.displayName,
             photoURL: result.user.photoURL,
+            BMR: result.user.BMR,
           };
           commit('setLoading', false);
           commit('setUser', newUser);
-          dispatch('setProducts');
+          dispatch('fetchProducts');
           bus.$emit('show-auth', false);
         })
         .catch(error => {
@@ -126,6 +147,15 @@ export default {
       firebase.auth().signOut();
       commit('setUser', null);
       commit('clearProducts');
+    },
+    setBMR({ commit }, payload) {
+      firebase
+        .database()
+        .ref()
+        .update({
+          [`/users/${payload.userId}/BMR`]: payload.BMR,
+        });
+      commit('setBMR', payload.BMR);
     },
   },
   getters: {

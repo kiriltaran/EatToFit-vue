@@ -40,7 +40,7 @@
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>
-            <el-button size="small" type="primary" plain @click="setBMR" class="hint-btn">Запомнить</el-button>
+            <el-button size="small" type="primary" plain @click="setBMR" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
           </el-alert>
         </div>
       </el-col>
@@ -52,6 +52,7 @@
 import bus from '../main';
 
 export default {
+  props: ['user'],
   data() {
     return {
       genderOptions: [
@@ -130,7 +131,8 @@ export default {
   },
   computed: {
     BMR() {
-      let BMR = null;
+      let BMR = this.user ? this.user.BMR : null;
+
       if (this.gender && this.activity && this.goal) {
         BMR = Math.floor(
           (this.gender.ratio.def +
@@ -143,6 +145,17 @@ export default {
       }
       bus.$emit('bmr-getted', BMR);
       return BMR;
+    },
+    bmrSetted() {
+      return this.BMR === this.user.BMR;
+    },
+  },
+  methods: {
+    setBMR() {
+      this.$store.dispatch('setBMR', {
+        userId: this.user.id,
+        BMR: this.BMR,
+      });
     },
   },
 };

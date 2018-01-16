@@ -2,7 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <main class="main">
-      <app-calculator :class="user ? '' : 'centered'" class="calculator-component"></app-calculator>
+      <app-calculator :user="user" :class="user ? '' : 'centered'" class="calculator-component"></app-calculator>
       <transition name="fade">
         <app-products v-if="user"></app-products>
       </transition>
