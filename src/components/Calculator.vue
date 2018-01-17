@@ -147,7 +147,7 @@ export default {
       return BMR;
     },
     bmrSetted() {
-      return this.BMR === this.user.BMR;
+      return this.user ? this.BMR === this.user.BMR : false;
     },
   },
   methods: {

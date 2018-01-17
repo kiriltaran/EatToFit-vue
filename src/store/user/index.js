@@ -110,16 +110,24 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(result => {
-          const newUser = {
-            id: result.user.uid,
-            displayName: result.user.displayName,
-            photoURL: result.user.photoURL,
-            BMR: result.user.BMR,
-          };
-          commit('setLoading', false);
-          commit('setUser', newUser);
-          dispatch('fetchProducts');
-          bus.$emit('show-auth', false);
+          firebase
+            .database()
+            .ref(`/users/${result.user.uid}`)
+            .once('value')
+            .then(data => {
+              const userObj = data.val();
+
+              const newUser = {
+                id: result.user.uid,
+                displayName: result.user.displayName,
+                photoURL: result.user.photoURL,
+                BMR: userObj.BMR,
+              };
+              commit('setLoading', false);
+              commit('setUser', newUser);
+              dispatch('fetchProducts');
+              bus.$emit('show-auth', false);
+            });
         })
         .catch(error => {
           commit('setLoading', false);
