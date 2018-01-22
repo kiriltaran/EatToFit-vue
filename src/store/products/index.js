@@ -34,6 +34,9 @@ export default {
               id: key,
               title: obj[key].title,
               cal: obj[key].cal,
+              prot: obj[key].prot,
+              fat: obj[key].fat,
+              carbo: obj[key].carbo,
               creatorId: obj[key].creatorId,
               inMenu: false,
             });
@@ -51,6 +54,9 @@ export default {
       const product = {
         title: payload.title,
         cal: payload.cal,
+        prot: payload.cal,
+        fat: payload.fat,
+        carbo: payload.carbo,
         creatorId: getters.user.id,
       };
       firebase
@@ -79,8 +85,8 @@ export default {
     products(state) {
       return state.products;
     },
-    menu(state, getters, rootState) {
-      return rootState.products.products.filter(product => product.inMenu === true);
+    menu(state) {
+      return state.products.filter(product => product.inMenu === true);
     },
   },
 };

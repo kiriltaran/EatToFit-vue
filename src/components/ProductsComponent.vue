@@ -23,7 +23,7 @@
 <script>
 import ProductsSelect from './ProductsSelect.vue';
 import ProductsList from './ProductsList.vue';
-import ProductsMenu from './Menu.vue';
+import ProductsMenu from './ProductsMenu.vue';
 
 export default {
   components: {

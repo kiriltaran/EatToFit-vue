@@ -65,13 +65,13 @@ export default {
             .ref(`/users/${user.uid}`)
             .once('value')
             .then(data => {
-              const userObj = data.val();
+              const userStore = data.val();
               commit('setLoading', false);
               commit('setUser', {
                 id: user.uid,
                 displayName: user.displayName,
                 photoURL: user.photoURL,
-                BMR: userObj.BMR,
+                BMR: userStore.BMR,
               });
               dispatch('fetchProducts');
               bus.$emit('show-auth', false);
@@ -109,19 +109,19 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(result => {
+        .then(({ user }) => {
           firebase
             .database()
-            .ref(`/users/${result.user.uid}`)
+            .ref(`/users/${user.uid}`)
             .once('value')
             .then(data => {
-              const userObj = data.val();
+              const userStore = data.val();
 
               const newUser = {
-                id: result.user.uid,
-                displayName: result.user.displayName,
-                photoURL: result.user.photoURL,
-                BMR: userObj.BMR,
+                id: user.uid,
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                BMR: userStore.BMR,
               };
               commit('setLoading', false);
               commit('setUser', newUser);
@@ -140,19 +140,22 @@ export default {
       commit('setUser', null);
       commit('clearProducts');
     },
-    setBMR({ commit }, payload) {
+    setBMR({ commit, state }, payload) {
       firebase
         .database()
         .ref()
         .update({
-          [`/users/${payload.userId}/BMR`]: payload.BMR,
+          [`/users/${state.user.id}/BMR`]: payload,
         });
-      commit('setBMR', payload.BMR);
+      commit('setBMR', payload);
     },
   },
   getters: {
     user(state) {
       return state.user;
+    },
+    BMR(state) {
+      return state.user.BMR;
     },
   },
 };

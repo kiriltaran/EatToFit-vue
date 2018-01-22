@@ -131,7 +131,7 @@ export default {
   },
   computed: {
     BMR() {
-      let BMR = this.user ? this.user.BMR : null;
+      let BMR = this.user ? this.user.BMR : 999;
 
       if (this.gender && this.activity && this.goal) {
         BMR = Math.floor(
@@ -152,10 +152,7 @@ export default {
   },
   methods: {
     setBMR() {
-      this.$store.dispatch('setBMR', {
-        userId: this.user.id,
-        BMR: this.BMR,
-      });
+      this.$store.dispatch('setBMR', this.BMR);
     },
   },
 };

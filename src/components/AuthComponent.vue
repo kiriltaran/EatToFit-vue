@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import AuthSignin from './Signin.vue';
-import AuthSignup from './Signup.vue';
+import AuthSignin from './AuthSignin.vue';
+import AuthSignup from './AuthSignup.vue';
 
 export default {
   components: {

@@ -25,9 +25,7 @@ export default {
     MenuHint,
   },
   data() {
-    return {
-      BMR: null,
-    };
+    return {};
   },
   methods: {
     toggleInMenu(productId) {
@@ -45,11 +43,9 @@ export default {
       });
       return cal;
     },
-  },
-  created() {
-    bus.$on('bmr-getted', data => {
-      this.BMR = data;
-    });
+    BMR() {
+      return this.$store.getters.BMR;
+    },
   },
 };
 </script>

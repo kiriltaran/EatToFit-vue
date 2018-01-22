@@ -1,39 +1,39 @@
 <template>
   <div id="app">
-    <app-header></app-header>
+    <header-component></header-component>
     <main class="main">
-      <app-calculator :user="user" :class="user ? '' : 'centered'" class="calculator-component"></app-calculator>
+      <calculator-component :user="user" :class="user ? '' : 'centered'" class="calculator-component"></calculator-component>
       <transition name="fade">
-        <app-products v-if="user"></app-products>
+        <products-component v-if="user"></products-component>
       </transition>
     </main>
-    <app-footer></app-footer>
+    <footer-component></footer-component>
     <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
-      <app-auth></app-auth>
+      <auth-component v-loading="loading"></auth-component>
     </el-dialog>
     <el-dialog :visible.sync="profileVisible" :close-on-click-modal="false">
-      <app-profile></app-profile>
+      <user-profile></user-profile>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import bus from './main';
-import AppHeader from './components/Header.vue';
-import AppProducts from './components/Products.vue';
-import AppCalculator from './components/Calculator.vue';
-import AppFooter from './components/Footer.vue';
-import AppAuth from './components/Auth.vue';
-import AppProfile from './components/Profile.vue';
+import HeaderComponent from './components/HeaderComponent.vue';
+import ProductsComponent from './components/ProductsComponent.vue';
+import CalculatorComponent from './components/CalculatorComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
+import AuthComponent from './components/AuthComponent.vue';
+import UserProfile from './components/UserProfile.vue';
 
 export default {
   components: {
-    AppHeader,
-    AppProducts,
-    AppCalculator,
-    AppFooter,
-    AppAuth,
-    AppProfile,
+    HeaderComponent,
+    ProductsComponent,
+    CalculatorComponent,
+    FooterComponent,
+    AuthComponent,
+    UserProfile,
   },
   data() {
     return {
@@ -44,6 +44,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+    loading() {
+      return this.$store.getters.loading;
     },
   },
   created() {
