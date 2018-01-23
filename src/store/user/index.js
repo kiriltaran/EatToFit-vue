@@ -85,7 +85,23 @@ export default {
           window.console.log(error);
         });
     },
-    // autoSignIn({ commit, dispatch }, payload) {},
+    autoSignIn({ commit, dispatch }, payload) {
+      window.console.log(payload);
+      firebase
+        .database()
+        .ref(`/users/${payload.uid}`)
+        .once('value')
+        .then(data => {
+          const userStore = data.val();
+          commit('setUser', {
+            id: payload.uid,
+            displayName: payload.displayName,
+            photoURL: payload.photoURL,
+            BMR: userStore.BMR,
+          });
+          dispatch('fetchProducts');
+        });
+    },
     signInBySocials({ commit, dispatch }, payload) {
       commit('setLoading', true);
       commit('clearError');

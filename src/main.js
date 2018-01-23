@@ -25,14 +25,14 @@ const config = {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  render: h => h(App),
-  store,
   created() {
     firebase.initializeApp(config);
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     this.$store.dispatch('autoSignIn', user);
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user);
+      }
+    });
   },
+  render: h => h(App),
+  store,
 });
