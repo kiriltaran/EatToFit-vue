@@ -49,8 +49,6 @@
 </template>
 
 <script>
-import bus from '../main';
-
 export default {
   props: ['user'],
   data() {
@@ -131,7 +129,7 @@ export default {
   },
   computed: {
     BMR() {
-      let BMR = this.user ? this.user.BMR : 999;
+      let BMR = this.user ? this.user.BMR : null;
 
       if (this.gender && this.activity && this.goal) {
         BMR = Math.floor(
@@ -143,7 +141,6 @@ export default {
             this.goal,
         );
       }
-      bus.$emit('bmr-getted', BMR);
       return BMR;
     },
     bmrSetted() {

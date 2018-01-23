@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 
 import bus from '../../main';
 
+/* eslint-disable no-param-reassign */
 export default {
   state: {
     user: null,
@@ -18,7 +19,7 @@ export default {
     },
   },
   actions: {
-    signupUser({ commit }, payload) {
+    signupUser({ commit, dispatch }, payload) {
       commit('setLoading', true);
       commit('clearError');
       firebase
@@ -44,13 +45,14 @@ export default {
             });
 
           commit('setUser', newUser);
+          dispatch('fetchProducts');
           bus.$emit('show-auth', false);
           commit('setLoading', false);
         })
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-          console.log(error);
+          window.console.log(error);
         });
     },
     signinUser({ commit, dispatch }, payload) {
@@ -80,19 +82,10 @@ export default {
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-          console.log(error);
+          window.console.log(error);
         });
     },
-    autoSignIn({ commit, dispatch }, payload) {
-      const user = {
-        id: payload.uid,
-        displayName: payload.displayName,
-        photoURL: payload.photoURL,
-        BMR: payload.BMR,
-      };
-      commit('setUser', user);
-      dispatch('fetchProducts');
-    },
+    // autoSignIn({ commit, dispatch }, payload) {},
     signInBySocials({ commit, dispatch }, payload) {
       commit('setLoading', true);
       commit('clearError');
@@ -132,7 +125,7 @@ export default {
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-          console.log(error);
+          window.console.log(error);
         });
     },
     logout({ commit }) {

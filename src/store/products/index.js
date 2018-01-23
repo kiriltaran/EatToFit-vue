@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 
+/* eslint-disable no-param-reassign */
 export default {
   state: {
     products: [],
@@ -45,7 +46,7 @@ export default {
           commit('setLoading', false);
         })
         .catch(error => {
-          console.log(error);
+          window.console.log(error);
           commit('setLoading', false);
         });
     },
@@ -73,7 +74,7 @@ export default {
           commit('setLoading', false);
         })
         .catch(error => {
-          console.log(error);
+          window.console.log(error);
           commit('setLoading', false);
         });
     },

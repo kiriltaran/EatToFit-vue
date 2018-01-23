@@ -18,8 +18,6 @@
 <script>
 import MenuHint from './MenuHint.vue';
 
-import bus from '../main';
-
 export default {
   components: {
     MenuHint,

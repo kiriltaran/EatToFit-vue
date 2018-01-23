@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import * as firebase from 'firebase';
-import VueResource from 'vue-resource';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -8,7 +7,6 @@ import store from './store';
 
 import App from './App.vue';
 
-Vue.use(VueResource);
 Vue.use(ElementUI);
 
 const bus = new Vue();

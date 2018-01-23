@@ -1,7 +1,7 @@
 <template>
   <div class="products-select">
-      <el-autocomplete v-model="state" :fetch-suggestions="querySearch" value-key="title" placeholder="Введите название продукта"
-        @select="handleSelect"></el-autocomplete>
+      <el-autocomplete v-model="productsInput" prefix-icon="el-icon-search" :fetch-suggestions="querySearch" value-key="title" placeholder="Введите название продукта"
+        @select="handleSelect" class="products-input"></el-autocomplete>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      state: '',
+      productsInput: '',
     };
   },
   methods: {
@@ -23,7 +23,7 @@ export default {
     },
     handleSelect(item) {
       this.$store.dispatch('toggleInMenu', item.id);
-      this.state = '';
+      this.productsInput = '';
     },
   },
   computed: {
@@ -35,5 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.products-input {
+  width: 300px;
+}
 </style>
