@@ -49,7 +49,7 @@ export default {
       return this.$store.getters.loading;
     },
   },
-  created() {
+  mounted() {
     bus.$on('show-auth', data => {
       this.authVisible = data;
     });

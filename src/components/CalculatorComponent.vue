@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
             <transition name="slide">
-              <i v-if="BMR" class="el-icon-d-arrow-right calculator-arrow"></i>
+              <i v-show="isAllInputsFilled" class="el-icon-d-arrow-right calculator-arrow"></i>
             </transition>
           </el-form>
         </el-card>
@@ -40,7 +40,7 @@
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>
-            <el-button size="small" type="primary" plain @click="setBMR" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
+            <el-button v-show="user" size="small" :type="bmrSetted ? 'info' : 'primary'" plain @click="setBMR" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
           </el-alert>
         </div>
       </el-col>
@@ -146,6 +146,9 @@ export default {
     bmrSetted() {
       return this.user ? this.BMR === this.user.BMR : false;
     },
+    isAllInputsFilled() {
+      return this.gender && this.activity && this.goal;
+    },
   },
   methods: {
     setBMR() {
@@ -154,7 +157,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .calculator {
   &-arrow {
     font-size: 50px;

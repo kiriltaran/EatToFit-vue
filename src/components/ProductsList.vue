@@ -8,7 +8,7 @@
       <el-table-column prop="carbo" label="Углеводы" label-class-name="label-carbo"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
-          <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="toggleInMenu(scope.row.id)"></i>
+          <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="addToMenu(scope.row.id)"></i>
         </template>
       </el-table-column>
     </el-table>
@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  props: ['products'],
   data() {
     return {
       newProduct: {
@@ -72,16 +73,8 @@ export default {
         this.newProduct.carbo = '';
       }
     },
-    toggleInMenu(productId) {
+    addToMenu(productId) {
       this.$store.dispatch('toggleInMenu', productId);
-    },
-  },
-  computed: {
-    products() {
-      return this.$store.getters.products;
-    },
-    loading() {
-      return this.$store.getters.loading;
     },
   },
 };

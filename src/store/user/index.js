@@ -86,7 +86,6 @@ export default {
         });
     },
     autoSignIn({ commit, dispatch }, payload) {
-      window.console.log(payload);
       firebase
         .database()
         .ref(`/users/${payload.uid}`)

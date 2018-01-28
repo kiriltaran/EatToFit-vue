@@ -6,8 +6,8 @@
           <el-switch v-model="tableView" active-text="Расширенный" inactive-text="Простой" inactive-color="#409EFF" class="products-switch">
           </el-switch>
           <transition name="fade" mode="out-in">
-            <products-list v-if="tableView"></products-list>
-            <products-select v-else></products-select>
+            <products-list v-if="tableView" :products="products"></products-list>
+            <products-select v-else :products="products"></products-select>
           </transition>
         </el-card>
       </el-col>
@@ -35,6 +35,11 @@ export default {
     return {
       tableView: false,
     };
+  },
+  computed: {
+    products() {
+      return this.$store.getters.products;
+    },
   },
 };
 </script>

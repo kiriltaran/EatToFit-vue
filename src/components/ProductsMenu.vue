@@ -6,7 +6,7 @@
         <el-table-column>
           <template slot-scope="scope">
             <div class="icon-wrapper">
-              <i class="remove-icon ion-android-close" @click="toggleInMenu(scope.row.id)"></i>
+              <i class="remove-icon ion-android-close" @click="removeFromMenu(scope.row.id)"></i>
             </div>
           </template>
         </el-table-column>
@@ -26,7 +26,7 @@ export default {
     return {};
   },
   methods: {
-    toggleInMenu(productId) {
+    removeFromMenu(productId) {
       this.$store.dispatch('toggleInMenu', productId);
     },
   },
