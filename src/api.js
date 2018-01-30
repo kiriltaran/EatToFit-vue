@@ -1,10 +1,6 @@
 import * as firebase from 'firebase';
 
 const api = {
-  initApp(config) {
-    firebase.initializeApp(config);
-  },
-
   async signupUser(name, email, password) {
     try {
       const user = await firebase.auth().createUserWithEmailAndPassword(email, password);

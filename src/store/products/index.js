@@ -16,8 +16,12 @@ export default {
       state.products = [];
     },
     toggleInMenu(state, payload) {
-      const toggledElement = state.products.find(element => element.id === payload);
-      toggledElement.inMenu = !toggledElement.inMenu;
+      const toggledProduct = state.products.find(element => element.id === payload);
+      toggledProduct.inMenu = !toggledProduct.inMenu;
+    },
+    changeWeight(state, payload) {
+      const changedProduct = state.products.find(element => element.id === payload.id);
+      changedProduct.weight = payload.weight;
     },
   },
   actions: {
@@ -36,6 +40,7 @@ export default {
             carbo: productsStore[key].carbo,
             creatorId: productsStore[key].creatorId,
             inMenu: false,
+            weight: 100,
           });
         });
         commit('setProducts', products);
@@ -45,7 +50,7 @@ export default {
         commit('setLoading', false);
       }
     },
-    async createProduct({ commit, getters, dispatch }, payload) {
+    async createProduct({ commit, getters }, payload) {
       commit('setLoading', true);
       try {
         const product = {
@@ -61,8 +66,9 @@ export default {
         commit('createProduct', {
           ...product,
           id: key,
+          inMenu: false,
+          weight: 100,
         });
-        dispatch('fetchProducts');
         commit('setLoading', false);
       } catch (e) {
         window.console.log(e);
@@ -71,6 +77,9 @@ export default {
     },
     toggleInMenu({ commit }, payload) {
       commit('toggleInMenu', payload);
+    },
+    changeWeight({ commit }, payload) {
+      commit('changeWeight', payload);
     },
   },
   getters: {
