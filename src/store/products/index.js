@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import api from '../../api';
 
 /* eslint-disable no-param-reassign */
 export default {
@@ -6,7 +6,7 @@ export default {
     products: [],
   },
   mutations: {
-    fetchProducts(state, payload) {
+    setProducts(state, payload) {
       state.products = payload;
     },
     createProduct(state, payload) {
@@ -21,62 +21,53 @@ export default {
     },
   },
   actions: {
-    fetchProducts({ commit }) {
+    async fetchProducts({ commit }) {
       commit('setLoading', true);
-      firebase
-        .database()
-        .ref('products')
-        .once('value')
-        .then(data => {
-          const products = [];
-          const obj = data.val();
-          Object.keys(obj).forEach(key => {
-            products.push({
-              id: key,
-              title: obj[key].title,
-              cal: obj[key].cal,
-              prot: obj[key].prot,
-              fat: obj[key].fat,
-              carbo: obj[key].carbo,
-              creatorId: obj[key].creatorId,
-              inMenu: false,
-            });
-          });
-          commit('fetchProducts', products);
-          commit('setLoading', false);
-        })
-        .catch(error => {
-          window.console.log(error);
-          commit('setLoading', false);
-        });
-    },
-    createProduct({ commit, getters, dispatch }, payload) {
-      commit('setLoading', true);
-      const product = {
-        title: payload.title,
-        cal: payload.cal,
-        prot: payload.cal,
-        fat: payload.fat,
-        carbo: payload.carbo,
-        creatorId: getters.user.id,
-      };
-      firebase
-        .database()
-        .ref('products')
-        .push(product)
-        .then(data => {
-          const { key } = data;
-          commit('createProduct', {
-            ...product,
+      try {
+        const productsStore = await api.fetchProducts();
+        const products = [];
+        Object.keys(productsStore).forEach(key => {
+          products.push({
             id: key,
+            title: productsStore[key].title,
+            cal: productsStore[key].cal,
+            prot: productsStore[key].prot,
+            fat: productsStore[key].fat,
+            carbo: productsStore[key].carbo,
+            creatorId: productsStore[key].creatorId,
+            inMenu: false,
           });
-          dispatch('fetchProducts');
-          commit('setLoading', false);
-        })
-        .catch(error => {
-          window.console.log(error);
-          commit('setLoading', false);
         });
+        commit('setProducts', products);
+        commit('setLoading', false);
+      } catch (e) {
+        window.console.log(e);
+        commit('setLoading', false);
+      }
+    },
+    async createProduct({ commit, getters, dispatch }, payload) {
+      commit('setLoading', true);
+      try {
+        const product = {
+          title: payload.title,
+          cal: payload.cal,
+          prot: payload.cal,
+          fat: payload.fat,
+          carbo: payload.carbo,
+          creatorId: getters.user.id,
+        };
+        const { key } = await api.createProduct(product);
+
+        commit('createProduct', {
+          ...product,
+          id: key,
+        });
+        dispatch('fetchProducts');
+        commit('setLoading', false);
+      } catch (e) {
+        window.console.log(e);
+        commit('setLoading', false);
+      }
     },
     toggleInMenu({ commit }, payload) {
       commit('toggleInMenu', payload);
@@ -87,7 +78,7 @@ export default {
       return state.products;
     },
     menu(state) {
-      return state.products.filter(product => product.inMenu === true);
+      return state.products.filter(product => product.inMenu);
     },
   },
 };

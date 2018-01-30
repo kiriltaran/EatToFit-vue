@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import api from '../../api';
 
 import bus from '../../main';
 
@@ -19,142 +19,75 @@ export default {
     },
   },
   actions: {
-    signupUser({ commit, dispatch }, payload) {
+    async signupUser({ commit, dispatch }, payload) {
       commit('setLoading', true);
       commit('clearError');
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
-          const newUser = {
-            id: user.uid,
-            displayName: payload.name,
-            photoURL: null,
-            BMR: null,
-          };
 
-          user.updateProfile({
-            displayName: payload.name,
-          });
+      try {
+        const newUser = await api.signupUser(payload.name, payload.email, payload.password);
 
-          firebase
-            .database()
-            .ref(`users/${user.uid}`)
-            .set({
-              displayName: payload.name,
-            });
-
-          commit('setUser', newUser);
-          dispatch('fetchProducts');
-          bus.$emit('show-auth', false);
-          commit('setLoading', false);
-        })
-        .catch(error => {
-          commit('setLoading', false);
-          commit('setError', error);
-          window.console.log(error);
-        });
-    },
-    signinUser({ commit, dispatch }, payload) {
-      commit('setLoading', true);
-      commit('clearError');
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(payload.email, payload.password)
-        .then(user =>
-          firebase
-            .database()
-            .ref(`/users/${user.uid}`)
-            .once('value')
-            .then(data => {
-              const userStore = data.val();
-              commit('setLoading', false);
-              commit('setUser', {
-                id: user.uid,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                BMR: userStore.BMR,
-              });
-              dispatch('fetchProducts');
-              bus.$emit('show-auth', false);
-            }),
-        )
-        .catch(error => {
-          commit('setLoading', false);
-          commit('setError', error);
-          window.console.log(error);
-        });
-    },
-    autoSignIn({ commit, dispatch }, payload) {
-      firebase
-        .database()
-        .ref(`/users/${payload.uid}`)
-        .once('value')
-        .then(data => {
-          const userStore = data.val();
-          commit('setUser', {
-            id: payload.uid,
-            displayName: payload.displayName,
-            photoURL: payload.photoURL,
-            BMR: userStore.BMR,
-          });
-          dispatch('fetchProducts');
-        });
-    },
-    signInBySocials({ commit, dispatch }, payload) {
-      commit('setLoading', true);
-      commit('clearError');
-      let provider;
-      switch (payload) {
-        case 'github':
-          provider = new firebase.auth.GithubAuthProvider();
-          break;
-        case 'twitter':
-          provider = new firebase.auth.TwitterAuthProvider();
-          break;
-        default:
+        commit('setUser', newUser);
+        dispatch('fetchProducts');
+        bus.$emit('show-auth', false);
+        commit('setLoading', false);
+      } catch (e) {
+        commit('setLoading', false);
+        commit('setError', e);
+        window.console.log(e);
       }
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(({ user }) => {
-          firebase
-            .database()
-            .ref(`/users/${user.uid}`)
-            .once('value')
-            .then(data => {
-              const userStore = data.val();
+    },
+    async signinUser({ commit, dispatch }, payload) {
+      commit('setLoading', true);
+      commit('clearError');
+      try {
+        const user = await api.signinUser(payload.email, payload.password);
 
-              const newUser = {
-                id: user.uid,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                BMR: userStore.BMR,
-              };
-              commit('setLoading', false);
-              commit('setUser', newUser);
-              dispatch('fetchProducts');
-              bus.$emit('show-auth', false);
-            });
-        })
-        .catch(error => {
-          commit('setLoading', false);
-          commit('setError', error);
-          window.console.log(error);
-        });
+        commit('setUser', user);
+        dispatch('fetchProducts');
+        bus.$emit('show-auth', false);
+        commit('setLoading', false);
+      } catch (e) {
+        commit('setLoading', false);
+        commit('setError', e);
+        window.console.log(e);
+      }
+    },
+    async autoSignIn({ commit, dispatch }, payload) {
+      const userStore = await api.getUserFromDB(payload.uid);
+
+      commit('setUser', {
+        id: payload.uid,
+        displayName: payload.displayName,
+        photoURL: payload.photoURL,
+        BMR: userStore.BMR,
+      });
+      dispatch('fetchProducts');
+    },
+    async signInBySocials({ commit, dispatch }, payload) {
+      commit('setLoading', true);
+      commit('clearError');
+      try {
+        const newUser = await api.signInBySocials(payload);
+
+        commit('setLoading', false);
+        commit('setUser', newUser);
+        dispatch('fetchProducts');
+        bus.$emit('show-auth', false);
+      } catch (e) {
+        commit('setLoading', false);
+        commit('setError', e);
+        window.console.log(e);
+      }
     },
     logout({ commit }) {
-      firebase.auth().signOut();
+      api.logout();
+
       commit('setUser', null);
       commit('clearProducts');
     },
     setBMR({ commit, state }, payload) {
-      firebase
-        .database()
-        .ref()
-        .update({
-          [`/users/${state.user.id}/BMR`]: payload,
-        });
+      api.setBMR(state.user.id, payload);
+
       commit('setBMR', payload);
     },
   },
