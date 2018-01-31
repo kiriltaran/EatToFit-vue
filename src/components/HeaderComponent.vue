@@ -8,6 +8,8 @@
           <span class="title-text">eattofit</span>
         </div>
       </div>
+      <router-link to="/">Калькулятор</router-link>
+      <router-link to="/stats">Статистика</router-link>
       <div class="el-col">
         <div class="auth">
           <div class="auth-user" v-if="user">

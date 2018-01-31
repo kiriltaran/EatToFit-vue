@@ -37,7 +37,6 @@ export default {
       this.$store.dispatch('toggleInMenu', productId);
     },
     changeWeight(weight, id) {
-      console.log(weight, id);
       this.$store.dispatch('changeWeight', { id, weight });
     },
   },
@@ -47,7 +46,6 @@ export default {
     },
     menuCal() {
       let cal = 0;
-      console.log(this.menu);
       this.menu.forEach(product => {
         if (product.inMenu) {
           cal += product.weight / 100 * product.cal;

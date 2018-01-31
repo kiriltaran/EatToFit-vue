@@ -2,10 +2,7 @@
   <div id="app">
     <header-component></header-component>
     <main class="main">
-      <calculator-component :user="user" :class="user ? '' : 'centered'" class="calculator-component"></calculator-component>
-      <transition name="fade">
-        <products-component v-if="user"></products-component>
-      </transition>
+      <router-view></router-view>
     </main>
     <footer-component></footer-component>
     <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
@@ -20,17 +17,13 @@
 <script>
 import bus from './main';
 import HeaderComponent from './components/HeaderComponent.vue';
-import ProductsComponent from './components/ProductsComponent.vue';
-import CalculatorComponent from './components/CalculatorComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
-import AuthComponent from './components/AuthComponent.vue';
+import AuthComponent from './components/auth/AuthComponent.vue';
 import UserProfile from './components/UserProfile.vue';
 
 export default {
   components: {
     HeaderComponent,
-    ProductsComponent,
-    CalculatorComponent,
     FooterComponent,
     AuthComponent,
     UserProfile,
@@ -42,9 +35,6 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
     loading() {
       return this.$store.getters.loading;
     },
@@ -79,25 +69,6 @@ body {
 
 .main {
   padding: 40px 10px 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.calculator-component {
-  margin-bottom: 20px;
-  transition: margin 0.5s;
-}
-
-.centered {
-  margin-top: 200px;
 }
 
 ::-webkit-scrollbar {
