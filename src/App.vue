@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <header-component></header-component>
+    <header-container></header-container>
     <main class="main">
       <router-view></router-view>
     </main>
-    <footer-component></footer-component>
+    <footer-container></footer-container>
     <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
-      <auth-component v-loading="loading"></auth-component>
+      <auth-container v-loading="loading"></auth-container>
     </el-dialog>
     <el-dialog :visible.sync="profileVisible" :close-on-click-modal="false">
       <user-profile></user-profile>
@@ -16,16 +16,16 @@
 
 <script>
 import bus from './main';
-import HeaderComponent from './components/HeaderComponent.vue';
-import FooterComponent from './components/FooterComponent.vue';
-import AuthComponent from './components/auth/AuthComponent.vue';
+import HeaderContainer from './components/HeaderContainer.vue';
+import FooterContainer from './components/FooterContainer.vue';
+import AuthContainer from './components/auth/AuthContainer.vue';
 import UserProfile from './components/UserProfile.vue';
 
 export default {
   components: {
-    HeaderComponent,
-    FooterComponent,
-    AuthComponent,
+    HeaderContainer,
+    FooterContainer,
+    AuthContainer,
     UserProfile,
   },
   data() {
@@ -65,10 +65,11 @@ body {
   margin-bottom: 60px;
   backface-visibility: hidden;
   overflow: hidden;
+  background: rgba(38, 173, 225, 0.1);
 }
 
 .main {
-  padding: 40px 10px 0;
+  padding-top: 25px;
 }
 
 ::-webkit-scrollbar {

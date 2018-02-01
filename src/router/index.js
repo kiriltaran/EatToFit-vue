@@ -1,22 +1,23 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import MainComponent from '../components/MainComponent.vue';
-import StatsComponent from '../components/StatsComponent.vue';
+import MainContainer from '../components/MainContainer.vue';
+import StatsContainer from '../components/StatsContainer.vue';
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'Главная',
-      component: MainComponent,
+      component: MainContainer,
     },
     {
       path: '/stats',
       name: 'Статистика',
-      component: StatsComponent,
+      component: StatsContainer,
     },
   ],
 });

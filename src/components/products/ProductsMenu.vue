@@ -18,7 +18,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <menu-hint :menu-cal="menuCal" :BMR="BMR" class="menu-hint-component"></menu-hint>
+    <menu-hint :menu-cal="menuCal" :BMR="BMR" class="menu-hint-container"></menu-hint>
   </div>
 </template>
 
@@ -75,7 +75,7 @@ export default {
   }
 }
 
-.menu-hint-component {
+.menu-hint-container {
   margin-top: 20px;
 }
 </style>
