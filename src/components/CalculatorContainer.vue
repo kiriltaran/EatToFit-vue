@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
             <transition name="slide">
-              <i v-show="isAllInputsFilled" class="el-icon-d-arrow-right calculator-arrow"></i>
+              <i v-show="isDataFill" class="el-icon-d-arrow-right calculator-arrow"></i>
             </transition>
           </el-form>
         </el-card>
@@ -40,7 +40,7 @@
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>
-            <el-button v-show="user" size="small" :type="bmrSetted ? 'info' : 'primary'" plain @click="setBMR" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
+            <el-button v-show="user" size="small" :type="bmrSetted ? 'info' : 'primary'" plain @click="rememberUserData" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
           </el-alert>
         </div>
       </el-col>
@@ -122,9 +122,9 @@ export default {
       gender: '',
       activity: '',
       goal: '',
-      height: null,
-      weight: null,
-      age: null,
+      height: 1,
+      weight: 1,
+      age: 1,
     };
   },
   computed: {
@@ -146,13 +146,35 @@ export default {
     bmrSetted() {
       return this.user ? this.BMR === this.user.BMR : false;
     },
-    isAllInputsFilled() {
+    isDataFill() {
       return this.gender && this.activity && this.goal;
     },
   },
+  watch: {
+    user(val) {
+      if (val) {
+        this.gender = val.gender;
+        this.height = val.height;
+        this.weight = val.weight;
+        this.age = val.age;
+        this.activity = val.activity;
+        this.goal = val.goal;
+      } else {
+        Object.assign(this.$data, this.$options.data());
+      }
+    },
+  },
   methods: {
-    setBMR() {
-      this.$store.dispatch('setBMR', this.BMR);
+    rememberUserData() {
+      this.$store.dispatch('rememberUserData', {
+        gender: this.gender,
+        height: this.height,
+        weight: this.weight,
+        age: this.age,
+        activity: this.activity,
+        goal: this.goal,
+        BMR: this.BMR,
+      });
     },
   },
 };

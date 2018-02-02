@@ -11,10 +11,16 @@ export default {
     setUser(state, payload) {
       state.user = payload;
     },
-    setBMR(state, payload) {
+    setUserData(state, payload) {
       state.user = {
         ...state.user,
-        BMR: payload,
+        gender: payload.gender,
+        height: payload.height,
+        weight: payload.weight,
+        age: payload.age,
+        activity: payload.activity,
+        goal: payload.goal,
+        BMR: payload.BMR,
       };
     },
   },
@@ -59,6 +65,12 @@ export default {
         id: payload.uid,
         displayName: payload.displayName,
         photoURL: payload.photoURL,
+        gender: userStore.gender,
+        height: userStore.height,
+        weight: userStore.weight,
+        age: userStore.age,
+        activity: userStore.activity,
+        goal: userStore.goal,
         BMR: userStore.BMR,
       });
       dispatch('fetchProducts');
@@ -85,10 +97,10 @@ export default {
       commit('setUser', null);
       commit('clearProducts');
     },
-    setBMR({ commit, state }, payload) {
-      api.setBMR(state.user.id, payload);
+    rememberUserData({ commit, state }, payload) {
+      api.setUserData(state.user.id, payload);
 
-      commit('setBMR', payload);
+      commit('setUserData', payload);
     },
   },
   getters: {

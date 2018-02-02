@@ -34,6 +34,12 @@ const api = {
         id: user.uid,
         displayName: user.displayName,
         photoURL: user.photoURL,
+        gender: userStore.gender,
+        height: userStore.height,
+        weight: userStore.weight,
+        age: userStore.age,
+        activity: userStore.activity,
+        goal: userStore.goal,
         BMR: userStore.BMR,
       };
     } catch (e) {
@@ -72,6 +78,12 @@ const api = {
         id: user.uid,
         displayName: user.displayName,
         photoURL: user.photoURL,
+        gender: userStore.gender,
+        height: userStore.height,
+        weight: userStore.weight,
+        age: userStore.age,
+        activity: userStore.activity,
+        goal: userStore.goal,
         BMR: userStore.BMR,
       };
     } catch (e) {
@@ -81,12 +93,18 @@ const api = {
   logout() {
     firebase.auth().signOut();
   },
-  setBMR(id, BMR) {
+  setUserData(id, data) {
     firebase
       .database()
       .ref()
       .update({
-        [`/users/${id}/BMR`]: BMR,
+        [`/users/${id}/gender`]: data.gender,
+        [`/users/${id}/height`]: data.height,
+        [`/users/${id}/weight`]: data.weight,
+        [`/users/${id}/age`]: data.age,
+        [`/users/${id}/activity`]: data.activity,
+        [`/users/${id}/goal`]: data.goal,
+        [`/users/${id}/BMR`]: data.BMR,
       });
   },
   async fetchProducts() {
