@@ -160,18 +160,21 @@ export default {
   watch: {
     user(val) {
       if (val) {
-        this.gender = val.gender;
-        this.height = val.height;
-        this.weight = val.weight;
-        this.age = val.age;
-        this.activity = val.activity;
-        this.goal = val.goal;
+        this.setUserData(val);
       } else {
         Object.assign(this.$data, this.$options.data());
       }
     },
   },
   methods: {
+    setUserData(user) {
+      this.gender = user.gender;
+      this.height = user.height;
+      this.weight = user.weight;
+      this.age = user.age;
+      this.activity = user.activity;
+      this.goal = user.goal;
+    },
     rememberUserData() {
       this.$store.dispatch('rememberUserData', {
         gender: this.gender,
@@ -183,6 +186,11 @@ export default {
         BMR: this.BMR,
       });
     },
+  },
+  mounted() {
+    if (this.user) {
+      this.setUserData(this.user);
+    }
   },
 };
 </script>

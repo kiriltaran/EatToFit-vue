@@ -2,7 +2,9 @@
   <div id="app">
     <header-container></header-container>
     <main class="main">
-      <router-view></router-view>
+      <transition name="el-fade-in" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </main>
     <footer-container></footer-container>
     <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
@@ -60,6 +62,7 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 60px;
