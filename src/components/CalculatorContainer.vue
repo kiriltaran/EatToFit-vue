@@ -36,7 +36,7 @@
       </el-col>
       <el-col :span="7">
         <div v-if="BMR > 0" class="calculator-hint">
-          <el-alert :title="BMR.toString()" :closable="false" description="Дневная норма калорий для заданой цели и параметров">
+          <el-alert :title="BMR.toString()" :closable="false" type="warning" description="Дневная норма калорий для заданой цели и параметров">
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>

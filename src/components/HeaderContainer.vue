@@ -118,7 +118,6 @@ export default {
         transition: transform 0.2s;
         &:hover {
           cursor: pointer;
-          transform: scale(1.05);
         }
       }
       &-initials {

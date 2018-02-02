@@ -12,66 +12,29 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-form :inline="true">
-      <el-form-item>
-        <el-input v-model="newProduct.title" size="small" placeholder="Название продукта"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-input-number v-model="newProduct.cal" :min="1" size="small"></el-input-number>
-      </el-form-item>
-      <el-form-item>
-        <el-input-number v-model="newProduct.prot" :min="1" size="small"></el-input-number>
-      </el-form-item>
-      <el-form-item>
-        <el-input-number v-model="newProduct.fat" :min="1" size="small"></el-input-number>
-      </el-form-item>
-      <el-form-item>
-        <el-input-number v-model="newProduct.carbo" :min="1" size="small"></el-input-number>
-      </el-form-item>
-      <el-form-item>
-        <el-button size="small" type="primary" plain @click="createProduct">Добавить</el-button>
-      </el-form-item>
-    </el-form>
+    <new-product-form/>
   </div>
 </template>
 
 <script>
+import NewProductForm from './NewProductForm.vue';
+
 export default {
-  data() {
-    return {
-      newProduct: {
-        title: '',
-        cal: '',
-        prot: '',
-        fat: '',
-        carbo: '',
+  components: {
+    NewProductForm,
+  },
+  props: {
+    products: {
+      type: Array,
+      default() {
+        return null;
       },
-    };
+    },
+  },
+  data() {
+    return {};
   },
   methods: {
-    createProduct() {
-      if (
-        this.newProduct.title &&
-        this.newProduct.cal &&
-        this.newProduct.prot &&
-        this.newProduct.fat &&
-        this.newProduct.carbo
-      ) {
-        const product = {
-          title: this.newProduct.title,
-          cal: +this.newProduct.cal,
-          prot: +this.newProduct.prot,
-          fat: +this.newProduct.fat,
-          carbo: +this.newProduct.carbo,
-        };
-        this.$store.dispatch('createProduct', product);
-        this.newProduct.title = '';
-        this.newProduct.cal = '';
-        this.newProduct.prot = '';
-        this.newProduct.fat = '';
-        this.newProduct.carbo = '';
-      }
-    },
     addToMenu(productId) {
       this.$store.dispatch('toggleInMenu', productId);
     },
@@ -91,9 +54,5 @@ export default {
 
 .hidden {
   display: none;
-}
-
-.add-product-form {
-  margin-top: 25px;
 }
 </style>
