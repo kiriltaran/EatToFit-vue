@@ -6,7 +6,16 @@
 
 <script>
 export default {
-  props: ['menuCal', 'BMR'],
+  props: {
+    menuCal: {
+      type: Number,
+      default: 0,
+    },
+    BMR: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {};
   },

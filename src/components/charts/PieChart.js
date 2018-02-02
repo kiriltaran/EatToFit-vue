@@ -2,7 +2,20 @@ import { Pie } from 'vue-chartjs';
 
 export default {
   extends: Pie,
-  props: ['prot', 'fat', 'carbo'],
+  props: {
+    prot: {
+      type: Number,
+      default: 0,
+    },
+    fat: {
+      type: Number,
+      default: 0,
+    },
+    carbo: {
+      type: Number,
+      default: 0,
+    },
+  },
   mounted() {
     this.renderChart(
       {

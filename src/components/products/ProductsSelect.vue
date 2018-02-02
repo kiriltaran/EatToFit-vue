@@ -33,7 +33,14 @@
 
 <script>
 export default {
-  props: ['products'],
+  props: {
+    products: {
+      type: Array,
+      default() {
+        return null;
+      },
+    },
+  },
   data() {
     return {
       productsInput: '',

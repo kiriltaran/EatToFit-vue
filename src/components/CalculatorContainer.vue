@@ -50,7 +50,14 @@
 
 <script>
 export default {
-  props: ['user'],
+  props: {
+    user: {
+      type: Object,
+      default: function() {
+        return null;
+      },
+    },
+  },
   data() {
     return {
       genderOptions: [
