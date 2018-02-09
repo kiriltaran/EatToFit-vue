@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import * as firebase from 'firebase';
 
 const api = {
@@ -127,6 +129,24 @@ const api = {
         .push(product);
 
       return productStore;
+    } catch (e) {
+      throw e;
+    }
+  },
+  async getProductPhotos(title) {
+    const images = [];
+    try {
+      const { data } = await axios.get(
+        `https://api.gettyimages.com/v3/search/images?sort_order=best_match&phrase=${title}`,
+        { headers: { 'Api-Key': 'h9sn39rupyg5k6b3d3qqzhm4' } },
+      );
+      if (data.images.length) {
+        const num = data.images.length <= 5 ? data.images.length - 1 : 4;
+        for (let i = 0; i <= num; i += 1) {
+          images.push(data.images[i].display_sizes[0].uri);
+        }
+      }
+      return images;
     } catch (e) {
       throw e;
     }

@@ -39,6 +39,7 @@ export default {
             fat: productsStore[key].fat,
             carbo: productsStore[key].carbo,
             creatorId: productsStore[key].creatorId,
+            photo: productsStore[key].photo,
             inMenu: false,
             weight: 100,
           });
@@ -59,6 +60,7 @@ export default {
           prot: payload.cal,
           fat: payload.fat,
           carbo: payload.carbo,
+          photo: payload.photo,
           creatorId: getters.user.id,
         };
         const { key } = await api.createProduct(product);

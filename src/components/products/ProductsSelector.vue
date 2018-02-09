@@ -1,5 +1,5 @@
 <template>
-  <div class="products-select">
+  <div class="products-select" v-loading="loading">
     <el-autocomplete v-model="productsInput" prefix-icon="el-icon-search" :fetch-suggestions="querySearch" value-key="title"
       placeholder="Введите название продукта" @select="selectProduct" class="products-input"></el-autocomplete>
     <div v-if="selectedProduct" class="product">
@@ -8,6 +8,9 @@
       </div>
       <div class="product-props">
         <el-row type="flex" justify="space-around">
+          <el-col :span="3">
+            <img :src="selectedProduct.photo" alt="product-photo" class="product-photo">
+          </el-col>
           <el-col :span="3" class="prop">
             <div class="prop-name">Калории</div>
             <div class="prop-value">{{selectedProduct.cal}}</div>
@@ -45,6 +48,8 @@ export default {
     return {
       productsInput: '',
       selectedProduct: null,
+      productPhoto: '',
+      loading: false,
     };
   },
   methods: {
@@ -56,7 +61,7 @@ export default {
     createFilter(queryString) {
       return link => link.title.toLowerCase().indexOf(queryString.toLowerCase()) === 0;
     },
-    selectProduct(product) {
+    async selectProduct(product) {
       this.selectedProduct = product;
       this.productsInput = '';
     },
@@ -93,6 +98,9 @@ export default {
   }
   &-props {
     font-size: 24px;
+  }
+  &-photo {
+    width: 100%;
   }
 }
 

@@ -7,7 +7,7 @@
           </el-switch>
           <transition name="fade" mode="out-in">
             <products-list v-if="tableView" :products="products"></products-list>
-            <products-select v-else :products="products"></products-select>
+            <products-selector v-else :products="products"></products-selector>
           </transition>
         </el-card>
       </el-col>
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import ProductsSelect from './ProductsSelect.vue';
+import ProductsSelector from './ProductsSelector.vue';
 import ProductsList from './ProductsList.vue';
 import ProductsMenu from './ProductsMenu.vue';
 
 export default {
   components: {
-    ProductsSelect,
+    ProductsSelector,
     ProductsList,
     ProductsMenu,
   },

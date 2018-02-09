@@ -30,15 +30,10 @@ export default {
         if (Math.abs(this.BMR - this.menuCal) > 100) {
           hint.type = 'warning';
           if (this.BMR > this.menuCal)
-            hint.text = `${
-              this.menuCal
-            } (Калорийность меню ниже вашей дневной нормы, следует добавить продукты в рацион)`;
-          else
-            hint.text = `${
-              this.menuCal
-            } Калорийность меню выше вашей дневной нормы (следует изъять некоторые продукты)`;
+            hint.text = `${this.menuCal} Калорийность меню ниже рекомендуемого уровня`;
+          else hint.text = `${this.menuCal} Калорийность меню выше рекомендуемого уровня`;
         } else {
-          hint.text = `${this.menuCal} Меню соответствует`;
+          hint.text = `${this.menuCal} Меню соответствует рекомендуемому уровню`;
         }
       }
       return hint;
