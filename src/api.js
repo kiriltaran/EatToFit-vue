@@ -109,6 +109,19 @@ const api = {
         [`/users/${id}/BMR`]: data.BMR,
       });
   },
+  setDailyStats(id, stats) {
+    const today = [new Date().getUTCDate(), new Date().getUTCMonth() + 1].join('-');
+    firebase
+      .database()
+      .ref(`stats/${id}/${today}`)
+      .update({
+        BMR: stats.BMR,
+        cal: stats.cal,
+        prot: stats.prot,
+        fat: stats.fat,
+        carbo: stats.carbo,
+      });
+  },
   async fetchProducts() {
     try {
       const products = await firebase
@@ -138,7 +151,11 @@ const api = {
     try {
       const { data } = await axios.get(
         `https://api.gettyimages.com/v3/search/images?sort_order=best_match&phrase=${title}`,
-        { headers: { 'Api-Key': 'h9sn39rupyg5k6b3d3qqzhm4' } },
+        {
+          headers: {
+            'Api-Key': 'h9sn39rupyg5k6b3d3qqzhm4',
+          },
+        },
       );
       if (data.images.length) {
         const num = data.images.length <= 5 ? data.images.length - 1 : 4;

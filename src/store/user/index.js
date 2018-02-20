@@ -102,6 +102,11 @@ export default {
 
       commit('setUserData', payload);
     },
+    setDailyStats({ state }, payload) {
+      api.setDailyStats(state.user.id, payload);
+
+      // commit('setDailyStats', payload);
+    },
   },
   getters: {
     user(state) {

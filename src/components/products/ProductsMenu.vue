@@ -18,7 +18,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <menu-hint :menu-cal="menuCal" :BMR="BMR" class="menu-hint-container"></menu-hint>
+    <menu-hint :menu-stats="menuStats" :BMR="BMR" class="menu-hint-container"></menu-hint>
   </div>
 </template>
 
@@ -44,14 +44,22 @@ export default {
     menu() {
       return this.$store.getters.menu;
     },
-    menuCal() {
-      let cal = 0;
+    menuStats() {
+      let stats = {
+        cal: 0,
+        prot: 0,
+        fat: 0,
+        carbo: 0,
+      };
       this.menu.forEach(product => {
         if (product.inMenu) {
-          cal += product.weight / 100 * product.cal;
+          stats.cal += Math.round(product.weight / 100 * product.cal);
+          stats.prot += Math.round(product.weight / 100 * product.prot);
+          stats.fat += Math.round(product.weight / 100 * product.fat);
+          stats.carbo += Math.round(product.weight / 100 * product.carbo);
         }
       });
-      return Math.round(cal);
+      return stats;
     },
     BMR() {
       return this.$store.getters.BMR;
