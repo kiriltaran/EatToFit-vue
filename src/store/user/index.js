@@ -6,6 +6,7 @@ import bus from '../../main';
 export default {
   state: {
     user: null,
+    userStats: null,
   },
   mutations: {
     setUser(state, payload) {
@@ -23,6 +24,9 @@ export default {
         BMR: payload.BMR,
       };
     },
+    setUserStats(state, payload) {
+      state.userStats = payload;
+    },
   },
   actions: {
     async signupUser({ commit, dispatch }, payload) {
@@ -34,6 +38,7 @@ export default {
 
         commit('setUser', newUser);
         dispatch('fetchProducts');
+        dispatch('fetchUserStats');
         bus.$emit('show-auth', false);
         commit('setLoading', false);
       } catch (e) {
@@ -50,6 +55,7 @@ export default {
 
         commit('setUser', user);
         dispatch('fetchProducts');
+        dispatch('fetchUserStats');
         bus.$emit('show-auth', false);
         commit('setLoading', false);
       } catch (e) {
@@ -74,6 +80,7 @@ export default {
         BMR: userStore.BMR,
       });
       dispatch('fetchProducts');
+      dispatch('fetchUserStats');
     },
     async signInBySocials({ commit, dispatch }, payload) {
       commit('setLoading', true);
@@ -102,18 +109,19 @@ export default {
 
       commit('setUserData', payload);
     },
-    setDailyStats({ state }, payload) {
-      api.setDailyStats(state.user.id, payload);
+    async setDailyStats({ state, dispatch }, payload) {
+      await api.setDailyStats(state.user.id, payload);
+      dispatch('fetchUserStats');
+    },
+    async fetchUserStats({ state, commit }) {
+      const userStats = await api.fetchUserStats(state.user.id);
 
-      // commit('setDailyStats', payload);
+      commit('setUserStats', userStats);
     },
   },
   getters: {
-    user(state) {
-      return state.user;
-    },
-    BMR(state) {
-      return state.user.BMR;
-    },
+    user: state => state.user,
+    BMR: state => state.user.BMR,
+    userStats: state => state.userStats,
   },
 };

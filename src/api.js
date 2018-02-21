@@ -95,32 +95,53 @@ const api = {
   logout() {
     firebase.auth().signOut();
   },
-  setUserData(id, data) {
-    firebase
-      .database()
-      .ref()
-      .update({
-        [`/users/${id}/gender`]: data.gender,
-        [`/users/${id}/height`]: data.height,
-        [`/users/${id}/weight`]: data.weight,
-        [`/users/${id}/age`]: data.age,
-        [`/users/${id}/activity`]: data.activity,
-        [`/users/${id}/goal`]: data.goal,
-        [`/users/${id}/BMR`]: data.BMR,
-      });
+  async setUserData(id, data) {
+    try {
+      await firebase
+        .database()
+        .ref()
+        .update({
+          [`/users/${id}/gender`]: data.gender,
+          [`/users/${id}/height`]: data.height,
+          [`/users/${id}/weight`]: data.weight,
+          [`/users/${id}/age`]: data.age,
+          [`/users/${id}/activity`]: data.activity,
+          [`/users/${id}/goal`]: data.goal,
+          [`/users/${id}/BMR`]: data.BMR,
+        });
+    } catch (e) {
+      window.console.log(e);
+    }
   },
-  setDailyStats(id, stats) {
-    const today = [new Date().getUTCDate(), new Date().getUTCMonth() + 1].join('-');
-    firebase
-      .database()
-      .ref(`stats/${id}/${today}`)
-      .update({
-        BMR: stats.BMR,
-        cal: stats.cal,
-        prot: stats.prot,
-        fat: stats.fat,
-        carbo: stats.carbo,
-      });
+  async setDailyStats(id, stats) {
+    try {
+      const today = new Date().getTime();
+
+      await firebase
+        .database()
+        .ref(`stats/${id}/${today}`)
+        .set({
+          BMR: stats.BMR,
+          cal: stats.cal,
+          prot: stats.prot,
+          fat: stats.fat,
+          carbo: stats.carbo,
+        });
+    } catch (e) {
+      window.console.log(e);
+    }
+  },
+  async fetchUserStats(id) {
+    try {
+      const userStats = await firebase
+        .database()
+        .ref(`/stats/${id}`)
+        .once('value');
+
+      return userStats.val();
+    } catch (e) {
+      throw e;
+    }
   },
   async fetchProducts() {
     try {
@@ -147,8 +168,8 @@ const api = {
     }
   },
   async getProductPhotos(title) {
-    const images = [];
     try {
+      const images = [];
       const { data } = await axios.get(
         `https://api.gettyimages.com/v3/search/images?sort_order=best_match&phrase=${title}`,
         {

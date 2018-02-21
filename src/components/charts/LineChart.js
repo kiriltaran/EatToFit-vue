@@ -2,19 +2,39 @@ import { Line } from 'vue-chartjs';
 
 export default {
   extends: Line,
+  props: {
+    labels: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    goal: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    cal: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   mounted() {
     this.renderChart(
       {
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
+        labels: this.labels,
         datasets: [
           {
             label: 'Цель',
-            data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+            data: this.goal,
           },
           {
             label: 'Калорийность вашего рациона',
             backgroundColor: '#f7931e',
-            data: [6, 4, 3, 5, 6, 6, 7, 5, 4, 5],
+            data: this.cal,
           },
         ],
       },
