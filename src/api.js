@@ -30,7 +30,7 @@ const api = {
   async signinUser(email, password) {
     try {
       const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const userStore = await this.getUserFromDB(user.uid);
+      const userStore = await this.getUserData(user.uid);
 
       return {
         id: user.uid,
@@ -48,7 +48,7 @@ const api = {
       throw e;
     }
   },
-  async getUserFromDB(id) {
+  async getUserData(id) {
     try {
       const user = await firebase
         .database()
@@ -74,7 +74,7 @@ const api = {
       }
 
       const { user } = await firebase.auth().signInWithPopup(provider);
-      const userStore = await this.getUserFromDB(user.uid);
+      const userStore = await this.getUserData(user.uid);
 
       return {
         id: user.uid,
@@ -115,11 +115,11 @@ const api = {
   },
   async setDailyStats(id, stats) {
     try {
-      const today = new Date().getTime();
+      const now = new Date().getTime();
 
       await firebase
         .database()
-        .ref(`stats/${id}/${today}`)
+        .ref(`stats/${id}/${now}`)
         .set({
           BMR: stats.BMR,
           cal: stats.cal,

@@ -27,7 +27,12 @@
       "airbnb-base",
       "prettier"
     ],
-    "plugins": ["vue", "html", "import", "promise"]
+    "plugins": [
+      "vue",
+      "html",
+      "import",
+      "promise"
+    ]
   },
   "prettier": {
     "printWidth": 100,
