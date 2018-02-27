@@ -65,7 +65,7 @@ export default {
       }
     },
     async autoSignIn({ commit, dispatch }, payload) {
-      const userStore = await api.getUserFromDB(payload.uid);
+      const userStore = await api.getUserData(payload.uid);
 
       commit('setUser', {
         id: payload.uid,
