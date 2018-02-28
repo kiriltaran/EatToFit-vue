@@ -20,13 +20,10 @@
 </template>
 
 <script>
-import AuthSignin from './AuthSignin.vue';
-import AuthSignup from './AuthSignup.vue';
-
 export default {
   components: {
-    AuthSignin,
-    AuthSignup,
+    AuthSignin: () => import('./AuthSignin.vue'),
+    AuthSignup: () => import('./AuthSignup.vue'),
   },
   data() {
     return {

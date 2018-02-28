@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import ProductsPhotoSelector from './ProductPhotoSelector.vue';
-
 import bus from '../../main';
 
 export default {
   name: 'new-product-form',
   components: {
-    ProductsPhotoSelector,
+    ProductsPhotoSelector: () => import('./ProductPhotoSelector.vue'),
   },
   data() {
     return {

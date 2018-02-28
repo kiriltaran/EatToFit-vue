@@ -17,11 +17,9 @@
 </template>
 
 <script>
-import NewProductForm from './NewProductForm.vue';
-
 export default {
   components: {
-    NewProductForm,
+    NewProductForm: () => import('./NewProductForm.vue'),
   },
   props: {
     products: {

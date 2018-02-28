@@ -23,11 +23,10 @@
 </template>
 
 <script>
-import MenuHint from './MenuHint.vue';
-
 export default {
+  name: 'products-menu',
   components: {
-    MenuHint,
+    MenuHint: () => import('./MenuHint.vue'),
   },
   data() {
     return {};

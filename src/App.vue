@@ -20,15 +20,13 @@
 import bus from './main';
 import HeaderContainer from './components/HeaderContainer.vue';
 import FooterContainer from './components/FooterContainer.vue';
-import AuthContainer from './components/auth/AuthContainer.vue';
-import UserProfile from './components/UserProfile.vue';
 
 export default {
   components: {
-    HeaderContainer,
-    FooterContainer,
-    AuthContainer,
-    UserProfile,
+    HeaderContainer: () => import('./components/HeaderContainer.vue'),
+    FooterContainer: () => import('./components/FooterContainer.vue'),
+    AuthContainer: () => import('./components/auth/AuthContainer.vue'),
+    UserProfile: () => import('./components/UserProfile.vue'),
   },
   data() {
     return {

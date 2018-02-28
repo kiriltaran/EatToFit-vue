@@ -1,14 +1,57 @@
 import Vue from 'vue';
 import * as firebase from 'firebase';
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import {
+  Dialog,
+  Autocomplete,
+  Menu,
+  MenuItem,
+  Input,
+  InputNumber,
+  Switch,
+  Select,
+  Option,
+  Button,
+  ButtonGroup,
+  Table,
+  TableColumn,
+  Form,
+  FormItem,
+  Tabs,
+  TabPane,
+  Alert,
+  Row,
+  Col,
+  Card,
+  Loading,
+} from 'element-ui';
 
 import router from './router';
 import store from './store';
 
 import App from './App.vue';
 
-Vue.use(ElementUI);
+Vue.use(Dialog);
+Vue.use(Autocomplete);
+Vue.use(Menu);
+Vue.use(MenuItem);
+Vue.use(Input);
+Vue.use(InputNumber);
+Vue.use(Switch);
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(Button);
+Vue.use(ButtonGroup);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Tabs);
+Vue.use(TabPane);
+Vue.use(Alert);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Card);
+Vue.use(Loading.directive);
 
 const bus = new Vue();
 

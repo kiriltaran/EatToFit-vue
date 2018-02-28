@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import MainContainer from '../components/MainContainer.vue';
-import StatsContainer from '../components/StatsContainer.vue';
+const MainContainer = () => import('../components/MainContainer.vue');
+const StatsContainer = () => import('../components/StatsContainer.vue');
 
 Vue.use(Router);
 

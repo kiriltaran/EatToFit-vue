@@ -24,13 +24,10 @@
 </template>
 
 <script>
-import LineChart from './charts/LineChart';
-import PieChart from './charts/PieChart';
-
 export default {
   components: {
-    LineChart,
-    PieChart,
+    LineChart: () => import('./charts/LineChart'),
+    PieChart: () => import('./charts/PieChart'),
   },
   data() {
     return {};

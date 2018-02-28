@@ -8,13 +8,10 @@
 </template>
 
 <script>
-import ProductsContainer from './products/ProductsContainer.vue';
-import CalculatorContainer from './CalculatorContainer.vue';
-
 export default {
   components: {
-    ProductsContainer,
-    CalculatorContainer,
+    ProductsContainer: () => import('./products/ProductsContainer.vue'),
+    CalculatorContainer: () => import('./CalculatorContainer.vue'),
   },
   data() {
     return {};
