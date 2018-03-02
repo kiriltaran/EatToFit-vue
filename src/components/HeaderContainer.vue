@@ -15,52 +15,30 @@
             <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0].toUpperCase()}}</div>
             <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
             <el-button type="text" @click="logout" class="logout-btn">
-              <i class="ion-log-out"></i>
+              <log-out-icon w="28px" h="28px"></log-out-icon>
             </el-button>
           </div>
           <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
         </div>
     </el-menu>
-    <!-- <div class="header-inner"></div>
-    <el-row type="flex" align="middle" justify="space-between">
-      <el-col>
-        <div class="title">
-          <div class="title-logo"></div>
-          <span class="title-text">eattofit</span>
-        </div>
-      </el-col>
-      <router-link to="/">Калькулятор</router-link>
-      <router-link to="/stats">Статистика</router-link>
-      <el-col :span="4">
-        <div class="auth">
-          <div class="auth-user" v-if="user">
-            <img v-if="user.photoURL" :src="user.photoURL" alt="avatar" class="auth-user-avatar user-icon" @click="showProfile">
-            <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0].toUpperCase()}}</div>
-            <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
-            <el-button type="text" @click="logout" class="logout-btn">
-              <i class="ion-log-out"></i>
-            </el-button>
-          </div>
-          <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
-        </div>
-      </el-col>
-    </el-row> -->
   </header>
 </template>
 
 <script>
+import LogOutIcon from 'vue-ionicons/dist/md-log-out.vue';
+
 import bus from '../main';
 
 export default {
+  components: {
+    LogOutIcon,
+  },
   data() {
     return {
       activeNav: '/',
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
     showAuth() {
       bus.$emit('show-auth', true);
     },

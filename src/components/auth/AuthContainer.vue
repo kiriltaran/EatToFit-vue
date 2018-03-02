@@ -10,18 +10,23 @@
     </el-tab-pane>
     <el-row type="flex" justify="center">
       <el-button type="text" @click="signInByTwitter" class="auth-social">
-        <i class="ion-social-twitter"></i>
+        <twitter-icon w="30px" h="30px"></twitter-icon>
       </el-button>
       <el-button type="text" @click="signInByGithub" class="auth-social">
-        <i class="ion-social-github"></i>
+        <github-icon w="30px" h="30px"></github-icon>
       </el-button>
     </el-row>
   </el-tabs>
 </template>
 
 <script>
+import TwitterIcon from 'vue-ionicons/dist/logo-twitter.vue';
+import GithubIcon from 'vue-ionicons/dist/logo-github.vue';
+
 export default {
   components: {
+    TwitterIcon,
+    GithubIcon,
     AuthSignin: () => import('./AuthSignin.vue'),
     AuthSignup: () => import('./AuthSignup.vue'),
   },

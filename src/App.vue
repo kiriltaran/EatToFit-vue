@@ -18,8 +18,6 @@
 
 <script>
 import bus from './main';
-import HeaderContainer from './components/HeaderContainer.vue';
-import FooterContainer from './components/FooterContainer.vue';
 
 export default {
   components: {

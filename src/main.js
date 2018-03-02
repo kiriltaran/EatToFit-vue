@@ -30,6 +30,8 @@ import store from './store';
 
 import App from './App.vue';
 
+require('vue-ionicons/ionicons.css');
+
 Vue.use(Dialog);
 Vue.use(Autocomplete);
 Vue.use(Menu);

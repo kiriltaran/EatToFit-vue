@@ -8,7 +8,9 @@
       <el-table-column prop="carbo" label="Углеводы" label-class-name="label-carbo"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
-          <i class="add-icon ion-ios-arrow-forward" :class="{ hidden: products[scope.$index].inMenu }" @click="addToMenu(scope.row.id)"></i>
+          <el-button type="success" round plain class="add-btn" :class="{ hidden: products[scope.$index].inMenu }" @click="addToMenu(scope.row.id)">
+            <arrow-right-icon w="15px" h="15px"></arrow-right-icon>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -17,8 +19,11 @@
 </template>
 
 <script>
+import ArrowRightIcon from 'vue-ionicons/dist/ios-arrow-forward.vue';
+
 export default {
   components: {
+    ArrowRightIcon,
     NewProductForm: () => import('./NewProductForm.vue'),
   },
   props: {
@@ -41,13 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.add-icon {
-  cursor: pointer;
-  font-size: 25px;
-
-  &:hover {
-    color: green;
-  }
+.add-btn {
+  display: inline;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .hidden {

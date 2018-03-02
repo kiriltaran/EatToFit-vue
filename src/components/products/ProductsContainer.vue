@@ -25,7 +25,7 @@ export default {
   components: {
     ProductsSelector: () => import('./ProductsSelector.vue'),
     ProductsList: () => import('./ProductsList.vue'),
-    ProductsMenu: () => import('./ProductsMenu.vue'),
+    ProductsMenu: () => import('./menu/ProductsMenu.vue'),
   },
   data() {
     return {
