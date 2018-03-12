@@ -4,7 +4,7 @@
       <el-table-column prop="title" label="Продукт" label-class-name="label-title" width="180px"></el-table-column>
       <el-table-column label="Вес" label-class-name="label-weight" width="150px">
         <template slot-scope="scope">
-          <el-input-number size="mini" :value="scope.row.weight" @change="changeWeight($event, scope.row.id)"></el-input-number>
+          <el-input-number size="mini" :step="10" :value="scope.row.weight" @change="changeWeight($event, scope.row.id)"></el-input-number>
         </template>
       </el-table-column>
       <el-table-column label="Калории" label-class-name="label-cal">
@@ -69,7 +69,7 @@ export default {
       return stats;
     },
     BMR() {
-      return this.$store.getters.BMR;
+      return this.$store.getters.user.BMR;
     },
   },
 };

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import * as firebase from 'firebase';
 import {
+  Collapse,
+  CollapseItem,
   Dialog,
   Autocomplete,
   Menu,
@@ -24,6 +26,8 @@ import {
   Card,
   Loading,
 } from 'element-ui';
+import lang from 'element-ui/lib/locale/lang/ru-RU';
+import locale from 'element-ui/lib/locale';
 
 import router from './router';
 import store from './store';
@@ -32,6 +36,9 @@ import App from './App.vue';
 
 require('vue-ionicons/ionicons.css');
 
+locale.use(lang);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.use(Dialog);
 Vue.use(Autocomplete);
 Vue.use(Menu);

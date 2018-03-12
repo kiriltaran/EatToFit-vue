@@ -17,10 +17,17 @@
         <el-input-number v-model="carbo" :min="1" size="small"></el-input-number>
       </el-form-item>
       <el-form-item>
+        <el-select v-model="type" clearable size="small" placeholder="Тип продукта">
+          <el-option v-for="type in types" :key="type" :label="type" :value="type">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-button size="small" type="primary" plain @click="openPhotoSelector">Добавить</el-button>
       </el-form-item>
     </el-form>
-    <el-dialog :title="`Выберите подходящее фото для продукта '${title}'`" :visible.sync="showPhotoSelector" v-if="showPhotoSelector" :show-close="false" :close-on-click-modal="false">
+    <el-dialog :title="`Выберите подходящее фото для продукта '${title}'`" :visible.sync="showPhotoSelector" v-if="showPhotoSelector"
+      :show-close="false" :close-on-click-modal="false">
       <products-photo-selector :title="title"></products-photo-selector>
     </el-dialog>
   </div>
@@ -42,7 +49,29 @@ export default {
       fat: 1,
       carbo: 1,
       photo: '',
+      type: '',
       showPhotoSelector: false,
+      types: [
+        'Первые блюда',
+        'Блюда из овощей',
+        'Зернобобовые, крупы, каши',
+        'Овощи',
+        'Макаронные изделия',
+        'Мясо',
+        'Колбасы',
+        'Птица',
+        'Яйца',
+        'Рыба',
+        'Сыры',
+        'Масло',
+        'Мука',
+        'Хлеб',
+        'Чай, кофе',
+        'Алкогольные напитки',
+        'Выпечка',
+        'Грибы',
+        'Молочные продукты',
+      ],
     };
   },
   methods: {
@@ -60,6 +89,7 @@ export default {
           fat: +this.fat,
           carbo: +this.carbo,
           photo: this.photo,
+          type: this.type,
         };
 
         this.$store.dispatch('createProduct', product);
@@ -70,6 +100,7 @@ export default {
         this.fat = 1;
         this.carbo = 1;
         this.photo = '';
+        this.type = '';
       }
     },
   },

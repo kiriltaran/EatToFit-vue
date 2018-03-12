@@ -121,7 +121,6 @@ export default {
   },
   getters: {
     user: state => state.user,
-    BMR: state => state.user.BMR,
     userStats: state => state.userStats,
   },
 };
