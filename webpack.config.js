@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const friendlyFormatter = require('eslint-friendly-formatter');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -80,11 +81,11 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"',
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
+    new UglifyJsPlugin({
+      uglifyOptions: {
         warnings: false,
       },
+      sourceMap: true,
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
