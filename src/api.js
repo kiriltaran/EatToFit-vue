@@ -30,7 +30,19 @@ const api = {
   async signinUser(email, password) {
     try {
       const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const userStore = await this.getUserData(user.uid);
+      let userStore = await this.getUserData(user.uid);
+
+      if (!userStore) {
+        userStore = {
+          gender: '',
+          height: 1,
+          weight: 1,
+          age: 1,
+          activity: '',
+          goal: '',
+          BMR: null,
+        };
+      }
 
       return {
         id: user.uid,
@@ -74,7 +86,19 @@ const api = {
       }
 
       const { user } = await firebase.auth().signInWithPopup(provider);
-      const userStore = await this.getUserData(user.uid);
+      let userStore = await this.getUserData(user.uid);
+
+      if (!userStore) {
+        userStore = {
+          gender: '',
+          height: 1,
+          weight: 1,
+          age: 1,
+          activity: '',
+          goal: '',
+          BMR: null,
+        };
+      }
 
       return {
         id: user.uid,
