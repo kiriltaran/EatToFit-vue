@@ -5,16 +5,16 @@
         <el-input v-model="title" size="small" placeholder="Название продукта"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="cal" :min="1" size="small"></el-input-number>
+        <el-input-number v-model="cal" :min="0" size="small"></el-input-number>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="prot" :min="1" size="small"></el-input-number>
+        <el-input-number v-model="prot" :min="0" size="small"></el-input-number>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="fat" :min="1" size="small"></el-input-number>
+        <el-input-number v-model="fat" :min="0" size="small"></el-input-number>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="carbo" :min="1" size="small"></el-input-number>
+        <el-input-number v-model="carbo" :min="0" size="small"></el-input-number>
       </el-form-item>
       <el-form-item>
         <el-select v-model="type" clearable size="small" placeholder="Тип продукта">
