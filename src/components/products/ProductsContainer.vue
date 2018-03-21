@@ -2,7 +2,7 @@
   <div class="products">
     <el-row type="flex" justify="space-around">
       <el-col :span="16">
-        <el-card :body-style="{position: 'relative', height: '495px'}">
+        <el-card :body-style="{position: 'relative', height: '495px', overflowY: 'auto'}">
           <el-switch v-model="tableView" active-text="Расширенный" inactive-text="Простой" inactive-color="#409EFF" class="products-switch">
           </el-switch>
           <transition name="fade" mode="out-in">
