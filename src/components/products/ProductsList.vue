@@ -1,6 +1,6 @@
 <template>
   <div class="products-list">
-    <el-collapse v-model="activeName" accordion>
+    <el-collapse v-model="activeType" accordion>
       <el-collapse-item v-for="(value, key, index) in productsByTypes" :key="key" :title="key" :name="index">
         <el-table :data="productsByTypes[key]" height="415" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
           <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      activeName: '',
+      activeType: '',
     };
   },
   computed: {
@@ -49,10 +49,8 @@ export default {
       if (this.products) {
         this.products.forEach(element => {
           if (result[element.type]) {
-            console.log('+');
             result[element.type].push(element);
           } else {
-            console.log('-');
             result[element.type] = [];
             result[element.type].push(element);
           }
