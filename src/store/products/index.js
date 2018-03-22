@@ -58,7 +58,7 @@ export default {
         const product = {
           title: payload.title,
           cal: payload.cal,
-          prot: payload.cal,
+          prot: payload.prot,
           fat: payload.fat,
           carbo: payload.carbo,
           photo: payload.photo,
