@@ -64,7 +64,7 @@ export default {
       return result;
     },
     labels() {
-      let result = [];
+      const result = [];
       if (this.userStats) {
         Object.keys(this.userStats).forEach(key => {
           const date = new Date(+key);
@@ -75,7 +75,7 @@ export default {
       return result;
     },
     goal() {
-      let result = [];
+      const result = [];
       if (this.userStats) {
         Object.keys(this.userStats).forEach(key => {
           result.push(this.userStats[key].BMR);
@@ -85,7 +85,7 @@ export default {
       return result;
     },
     cal() {
-      let result = [];
+      const result = [];
       if (this.userStats) {
         Object.keys(this.userStats).forEach(key => {
           result.push(this.userStats[key].cal);

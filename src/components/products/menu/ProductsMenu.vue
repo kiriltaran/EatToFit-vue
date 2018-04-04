@@ -52,7 +52,7 @@ export default {
       return this.$store.getters.menu;
     },
     menuStats() {
-      let stats = {
+      const stats = {
         cal: 0,
         prot: 0,
         fat: 0,
