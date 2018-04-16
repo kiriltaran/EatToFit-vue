@@ -1,19 +1,32 @@
 <template>
   <div class="products">
-    <el-row type="flex" justify="space-around">
+    <el-row 
+      type="flex" 
+      justify="space-around">
       <el-col :span="16">
-        <el-card :body-style="{position: 'relative', height: '495px', overflowY: 'auto'}">
-          <el-switch v-model="tableView" active-text="Расширенный" inactive-text="Простой" inactive-color="#409EFF" class="products-switch">
-          </el-switch>
-          <transition name="fade" mode="out-in">
-            <products-list v-if="tableView" :products="products"></products-list>
-            <products-selector v-else :products="products"></products-selector>
+        <el-card :body-style="{position: 'relative', height: '495px', overflowX: 'hidden'}">
+          <el-switch 
+            v-model="tableView" 
+            active-text="Расширенный" 
+            inactive-text="Простой" 
+            inactive-color="#409EFF" 
+            class="products-switch"/>
+          <transition 
+            name="fade" 
+            mode="out-in">
+            <products-list 
+              v-if="tableView" 
+              :products="products"/>
+            <products-selector 
+              v-else 
+              :products="products"/>
           </transition>
         </el-card>
       </el-col>
       <el-col :span="7">
-        <el-card>
-          <products-menu></products-menu>
+        <el-card
+          :body-style="{height: '495px'}">
+          <products-menu/>
         </el-card>
       </el-col>
     </el-row>

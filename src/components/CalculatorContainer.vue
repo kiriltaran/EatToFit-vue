@@ -1,46 +1,105 @@
 <template>
   <div class="calculator">
-    <el-row type="flex" justify="space-around">
+    <el-row 
+      type="flex" 
+      justify="space-around">
       <el-col :span="16">
         <el-card :body-style="{position: 'relative'}">
-          <el-form :inline="true" :label-position="'top'">
+          <el-form 
+            :inline="true" 
+            :label-position="'top'">
             <el-form-item label="Пол">
-              <el-select v-model="gender" value-key="id" placeholder="" size="small" clearable>
-                <el-option v-for="item in genderOptions" :key="item.id" :label="item.title" :value="item"></el-option>
+              <el-select 
+                v-model="gender" 
+                value-key="id" 
+                placeholder="" 
+                size="small" 
+                clearable>
+                <el-option 
+                  v-for="item in genderOptions" 
+                  :key="item.id" 
+                  :label="item.title" 
+                  :value="item"/>
               </el-select>
             </el-form-item>
             <el-form-item label="Рост">
-              <el-input-number v-model="height" :min="1" :max="300" size="small"></el-input-number>
+              <el-input-number 
+                v-model="height" 
+                :min="1" 
+                :max="300" 
+                size="small"/>
             </el-form-item>
             <el-form-item label="Вес">
-              <el-input-number v-model="weight" :min="1" :max="300" size="small"></el-input-number>
+              <el-input-number 
+                v-model="weight" 
+                :min="1" 
+                :max="300" 
+                size="small"/>
             </el-form-item>
             <el-form-item label="Возраст">
-              <el-input-number v-model="age" :min="1" :max="150" size="small"></el-input-number>
+              <el-input-number 
+                v-model="age" 
+                :min="1" 
+                :max="150" 
+                size="small"/>
             </el-form-item>
             <el-form-item label="Уровень активности">
-              <el-select v-model="activity" value-key="id" placeholder="" size="small" clearable>
-                <el-option v-for="item in activityOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+              <el-select 
+                v-model="activity" 
+                value-key="id" 
+                placeholder="" 
+                size="small" 
+                clearable>
+                <el-option 
+                  v-for="item in activityOptions" 
+                  :key="item.id" 
+                  :label="item.title" 
+                  :value="item.val"/>
               </el-select>
             </el-form-item>
             <el-form-item label="Цель">
-              <el-select v-model="goal" value-key="id" placeholder="" size="small" clearable>
-                <el-option v-for="item in goalOptions" :key="item.id" :label="item.title" :value="item.val"></el-option>
+              <el-select 
+                v-model="goal" 
+                value-key="id" 
+                placeholder="" 
+                size="small" 
+                clearable>
+                <el-option 
+                  v-for="item in goalOptions" 
+                  :key="item.id" 
+                  :label="item.title" 
+                  :value="item.val"/>
               </el-select>
             </el-form-item>
             <transition name="slide">
-              <i v-show="isDataFill" class="el-icon-d-arrow-right calculator-arrow"></i>
+              <i 
+                v-show="isDataFill" 
+                class="el-icon-d-arrow-right calculator-arrow"/>
             </transition>
           </el-form>
         </el-card>
       </el-col>
       <el-col :span="7">
-        <div v-if="BMR > 0" class="calculator-hint">
-          <el-alert :title="BMR.toString()" :closable="false" type="warning" description="Дневная норма калорий для заданой цели и параметров">
+        <div 
+          v-if="bmr > 0" 
+          class="calculator-hint">
+          <el-alert 
+            :title="bmr.toString()" 
+            :closable="false" 
+            type="warning" 
+            description="Дневная норма калорий для заданой цели и параметров">
             <div class="hint-text">
               Дневная норма калорий для заданой цели и параметров
             </div>
-            <el-button v-show="user" size="small" :type="bmrSetted ? 'info' : 'primary'" plain @click="rememberUserData" :disabled="bmrSetted" class="hint-btn">Запомнить</el-button>
+            <el-button 
+              v-show="user" 
+              :type="isBmrSetted ? 'info' : 'primary'" 
+              :disabled="isBmrSetted" 
+              size="small" 
+              plain 
+              class="hint-btn"
+              @click="rememberUserData" 
+            >Запомнить</el-button>
           </el-alert>
         </div>
       </el-col>
@@ -135,11 +194,11 @@ export default {
     };
   },
   computed: {
-    BMR() {
-      let BMR = this.user ? this.user.BMR : null;
+    bmr() {
+      let bmr = this.user ? this.user.bmr : null;
 
       if (this.gender && this.activity && this.goal) {
-        BMR = Math.floor(
+        bmr = Math.floor(
           (this.gender.ratio.def +
             this.gender.ratio.w * this.weight +
             this.gender.ratio.h * this.height -
@@ -148,10 +207,10 @@ export default {
             this.goal,
         );
       }
-      return BMR;
+      return bmr;
     },
-    bmrSetted() {
-      return this.user ? this.BMR === this.user.BMR : false;
+    isBmrSetted() {
+      return this.user ? this.bmr === this.user.bmr : false;
     },
     isDataFill() {
       return this.gender && this.activity && this.goal;
@@ -165,6 +224,11 @@ export default {
         Object.assign(this.$data, this.$options.data());
       }
     },
+  },
+  mounted() {
+    if (this.user) {
+      this.setUserData(this.user);
+    }
   },
   methods: {
     setUserData(user) {
@@ -183,14 +247,9 @@ export default {
         age: this.age,
         activity: this.activity,
         goal: this.goal,
-        BMR: this.BMR,
+        bmr: this.bmr,
       });
     },
-  },
-  mounted() {
-    if (this.user) {
-      this.setUserData(this.user);
-    }
   },
 };
 </script>

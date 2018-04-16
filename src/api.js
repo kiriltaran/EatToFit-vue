@@ -21,7 +21,7 @@ const api = {
         id: user.uid,
         displayName: name,
         photoURL: null,
-        BMR: null,
+        bmr: null,
       };
     } catch (e) {
       throw e;
@@ -40,7 +40,7 @@ const api = {
           age: 1,
           activity: '',
           goal: '',
-          BMR: null,
+          bmr: null,
         };
       }
 
@@ -54,7 +54,7 @@ const api = {
         age: userStore.age,
         activity: userStore.activity,
         goal: userStore.goal,
-        BMR: userStore.BMR,
+        bmr: userStore.bmr,
       };
     } catch (e) {
       throw e;
@@ -96,7 +96,7 @@ const api = {
           age: 1,
           activity: '',
           goal: '',
-          BMR: null,
+          bmr: null,
         };
       }
 
@@ -110,7 +110,7 @@ const api = {
         age: userStore.age,
         activity: userStore.activity,
         goal: userStore.goal,
-        BMR: userStore.BMR,
+        bmr: userStore.bmr,
       };
     } catch (e) {
       throw e;
@@ -131,7 +131,7 @@ const api = {
           [`/users/${id}/age`]: data.age,
           [`/users/${id}/activity`]: data.activity,
           [`/users/${id}/goal`]: data.goal,
-          [`/users/${id}/BMR`]: data.BMR,
+          [`/users/${id}/bmr`]: data.bmr,
         });
     } catch (e) {
       window.console.log(e);
@@ -145,7 +145,7 @@ const api = {
         .database()
         .ref(`stats/${id}/${now}`)
         .set({
-          BMR: stats.BMR,
+          bmr: stats.bmr,
           cal: stats.cal,
           prot: stats.prot,
           fat: stats.fat,

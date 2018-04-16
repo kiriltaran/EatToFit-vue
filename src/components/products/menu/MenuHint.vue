@@ -1,10 +1,22 @@
 <template>
-  <div class="menu-hint" v-if="menuStats.cal && BMR">
-    <el-alert :title="hint.cal" :type="hint.type" :closable="false">
+  <div 
+    v-if="menuStats.cal && bmr"
+    class="menu-hint" 
+  >
+    <el-alert 
+      :title="hint.cal" 
+      :type="hint.type" 
+      :closable="false">
       <div class="hint-text">
-        {{hint.text}}
+        {{ hint.text }}
       </div>
-      <el-button size="small" type="primary" plain @click="rememberDailyStats" class="hint-btn">Записать</el-button>
+      <el-button 
+        size="small" 
+        type="primary" 
+        class="hint-btn"
+        plain 
+        @click="rememberDailyStats" 
+      >Записать</el-button>
     </el-alert>
   </div>
 </template>
@@ -23,7 +35,7 @@ export default {
         };
       },
     },
-    BMR: {
+    bmr: {
       type: Number,
       default: 0,
     },
@@ -38,12 +50,12 @@ export default {
         text: '',
         type: '',
       };
-      if (this.BMR && this.menuStats.cal) {
+      if (this.bmr && this.menuStats.cal) {
         hint.cal = `${this.menuStats.cal}`;
         hint.type = 'success';
-        if (Math.abs(this.BMR - this.menuStats.cal) > 100) {
+        if (Math.abs(this.bmr - this.menuStats.cal) > 100) {
           hint.type = 'warning';
-          if (this.BMR > this.menuStats.cal) {
+          if (this.bmr > this.menuStats.cal) {
             hint.text = 'Калорийность меню ниже рекомендуемого уровня';
           } else {
             hint.text = 'Калорийность меню выше рекомендуемого уровня';
@@ -58,7 +70,7 @@ export default {
   methods: {
     rememberDailyStats() {
       this.$store.dispatch('setDailyStats', {
-        BMR: this.BMR,
+        bmr: this.bmr,
         cal: this.menuStats.cal,
         prot: this.menuStats.prot,
         fat: this.menuStats.fat,

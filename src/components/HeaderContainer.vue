@@ -1,33 +1,64 @@
 <template>
   <header class="header">
-    <el-menu :default-active="activeNav" mode="horizontal" :router="true" class="menu">
+    <el-menu 
+      :default-active="activeNav" 
+      :router="true"
+      mode="horizontal" 
+      class="menu">
       <div class="title">
-        <div class="title-logo"></div>
+        <div class="title-logo"/>
         <span class="title-text">eattofit</span>
       </div>
-      <el-menu-item index="/" v-if="user">Калькулятор</el-menu-item>
-      <el-menu-item index="/stats" v-if="user">
+      <el-menu-item 
+        v-if="user"
+        index="/" 
+      >Калькулятор</el-menu-item>
+      <el-menu-item 
+        v-if="user"
+        index="/stats" 
+      >
         Статистика
       </el-menu-item>
       <div class="auth">
-          <div class="auth-user" v-if="user">
-            <img v-if="user.photoURL" :src="user.photoURL" alt="avatar" class="auth-user-avatar user-icon" @click="showProfile">
-            <div v-else class="auth-user-initials user-icon" @click="showProfile">{{user.displayName[0].toUpperCase()}}</div>
-            <el-button type="text" @click="showProfile">{{user.displayName}}</el-button>
-            <el-button type="text" @click="logout" class="logout-btn">
-              <log-out-icon w="28px" h="28px"></log-out-icon>
-            </el-button>
-          </div>
-          <el-button type="text" @click="showAuth" v-else>Авторизация</el-button>
+        <div 
+          v-if="user"
+          class="auth-user" 
+        >
+          <img 
+            v-if="user.photoURL" 
+            :src="user.photoURL" 
+            alt="avatar" 
+            class="auth-user-avatar user-icon"
+          >
+          <div 
+            v-else 
+            class="auth-user-initials user-icon" 
+          >{{ user.displayName[0].toUpperCase() }}</div>
+          <el-button 
+            type="text" 
+          >{{ user.displayName }}</el-button>
+          <el-button 
+            type="text" 
+            class="logout-btn"
+            @click="logout" 
+          >
+            <log-out-icon 
+              w="28px" 
+              h="28px"/>
+          </el-button>
         </div>
+        <el-button 
+          v-else
+          type="text" 
+          @click="openAuth" 
+        >Авторизация</el-button>
+      </div>
     </el-menu>
   </header>
 </template>
 
 <script>
 import LogOutIcon from 'vue-ionicons/dist/md-log-out.vue';
-
-import bus from '../main';
 
 export default {
   components: {
@@ -38,20 +69,17 @@ export default {
       activeNav: '/',
     };
   },
-  methods: {
-    showAuth() {
-      bus.$emit('show-auth', true);
-    },
-    showProfile() {
-      bus.$emit('show-profile', true);
-    },
-    logout() {
-      this.$store.dispatch('logout');
-    },
-  },
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+  },
+  methods: {
+    openAuth() {
+      this.$emit('open-auth');
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
   },
 };
@@ -70,7 +98,7 @@ export default {
     align-items: center;
     flex-grow: 1;
     &-logo {
-      background-image: url('../assets/img/logo.png');
+      background-image: url('../assets/logo.png');
       background-size: cover;
       width: 50px;
       height: 50px;

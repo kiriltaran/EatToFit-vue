@@ -1,17 +1,50 @@
 <template>
   <div class="products-list">
-    <el-collapse v-model="activeType" accordion>
-      <el-collapse-item v-for="(value, key, index) in productsByTypes" :key="key" :title="key" :name="index">
-        <el-table :data="productsByTypes[key]" height="415" class="table" empty-text="Зарегистрируйтесь для продолжения работы">
-          <el-table-column prop="title" label="Продукт" label-class-name="label-product"></el-table-column>
-          <el-table-column prop="cal" label="Калории" label-class-name="label-cal"></el-table-column>
-          <el-table-column prop="prot" label="Белки" label-class-name="label-prot"></el-table-column>
-          <el-table-column prop="fat" label="Жиры" label-class-name="label-fat"></el-table-column>
-          <el-table-column prop="carbo" label="Углеводы" label-class-name="label-carbo"></el-table-column>
+    <el-collapse 
+      v-model="activeType" 
+      accordion>
+      <el-collapse-item 
+        v-for="(value, key, index) in productsByTypes" 
+        :key="key" 
+        :title="key" 
+        :name="index">
+        <el-table 
+          :data="productsByTypes[key]" 
+          height="415" 
+          class="table" 
+          empty-text="Зарегистрируйтесь для продолжения работы">
+          <el-table-column 
+            prop="title" 
+            label="Продукт" 
+            label-class-name="label-product"/>
+          <el-table-column 
+            prop="cal" 
+            label="Калории" 
+            label-class-name="label-cal"/>
+          <el-table-column 
+            prop="prot" 
+            label="Белки" 
+            label-class-name="label-prot"/>
+          <el-table-column 
+            prop="fat" 
+            label="Жиры" 
+            label-class-name="label-fat"/>
+          <el-table-column 
+            prop="carbo" 
+            label="Углеводы" 
+            label-class-name="label-carbo"/>
           <el-table-column>
             <template slot-scope="scope">
-              <el-button type="success" round plain class="add-btn" :class="{ hidden: productsByTypes[key][scope.$index].inMenu }" @click="addToMenu(scope.row.id)">
-                <arrow-right-icon w="15px" h="15px"></arrow-right-icon>
+              <el-button 
+                :class="{ hidden: productsByTypes[key][scope.$index].inMenu }" 
+                type="success" 
+                round 
+                plain 
+                class="add-btn" 
+                @click="addToMenu(scope.row.id)">
+                <arrow-right-icon 
+                  w="15px" 
+                  h="15px"/>
               </el-button>
             </template>
           </el-table-column>

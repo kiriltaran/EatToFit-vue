@@ -2,42 +2,72 @@
   <div class="new-product-form">
     <el-form :inline="true">
       <el-form-item>
-        <el-input v-model="title" size="small" placeholder="Название продукта"></el-input>
+        <el-input 
+          v-model="title" 
+          size="small" 
+          placeholder="Название продукта"/>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="cal" :min="0" size="small"></el-input-number>
+        <el-input-number 
+          v-model="cal" 
+          :min="0" 
+          size="small"/>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="prot" :min="0" size="small"></el-input-number>
+        <el-input-number 
+          v-model="prot" 
+          :min="0" 
+          size="small"/>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="fat" :min="0" size="small"></el-input-number>
+        <el-input-number 
+          v-model="fat" 
+          :min="0" 
+          size="small"/>
       </el-form-item>
       <el-form-item>
-        <el-input-number v-model="carbo" :min="0" size="small"></el-input-number>
+        <el-input-number 
+          v-model="carbo" 
+          :min="0" 
+          size="small"/>
       </el-form-item>
       <el-form-item>
-        <el-select v-model="type" clearable size="small" placeholder="Тип продукта">
-          <el-option v-for="type in types" :key="type" :label="type" :value="type">
-          </el-option>
+        <el-select 
+          v-model="type" 
+          clearable 
+          size="small" 
+          placeholder="Тип продукта">
+          <el-option 
+            v-for="type in types" 
+            :key="type" 
+            :label="type" 
+            :value="type"/>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button size="small" type="primary" plain @click="openPhotoSelector">Добавить</el-button>
+        <el-button 
+          size="small" 
+          type="primary" 
+          plain 
+          @click="openPhotoSelector">Добавить</el-button>
       </el-form-item>
     </el-form>
-    <el-dialog :title="`Выберите подходящее фото для продукта '${title}'`" :visible.sync="showPhotoSelector" v-if="showPhotoSelector"
-      :show-close="false" :close-on-click-modal="false">
-      <products-photo-selector :title="title"></products-photo-selector>
+    <el-dialog 
+      v-if="showPhotoSelector"
+      :title="`Выберите подходящее фото для продукта '${title}'`" 
+      :visible.sync="showPhotoSelector" 
+      :show-close="false" 
+      :close-on-click-modal="false">
+      <products-photo-selector 
+        :title="title" 
+        @photo-selected="onPhotoSelected"/>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import bus from '../../main';
-
 export default {
-  name: 'new-product-form',
+  name: 'NewProductForm',
   components: {
     ProductsPhotoSelector: () => import('./ProductPhotoSelector.vue'),
   },
@@ -57,6 +87,7 @@ export default {
         'Зернобобовые, крупы, каши',
         'Овощи',
         'Фрукты',
+        'Колбасы',
         'Грибы',
         'Орехи, семечки',
         'Яйца',
@@ -76,6 +107,10 @@ export default {
       if (this.title) {
         this.showPhotoSelector = true;
       }
+    },
+    onPhotoSelected(photo) {
+      this.photo = photo;
+      this.createProduct();
     },
     createProduct() {
       if (this.title) {
@@ -100,12 +135,6 @@ export default {
         this.type = '';
       }
     },
-  },
-  mounted() {
-    bus.$on('photo-selected', data => {
-      this.photo = data;
-      this.createProduct();
-    });
   },
 };
 </script>

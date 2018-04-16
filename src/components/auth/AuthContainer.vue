@@ -1,19 +1,49 @@
 <template>
   <el-tabs v-model="activeTab">
-    <el-tab-pane label="Вход" name="signin">
-      <el-alert v-if="error" :title="error.message" type="error" @close="clearError" show-icon></el-alert>
-      <auth-signin></auth-signin>
+    <el-tab-pane
+      label="Вход" 
+      name="signin">
+      <el-alert 
+        v-if="error" 
+        :title="error.message"
+        type="error"
+        show-icon
+        @close="clearError" 
+      />
+      <auth-signin @close="onClose"/>
     </el-tab-pane>
-    <el-tab-pane label="Регистрация" name="signup">
-      <el-alert v-if="error" :title="error.message" type="error" @close="clearError" show-icon></el-alert>
-      <auth-signup></auth-signup>
+    <el-tab-pane 
+      label="Регистрация" 
+      name="signup">
+      <el-alert 
+        v-if="error" 
+        :title="error.message" 
+        type="error" 
+        show-icon
+        @close="clearError" 
+      />
+      <auth-signup @close="onClose"/>
     </el-tab-pane>
-    <el-row type="flex" justify="center">
-      <el-button type="text" @click="signInByTwitter" class="auth-social">
-        <twitter-icon w="30px" h="30px"></twitter-icon>
+    <el-row 
+      type="flex" 
+      justify="center">
+      <el-button 
+        type="text" 
+        class="auth-social"
+        @click="signInByTwitter" 
+      >
+        <twitter-icon 
+          w="30px" 
+          h="30px"/>
       </el-button>
-      <el-button type="text" @click="signInByGithub" class="auth-social">
-        <github-icon w="30px" h="30px"></github-icon>
+      <el-button 
+        type="text" 
+        class="auth-social"
+        @click="signInByGithub" 
+      >
+        <github-icon 
+          w="30px" 
+          h="30px"/>
       </el-button>
     </el-row>
   </el-tabs>
@@ -35,20 +65,25 @@ export default {
       activeTab: 'signin',
     };
   },
-  methods: {
-    signInByGithub() {
-      this.$store.dispatch('signInBySocials', 'github');
+  computed: {
+    error() {
+      return this.$store.getters.error;
     },
-    signInByTwitter() {
-      this.$store.dispatch('signInBySocials', 'twitter');
+  },
+  methods: {
+    async signInByGithub() {
+      await this.$store.dispatch('signInBySocials', 'github');
+      this.$emit('close');
+    },
+    async signInByTwitter() {
+      await this.$store.dispatch('signInBySocials', 'twitter');
+      this.$emit('close');
     },
     clearError() {
       this.$store.dispatch('clearError');
     },
-  },
-  computed: {
-    error() {
-      return this.$store.getters.error;
+    onClose() {
+      this.$emit('close');
     },
   },
 };

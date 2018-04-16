@@ -1,8 +1,18 @@
 <template>
-  <div v-loading="loading" class="product-photo-selector">
+  <div 
+    v-loading="loading" 
+    class="product-photo-selector">
     <el-row type="flex">
-      <el-col v-for="image in images" :key="image" :span="6">
-        <img :src="image" @click="selectPhoto(image)" alt="productPhoto" class="photo">
+      <el-col 
+        v-for="image in images" 
+        :key="image" 
+        :span="6">
+        <img 
+          :src="image" 
+          alt="productPhoto" 
+          class="photo"
+          @click="selectPhoto(image)" 
+        >
       </el-col>
     </el-row>
   </div>
@@ -10,8 +20,6 @@
 
 <script>
 import api from '../../api';
-
-import bus from '../../main';
 
 export default {
   props: {
@@ -26,6 +34,9 @@ export default {
       images: [],
     };
   },
+  mounted() {
+    this.fetchProductPhotos();
+  },
   methods: {
     async fetchProductPhotos() {
       this.images.length = 0;
@@ -35,21 +46,18 @@ export default {
         if (images.length > 0) {
           this.images = images;
         } else {
-          bus.$emit('photo-selected', '');
+          this.$emit('photo-selected', '');
         }
         this.loading = false;
       } catch (e) {
-        bus.$emit('photo-selected', '');
+        this.$emit('photo-selected', '');
         this.loading = false;
       }
     },
     selectPhoto(image) {
-      bus.$emit('photo-selected', image);
+      this.$emit('photo-selected', image);
       this.loading = false;
     },
-  },
-  mounted() {
-    this.fetchProductPhotos();
   },
 };
 </script>

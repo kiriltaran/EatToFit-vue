@@ -1,7 +1,5 @@
 import api from '../../api';
 
-import bus from '../../main';
-
 /* eslint-disable no-param-reassign */
 export default {
   state: {
@@ -21,7 +19,7 @@ export default {
         age: payload.age,
         activity: payload.activity,
         goal: payload.goal,
-        BMR: payload.BMR,
+        bmr: payload.bmr,
       };
     },
     setUserStats(state, payload) {
@@ -39,7 +37,6 @@ export default {
         commit('setUser', newUser);
         dispatch('fetchProducts');
         dispatch('fetchUserStats');
-        bus.$emit('show-auth', false);
         commit('setLoading', false);
       } catch (e) {
         commit('setLoading', false);
@@ -56,7 +53,6 @@ export default {
         commit('setUser', user);
         dispatch('fetchProducts');
         dispatch('fetchUserStats');
-        bus.$emit('show-auth', false);
         commit('setLoading', false);
       } catch (e) {
         commit('setLoading', false);
@@ -75,7 +71,7 @@ export default {
           age: 1,
           activity: '',
           goal: '',
-          BMR: null,
+          bmr: null,
         };
       }
 
@@ -89,7 +85,7 @@ export default {
         age: userStore.age,
         activity: userStore.activity,
         goal: userStore.goal,
-        BMR: userStore.BMR,
+        bmr: userStore.bmr,
       });
       dispatch('fetchProducts');
       dispatch('fetchUserStats');
@@ -103,7 +99,6 @@ export default {
         commit('setLoading', false);
         commit('setUser', newUser);
         dispatch('fetchProducts');
-        bus.$emit('show-auth', false);
       } catch (e) {
         commit('setLoading', false);
         commit('setError', e);

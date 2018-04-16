@@ -1,24 +1,31 @@
 <template>
   <div id="app">
-    <header-container></header-container>
+    <header-container @open-auth="onOpenAuth"/>
     <main class="main">
-      <transition name="el-fade-in" mode="out-in">
-        <router-view></router-view>
+      <transition 
+        name="el-fade-in" 
+        mode="out-in">
+        <router-view/>
       </transition>
     </main>
-    <footer-container></footer-container>
-    <el-dialog :visible.sync="authVisible" :width="'350px'" :close-on-click-modal="false">
-      <auth-container v-loading="loading"></auth-container>
+    <footer-container/>
+    <el-dialog 
+      :visible.sync="authVisible" 
+      :width="'350px'" 
+      :close-on-click-modal="false">
+      <auth-container 
+        v-loading="loading" 
+        @close="onCloseAuth"/>
     </el-dialog>
-    <el-dialog :visible.sync="profileVisible" :close-on-click-modal="false">
-      <user-profile></user-profile>
+    <el-dialog 
+      :visible.sync="profileVisible" 
+      :close-on-click-modal="false">
+      <user-profile/>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import bus from './main';
-
 export default {
   components: {
     HeaderContainer: () => import('./components/HeaderContainer.vue'),
@@ -37,13 +44,13 @@ export default {
       return this.$store.getters.loading;
     },
   },
-  mounted() {
-    bus.$on('show-auth', data => {
-      this.authVisible = data;
-    });
-    bus.$on('show-profile', data => {
-      this.profileVisible = data;
-    });
+  methods: {
+    onOpenAuth() {
+      this.authVisible = true;
+    },
+    onCloseAuth() {
+      this.authVisible = false;
+    },
   },
 };
 </script>
@@ -65,10 +72,15 @@ body {
   backface-visibility: hidden;
   overflow: hidden;
   background: rgba(38, 173, 225, 0.1);
+  max-height: 100vh;
 }
 
 .main {
   padding-top: 25px;
+}
+
+.el-table .cell {
+  word-break: normal;
 }
 
 ::-webkit-scrollbar {

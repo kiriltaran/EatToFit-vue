@@ -1,21 +1,44 @@
 <template>
-  <el-form status-icon :model="signupForm" ref="signupForm" :rules="rules">
-    <el-form-item label="Имя" prop="name">
-      <el-input v-model="signupForm.name" type="text"></el-input>
+  <el-form 
+    ref="signupForm" 
+    :model="signupForm" 
+    :rules="rules"
+    status-icon >
+    <el-form-item 
+      label="Имя" 
+      prop="name">
+      <el-input 
+        v-model="signupForm.name" 
+        type="text"/>
     </el-form-item>
-    <el-form-item label="Email" prop="email">
-      <el-input v-model="signupForm.email" type="email"></el-input>
+    <el-form-item 
+      label="Email" 
+      prop="email">
+      <el-input 
+        v-model="signupForm.email" 
+        type="email"/>
     </el-form-item>
-    <el-form-item label="Пароль" prop="password">
-      <el-input v-model="signupForm.password" type="password"></el-input>
+    <el-form-item 
+      label="Пароль" 
+      prop="password">
+      <el-input 
+        v-model="signupForm.password" 
+        type="password"/>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" plain @click="validateForm('signupForm')" class="submit">Регистрация</el-button>
+      <el-button 
+        type="primary" 
+        plain 
+        class="submit"
+        @click="validateForm('signupForm')" 
+      >Регистрация</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import router from '../../router';
+
 export default {
   data() {
     return {
@@ -67,6 +90,8 @@ export default {
         password: this.signupForm.password,
         name: this.signupForm.name,
       });
+      this.$emit('close');
+      router.push({ path: '/' });
       this.signupForm.name = '';
       this.signupForm.email = '';
       this.signupForm.password = '';

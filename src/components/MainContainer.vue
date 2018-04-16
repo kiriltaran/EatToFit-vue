@@ -1,10 +1,12 @@
 <template>
-    <div class="main-container">
-      <calculator-container :user="user" :class="user ? '' : 'centered'" class="calculator-container"></calculator-container>
-      <transition name="fade">
-        <products-container v-if="user"></products-container>
-      </transition>
-    </div>
+  <div class="main-container">
+    <calculator-container 
+      :user="user" 
+      class="calculator-container"/>
+    <transition name="fade">
+      <products-container/>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -38,9 +40,5 @@ export default {
 .calculator-container {
   margin-bottom: 20px;
   transition: margin 0.5s;
-}
-
-.centered {
-  margin-top: 200px;
 }
 </style>

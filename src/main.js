@@ -16,6 +16,7 @@ import {
   ButtonGroup,
   Table,
   TableColumn,
+  Tag,
   Form,
   FormItem,
   Tabs,
@@ -52,6 +53,7 @@ Vue.use(Button);
 Vue.use(ButtonGroup);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Tag);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Tabs);
@@ -61,10 +63,6 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(Card);
 Vue.use(Loading.directive);
-
-const bus = new Vue();
-
-export default bus;
 
 const config = {
   apiKey: 'AIzaSyDhfYDrdT05kjaQfaalejI_4MigeFA5_5o',
@@ -83,6 +81,7 @@ new Vue({
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('autoSignIn', user);
+        router.push({ path: '/' });
       }
     });
   },
