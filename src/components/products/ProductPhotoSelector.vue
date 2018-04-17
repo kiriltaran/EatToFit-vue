@@ -3,6 +3,15 @@
     v-loading="loading" 
     class="product-photo-selector">
     <el-row type="flex">
+      <el-col  
+        :span="6">
+        <img 
+          src="../../assets/nophoto.png" 
+          alt="productPhoto" 
+          class="photo"
+          @click="selectPhoto('')" 
+        >
+      </el-col>
       <el-col 
         v-for="image in images" 
         :key="image" 
@@ -72,6 +81,10 @@ export default {
   &:hover {
     cursor: pointer;
     border-color: #409eff;
+  }
+  &-empty {
+    font-size: 24px;
+    line-height: 50px;
   }
 }
 </style>
