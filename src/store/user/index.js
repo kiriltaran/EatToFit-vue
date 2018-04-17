@@ -41,7 +41,7 @@ export default {
       } catch (e) {
         commit('setLoading', false);
         commit('setError', e);
-        window.console.log(e);
+        throw e;
       }
     },
     async signinUser({ commit, dispatch }, payload) {
@@ -57,7 +57,7 @@ export default {
       } catch (e) {
         commit('setLoading', false);
         commit('setError', e);
-        window.console.log(e);
+        throw e;
       }
     },
     async autoSignIn({ commit, dispatch }, payload) {
@@ -102,7 +102,7 @@ export default {
       } catch (e) {
         commit('setLoading', false);
         commit('setError', e);
-        window.console.log(e);
+        throw e;
       }
     },
     logout({ commit }) {

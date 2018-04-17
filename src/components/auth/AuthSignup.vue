@@ -84,17 +84,21 @@ export default {
         return true;
       });
     },
-    signupUser() {
-      this.$store.dispatch('signupUser', {
-        email: this.signupForm.email,
-        password: this.signupForm.password,
-        name: this.signupForm.name,
-      });
-      this.$emit('close');
-      router.push({ path: '/' });
-      this.signupForm.name = '';
-      this.signupForm.email = '';
-      this.signupForm.password = '';
+    async signupUser() {
+      try {
+        await this.$store.dispatch('signupUser', {
+          email: this.signupForm.email,
+          password: this.signupForm.password,
+          name: this.signupForm.name,
+        });
+        this.$emit('close');
+        router.push({ path: '/' });
+        this.signupForm.name = '';
+        this.signupForm.email = '';
+        this.signupForm.password = '';
+      } catch (e) {
+        window.console.log(e);
+      }
     },
   },
 };

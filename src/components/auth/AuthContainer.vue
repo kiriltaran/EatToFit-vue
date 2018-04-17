@@ -72,12 +72,20 @@ export default {
   },
   methods: {
     async signInByGithub() {
-      await this.$store.dispatch('signInBySocials', 'github');
-      this.$emit('close');
+      try {
+        await this.$store.dispatch('signInBySocials', 'github');
+        this.$emit('close');
+      } catch (e) {
+        window.console.log(e);
+      }
     },
     async signInByTwitter() {
-      await this.$store.dispatch('signInBySocials', 'twitter');
-      this.$emit('close');
+      try {
+        await this.$store.dispatch('signInBySocials', 'twitter');
+        this.$emit('close');
+      } catch (e) {
+        window.console.log(e);
+      }
     },
     clearError() {
       this.$store.dispatch('clearError');

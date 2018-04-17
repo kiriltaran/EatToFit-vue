@@ -68,15 +68,19 @@ export default {
         return true;
       });
     },
-    signinUser() {
-      this.$store.dispatch('signinUser', {
-        email: this.signinForm.email,
-        password: this.signinForm.password,
-      });
-      this.$emit('close');
-      router.push({ path: '/' });
-      this.signinForm.email = '';
-      this.signinForm.password = '';
+    async signinUser() {
+      try {
+        await this.$store.dispatch('signinUser', {
+          email: this.signinForm.email,
+          password: this.signinForm.password,
+        });
+        this.$emit('close');
+        router.push({ path: '/' });
+        this.signinForm.email = '';
+        this.signinForm.password = '';
+      } catch (e) {
+        window.console.log(e);
+      }
     },
   },
 };
