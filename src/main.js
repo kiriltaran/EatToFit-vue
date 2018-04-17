@@ -82,6 +82,8 @@ new Vue({
       if (user) {
         this.$store.dispatch('autoSignIn', user);
         router.push({ path: '/' });
+      } else {
+        router.push({ path: '/signout' });
       }
     });
   },
