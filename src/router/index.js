@@ -1,4 +1,4 @@
-// import firebase from 'firebase';
+import firebase from 'firebase';
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -36,6 +36,22 @@ const router = new Router({
       },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.notCheckAuth) {
+    next();
+  } else {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        next();
+      } else {
+        next({
+          path: '/signout',
+        });
+      }
+    });
+  }
 });
 
 export default router;
