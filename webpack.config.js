@@ -45,14 +45,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]',
-        },
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        test: /\.(png|jpg|gif|eot|svg|ttf|woff|woff2)(\?\S*)?$/,
         loader: 'file-loader',
       },
     ],

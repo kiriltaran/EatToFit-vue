@@ -35,7 +35,7 @@
               class="product-photo">
             <img 
               v-else 
-              src="../../assets/nophoto.png" 
+              src="../../assets/nophoto.svg" 
               alt="product-photo" 
               class="product-photo">
           </el-col>

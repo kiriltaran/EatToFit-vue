@@ -7,7 +7,7 @@
 <style lang="scss">
 .footer {
   font-size: 14px;
-  text-align: left;
+  text-align: center;
   position: fixed;
   bottom: 0;
   padding: 0 40px;

@@ -1,7 +1,11 @@
 <template>
   <div class="signout-container">
+    <div class="bg-opacity"/>
     <el-row>
-      <el-col :span="20">
+      <el-col
+        :span="20"
+        :offset="1"
+      >
         <el-row 
           type="flex" 
           justify="center">
@@ -21,15 +25,15 @@
           type="flex" 
           justify="center">
           <el-col
-            :span="11" 
-            :offset="5">
+            :span="8" 
+            :offset="4">
             <el-card class="quote">"Eat your greens to fit into your jeans"</el-card>
           </el-col>
         </el-row>
         <el-row>
           <el-col
-            :span="11" 
-            :offset="1">
+            :span="8" 
+            :offset="3">
             <el-card class="quote">"Ты – то, что ты ешь"</el-card>
           </el-col>
         </el-row>
@@ -48,25 +52,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bg-opacity {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: 0.5;
+}
 .signout-container {
   display: flex;
   align-items: center;
   transform: translateY(-25px);
   background: url('../assets/bg.jpg') no-repeat;
-  background-size: contain;
+  background-size: 100%;
   height: 100vh;
 }
 
 .signup-btn {
-  font-size: 22px;
+  font-size: 26px;
 }
 
 .features {
   text-align: center;
   margin-bottom: 150px;
   &-text {
-    font-size: 18px;
-    margin-bottom: 50px;
+    font-size: 28px;
+    margin-bottom: 100px;
   }
 }
 

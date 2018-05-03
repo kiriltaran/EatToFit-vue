@@ -19,8 +19,15 @@
     "env": {
       "browser": true
     },
-    "extends": ["plugin:vue/recommended", "airbnb-base", "prettier"],
-    "plugins": ["vue", "import"]
+    "extends": [
+      "plugin:vue/recommended",
+      "airbnb-base",
+      "prettier"
+    ],
+    "plugins": [
+      "vue",
+      "import"
+    ]
   },
   "prettier": {
     "printWidth": 100,

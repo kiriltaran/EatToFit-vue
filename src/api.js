@@ -82,6 +82,9 @@ const api = {
         case 'twitter':
           provider = new firebase.auth.TwitterAuthProvider();
           break;
+          case 'facebook':
+          provider = new firebase.auth.FacebookAuthProvider();
+          break;
         default:
       }
 

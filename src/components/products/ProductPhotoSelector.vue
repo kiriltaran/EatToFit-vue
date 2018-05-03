@@ -6,7 +6,7 @@
       <el-col  
         :span="6">
         <img 
-          src="../../assets/nophoto.png" 
+          src="../../assets/nophoto.svg" 
           alt="productPhoto" 
           class="photo"
           @click="selectPhoto('')" 

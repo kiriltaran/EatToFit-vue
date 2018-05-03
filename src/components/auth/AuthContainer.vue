@@ -45,6 +45,15 @@
           w="30px" 
           h="30px"/>
       </el-button>
+      <el-button 
+        type="text" 
+        class="auth-social"
+        @click="signInByFacebook" 
+      >
+        <facebook-icon 
+          w="30px" 
+          h="30px"/>
+      </el-button>
     </el-row>
   </el-tabs>
 </template>
@@ -52,11 +61,13 @@
 <script>
 import TwitterIcon from 'vue-ionicons/dist/logo-twitter.vue';
 import GithubIcon from 'vue-ionicons/dist/logo-github.vue';
+import FacebookIcon from 'vue-ionicons/dist/logo-facebook.vue';
 
 export default {
   components: {
     TwitterIcon,
     GithubIcon,
+    FacebookIcon,
     AuthSignin: () => import('./AuthSignin.vue'),
     AuthSignup: () => import('./AuthSignup.vue'),
   },
@@ -82,6 +93,14 @@ export default {
     async signInByTwitter() {
       try {
         await this.$store.dispatch('signInBySocials', 'twitter');
+        this.$emit('close');
+      } catch (e) {
+        window.console.log(e);
+      }
+    },
+    async signInByFacebook() {
+      try {
+        await this.$store.dispatch('signInBySocials', 'facebook');
         this.$emit('close');
       } catch (e) {
         window.console.log(e);
