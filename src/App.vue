@@ -17,26 +17,23 @@
         v-loading="loading" 
         @close="onCloseAuth"/>
     </el-dialog>
-    <el-dialog 
-      :visible.sync="profileVisible" 
-      :close-on-click-modal="false">
-      <user-profile/>
-    </el-dialog>
   </div>
 </template>
 
 <script>
+import HeaderContainer from './components/HeaderContainer.vue';
+import FooterContainer from './components/FooterContainer.vue';
+import AuthContainer from './components/auth/AuthContainer.vue';
+
 export default {
   components: {
-    HeaderContainer: () => import('./components/HeaderContainer.vue'),
-    FooterContainer: () => import('./components/FooterContainer.vue'),
-    AuthContainer: () => import('./components/auth/AuthContainer.vue'),
-    UserProfile: () => import('./components/UserProfile.vue'),
+    HeaderContainer,
+    FooterContainer,
+    AuthContainer,
   },
   data() {
     return {
       authVisible: false,
-      profileVisible: false,
     };
   },
   computed: {
