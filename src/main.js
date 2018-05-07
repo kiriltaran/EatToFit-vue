@@ -4,6 +4,7 @@ import {
   Collapse,
   CollapseItem,
   Dialog,
+  DatePicker,
   Autocomplete,
   Menu,
   MenuItem,
@@ -41,6 +42,7 @@ locale.use(lang);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Dialog);
+Vue.use(DatePicker);
 Vue.use(Autocomplete);
 Vue.use(Menu);
 Vue.use(MenuItem);

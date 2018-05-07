@@ -78,7 +78,7 @@ export default {
       if (this.userStats) {
         Object.keys(this.userStats).forEach(key => {
           const date = new Date(+key);
-          result.push(`${date.getUTCDate()}/${date.getUTCMonth() + 1}`);
+          result.push(`${date.getUTCDate() + 1}/${date.getUTCMonth() + 1}`);
         });
       }
 

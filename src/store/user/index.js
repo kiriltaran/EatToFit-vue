@@ -117,7 +117,7 @@ export default {
       commit('setUserData', payload);
     },
     async setDailyStats({ state, dispatch }, payload) {
-      await api.setDailyStats(state.user.id, payload);
+      await api.setDailyStats(state.user.id, payload.stats, payload.date);
       dispatch('fetchUserStats');
     },
     async fetchUserStats({ state, commit }) {

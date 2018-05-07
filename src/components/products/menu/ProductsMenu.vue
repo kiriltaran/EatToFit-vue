@@ -2,7 +2,7 @@
   <div class="menu">
     <el-table 
       :data="menu" 
-      height="415" 
+      height="390" 
       empty-text="Добавьте продукты в меню">
       <el-table-column 
         prop="title" 
@@ -43,6 +43,27 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="save">
+      <div class="save-calendar save-action">
+        <el-date-picker
+          v-model="date"
+          :picker-options="datePickerOptions"
+          format="dd-MM-yyyy"
+          type="date"
+          size="small"
+          placeholder="Выберите дату"
+        />
+      </div>
+      <div class="save-btn save-action">
+        <el-button 
+          type="primary" 
+          class="hint-btn"
+          plain 
+          size="small"
+          @click="rememberDailyStats" 
+        >Записать</el-button>
+      </div>
+    </div>
     <menu-hint 
       :menu-stats="menuStats" 
       :bmr="bmr" 
@@ -60,7 +81,30 @@ export default {
     MenuHint: () => import('./MenuHint.vue'),
   },
   data() {
-    return {};
+    return {
+      date: '',
+      datePickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        shortcuts: [
+          {
+            text: 'Сегодня',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            },
+          },
+          {
+            text: 'Вчера',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            },
+          },
+        ],
+      },
+    };
   },
   computed: {
     menu() {
@@ -97,6 +141,18 @@ export default {
         weight,
       });
     },
+    rememberDailyStats() {
+      this.$store.dispatch('setDailyStats', {
+        date: this.date,
+        stats: {
+          bmr: this.bmr,
+          cal: this.menuStats.cal,
+          prot: this.menuStats.prot,
+          fat: this.menuStats.fat,
+          carbo: this.menuStats.carbo,
+        },
+      });
+    },
   },
 };
 </script>
@@ -113,6 +169,20 @@ export default {
 }
 
 .menu-hint-container {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.save {
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &-action {
+    width: 45%;
+  }
+  .save-calendar .el-date-editor,
+  .save-btn button {
+    width: 100%;
+  }
 }
 </style>

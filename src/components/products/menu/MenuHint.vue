@@ -10,13 +10,6 @@
       <div class="hint-text">
         {{ hint.text }}
       </div>
-      <el-button 
-        size="small" 
-        type="primary" 
-        class="hint-btn"
-        plain 
-        @click="rememberDailyStats" 
-      >Записать</el-button>
     </el-alert>
   </div>
 </template>
@@ -67,28 +60,11 @@ export default {
       return hint;
     },
   },
-  methods: {
-    rememberDailyStats() {
-      this.$store.dispatch('setDailyStats', {
-        bmr: this.bmr,
-        cal: this.menuStats.cal,
-        prot: this.menuStats.prot,
-        fat: this.menuStats.fat,
-        carbo: this.menuStats.carbo,
-      });
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
 .hint-text {
   font-size: 13px;
-}
-.hint-btn {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 </style>

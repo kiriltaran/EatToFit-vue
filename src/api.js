@@ -140,10 +140,9 @@ const api = {
       window.console.log(e);
     }
   },
-  async setDailyStats(id, stats) {
+  async setDailyStats(id, stats, date) {
     try {
-      const now = new Date();
-      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       const timestamp = startOfDay.getTime();
 
       await firebase
