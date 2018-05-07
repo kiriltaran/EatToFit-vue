@@ -82,7 +82,7 @@ const api = {
         case 'twitter':
           provider = new firebase.auth.TwitterAuthProvider();
           break;
-          case 'facebook':
+        case 'facebook':
           provider = new firebase.auth.FacebookAuthProvider();
           break;
         default:
@@ -142,11 +142,13 @@ const api = {
   },
   async setDailyStats(id, stats) {
     try {
-      const now = new Date().getTime();
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const timestamp = startOfDay.getTime();
 
       await firebase
         .database()
-        .ref(`stats/${id}/${now}`)
+        .ref(`stats/${id}/${timestamp}`)
         .set({
           bmr: stats.bmr,
           cal: stats.cal,
