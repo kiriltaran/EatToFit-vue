@@ -55,7 +55,8 @@
         />
       </div>
       <div class="save-btn save-action">
-        <el-button 
+        <el-button
+          :disabled="isDisabledRememberButton" 
           type="primary" 
           class="hint-btn"
           plain 
@@ -107,6 +108,9 @@ export default {
     };
   },
   computed: {
+    isDisabledRememberButton() {
+      return !(this.menu.length && this.date);
+    },
     menu() {
       return this.$store.getters.menu;
     },
@@ -142,16 +146,24 @@ export default {
       });
     },
     rememberDailyStats() {
-      this.$store.dispatch('setDailyStats', {
-        date: this.date,
-        stats: {
-          bmr: this.bmr,
-          cal: this.menuStats.cal,
-          prot: this.menuStats.prot,
-          fat: this.menuStats.fat,
-          carbo: this.menuStats.carbo,
-        },
-      });
+      try {
+        this.$store.dispatch('setDailyStats', {
+          date: this.date,
+          stats: {
+            bmr: this.bmr,
+            cal: this.menuStats.cal,
+            prot: this.menuStats.prot,
+            fat: this.menuStats.fat,
+            carbo: this.menuStats.carbo,
+          },
+        });
+        this.$message({
+          message: 'Сегодняшнее меню сохранено',
+          type: 'success',
+        });
+      } catch (e) {
+        window.console.log(e);
+      }
     },
   },
 };

@@ -249,6 +249,10 @@ export default {
         goal: this.goal,
         bmr: this.bmr,
       });
+      this.$message({
+        message: 'Цель пользователя установлена',
+        type: 'success',
+      });
     },
   },
 };

@@ -21,24 +21,38 @@ export default {
         return [];
       },
     },
+    range: {
+      type: Number,
+      default: null,
+    },
   },
   mounted() {
-    this.renderChart(
-      {
-        labels: this.labels,
-        datasets: [
-          {
-            label: 'Цель',
-            data: this.goal,
-          },
-          {
-            label: 'Калорийность вашего рациона',
-            backgroundColor: '#f7931e',
-            data: this.cal,
-          },
-        ],
-      },
-      { responsive: true, maintainAspectRatio: false },
-    );
+    this.render();
+  },
+  watch: {
+    range() {
+      this.render();
+    },
+  },
+  methods: {
+    render() {
+      this.renderChart(
+        {
+          labels: this.labels,
+          datasets: [
+            {
+              label: 'Цель',
+              data: this.goal,
+            },
+            {
+              label: 'Калорийность вашего рациона',
+              backgroundColor: '#f7931e',
+              data: this.cal,
+            },
+          ],
+        },
+        { responsive: true, maintainAspectRatio: false },
+      );
+    },
   },
 };

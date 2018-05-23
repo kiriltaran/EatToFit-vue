@@ -121,9 +121,13 @@ export default {
       dispatch('fetchUserStats');
     },
     async fetchUserStats({ state, commit }) {
-      const userStats = await api.fetchUserStats(state.user.id);
+      try {
+        const userStats = await api.fetchUserStats(state.user.id);
 
-      commit('setUserStats', userStats);
+        commit('setUserStats', userStats);
+      } catch (e) {
+        throw e;
+      }
     },
   },
   getters: {

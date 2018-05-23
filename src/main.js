@@ -8,6 +8,7 @@ import {
   Autocomplete,
   Menu,
   MenuItem,
+  Message,
   Input,
   InputNumber,
   Switch,
@@ -65,6 +66,8 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(Card);
 Vue.use(Loading.directive);
+
+Vue.prototype.$message = Message;
 
 const config = {
   apiKey: 'AIzaSyDhfYDrdT05kjaQfaalejI_4MigeFA5_5o',
