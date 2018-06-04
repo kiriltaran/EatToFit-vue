@@ -67,11 +67,13 @@
 
 <script>
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import LineChart from './charts/LineChart';
+import PieChart from './charts/PieChart';
 
 export default {
   components: {
-    LineChart: () => import('./charts/LineChart'),
-    PieChart: () => import('./charts/PieChart'),
+    LineChart,
+    PieChart,
   },
   data() {
     return {

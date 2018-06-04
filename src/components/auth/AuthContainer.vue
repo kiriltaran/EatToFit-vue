@@ -62,14 +62,16 @@
 import TwitterIcon from 'vue-ionicons/dist/logo-twitter.vue';
 import GithubIcon from 'vue-ionicons/dist/logo-github.vue';
 import FacebookIcon from 'vue-ionicons/dist/logo-facebook.vue';
+import AuthSignin from './AuthSignin.vue';
+import AuthSignup from './AuthSignup.vue';
 
 export default {
   components: {
     TwitterIcon,
     GithubIcon,
     FacebookIcon,
-    AuthSignin: () => import('./AuthSignin.vue'),
-    AuthSignup: () => import('./AuthSignup.vue'),
+    AuthSignin,
+    AuthSignup,
   },
   data() {
     return {

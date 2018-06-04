@@ -74,12 +74,13 @@
 
 <script>
 import CloseIcon from 'vue-ionicons/dist/ios-close.vue';
+import MenuHint from './MenuHint.vue';
 
 export default {
   name: 'ProductsMenu',
   components: {
     CloseIcon,
-    MenuHint: () => import('./MenuHint.vue'),
+    MenuHint,
   },
   data() {
     return {

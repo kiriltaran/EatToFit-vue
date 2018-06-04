@@ -34,11 +34,14 @@
 </template>
 
 <script>
+import ProductsSelector from './ProductsSelector.vue';
+import ProductsMenu from './menu/ProductsMenu.vue';
+
 export default {
   components: {
-    ProductsSelector: () => import('./ProductsSelector.vue'),
+    ProductsSelector,
+    ProductsMenu,
     ProductsList: () => import('./ProductsList.vue'),
-    ProductsMenu: () => import('./menu/ProductsMenu.vue'),
   },
   data() {
     return {

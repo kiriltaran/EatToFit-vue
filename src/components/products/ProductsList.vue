@@ -57,11 +57,12 @@
 
 <script>
 import ArrowRightIcon from 'vue-ionicons/dist/ios-arrow-forward.vue';
+import NewProductForm from './NewProductForm.vue';
 
 export default {
   components: {
     ArrowRightIcon,
-    NewProductForm: () => import('./NewProductForm.vue'),
+    NewProductForm,
   },
   props: {
     products: {
