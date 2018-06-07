@@ -1,58 +1,19 @@
-import { Line } from 'vue-chartjs';
+import { Line, mixins } from 'vue-chartjs';
+
+const { reactiveProp } = mixins;
 
 export default {
   extends: Line,
+  mixins: [reactiveProp],
   props: {
-    labels: {
-      type: Array,
+    options: {
+      type: Object,
       default() {
-        return [];
+        return null;
       },
-    },
-    goal: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    cal: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    range: {
-      type: Number,
-      default: null,
     },
   },
   mounted() {
-    this.render();
-  },
-  watch: {
-    range() {
-      this.render();
-    },
-  },
-  methods: {
-    render() {
-      this.renderChart(
-        {
-          labels: this.labels,
-          datasets: [
-            {
-              label: 'Цель',
-              data: this.goal,
-            },
-            {
-              label: 'Калорийность вашего рациона',
-              backgroundColor: '#f7931e',
-              data: this.cal,
-            },
-          ],
-        },
-        { responsive: true, maintainAspectRatio: false },
-      );
-    },
+    this.renderChart(this.chartData, this.options);
   },
 };

@@ -44,20 +44,16 @@
       <el-col :span="6">
         <el-card class="chart">
           <pie-chart 
-            :prot="prot" 
-            :fat="fat" 
-            :carbo="carbo" 
-            :range="range"
+            :chart-data="pieChartData"
+            :options="{ responsive: true, maintainAspectRatio: false }"
             class="chart"/>
         </el-card>
       </el-col>
       <el-col :span="17">
         <el-card class="chart">
-          <line-chart 
-            :labels="labels" 
-            :goal="goal" 
-            :cal="cal"
-            :range="range"
+          <line-chart
+            :chart-data="lineChartData"
+            :options="{ responsive: true, maintainAspectRatio: false }"
             class="chart"/>
         </el-card>
       </el-col>
@@ -153,6 +149,33 @@ export default {
       }
 
       return result;
+    },
+    lineChartData() {
+      return {
+        labels: this.labels,
+        datasets: [
+          {
+            label: 'Цель',
+            data: this.goal,
+          },
+          {
+            label: 'Калорийность вашего рациона',
+            backgroundColor: '#f7931e',
+            data: this.cal,
+          },
+        ],
+      };
+    },
+    pieChartData() {
+      return {
+        labels: ['Белки', 'Жиры', 'Углеводы'],
+        datasets: [
+          {
+            backgroundColor: ['#26ade1', '#f7931e', '#8bc53d'],
+            data: [this.prot, this.fat, this.carbo],
+          },
+        ],
+      };
     },
     userStats() {
       return this.$store.getters.userStats;
