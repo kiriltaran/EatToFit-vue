@@ -119,7 +119,7 @@ export default {
         Object.keys(this.userStats).forEach(key => {
           if (differenceInCalendarDays(new Date(), new Date(+key)) < this.range) {
             const date = new Date(+key);
-            result.push(`${date.getUTCDate() + 1}/${date.getUTCMonth() + 1}`);
+            result.push(`${date.getDate()}/${date.getMonth()}`);
           }
         });
       }
